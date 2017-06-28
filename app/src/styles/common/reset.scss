@@ -1,0 +1,68 @@
+/**
+ * @component reset.scss
+ * @description 重置默认样式
+ * @time 2017-03-27 11:00
+ * @author fishYu
+ **/
+ @import "_variables.scss";
+*{
+    margin:0px;
+    padding:0px;
+    -webkit-overflow-scrolling:touch;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    font-weight: $normal;
+    letter-spacing: .5px;
+}
+input,textarea,select,button {
+    outline: none;
+}
+/********去掉number箭头*********/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+*:not(input,textarea) {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+

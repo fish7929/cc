@@ -1,0 +1,18 @@
+/** 
+ * @component index.scss
+ * @description 组件样式
+ * @time 2017-6-21 16:30
+ * @author fishYu
+ */
+@import "../../styles/common/_mixins.scss";
+/***没有记录样式****/
+.no-item{
+    margin-top: calc-rem(250);
+    // height: calc-rem(200);
+    padding-top: calc-rem(240);
+    font-size: calc-rem(28);
+    color: $hintColor;
+    text-align: center;
+    background: url($noItemIcon) top center no-repeat;
+    background-size: calc-rem(240);
+}

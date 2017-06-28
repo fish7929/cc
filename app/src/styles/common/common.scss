@@ -1,0 +1,77 @@
+/**
+ * @component common.scss
+ * @description app的全局样式。
+ * @time 2017-03-27 11:11
+ * @author fishYu
+ **/
+@import "_mixins.scss";
+@import 'reset.scss';
+@import 'animate_in.scss';
+
+/****通用条目样式********/
+/*修改通用的输入框提示颜色*/
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: $hintColor;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $hintColor;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $hintColor;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $hintColor;
+}
+/*页面通用容器*/
+.page-content-container{
+    width: 100%;
+    overflow-y: auto;
+    height: -webkit-calc(100% - #{calc-rem($topHeight)});
+    height: calc(100% - #{calc-rem($topHeight)});
+}
+.btn-active:active{
+    opacity: .8;
+}
+.common-item{
+    position: relative;
+    color: #333;
+    font-size: calc-rem(24);
+    margin-bottom: calc-rem(30);
+    // padding-left: calc-rem(210);
+}
+.common-item:before{
+    position: relative;
+    margin-left: calc-rem(40);
+    color: #999;
+    content: attr(data-hint);
+    margin-right:calc-rem(30);
+}
+.borrow-money-item:after{
+    position: absolute;
+    left: 0;
+    width: calc-rem(24);
+    height: 100%;
+    content: '';
+    background: url($borrowMoneyIcon) 0 center no-repeat;
+    background-size: calc-rem(24);
+}
+.borrow-time-item:after{
+    position: absolute;
+    left: 0;
+    width: calc-rem(24);
+    height: 100%;
+    content: '';
+    background: url($borrowTimeIcon) 0 center no-repeat;
+    background-size: calc-rem(24);
+}
+.report-time-item:after{
+    position: absolute;
+    left: 0;
+    width: calc-rem(24);
+    height: 100%;
+    content: '';
+    background: url($applyTimeIcon) 0 center no-repeat;
+    background-size: calc-rem(24);
+}
+
+ 
