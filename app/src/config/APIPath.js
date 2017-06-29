@@ -12,6 +12,8 @@ const APIPath = {
     GetHomeListData: '/home/list',
     GetHomeTagsData: '/home/tags',
     GetHomeDataById: (id) => '/home/list/' + id,
+
+    GetQuestionData: '/question/questionData',
 };
 
 export default APIPath;
