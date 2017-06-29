@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html;charset=utf-8' http-equiv='Content-Type'>
+<meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
+<meta content='yes' name='apple-mobile-web-app-capable'>
+<meta content='yes' name='mobile-web-app-capable'>
+<meta content='black-translucent' name='apple-mobile-web-app-status-bar-style'>
+<meta content='webkit' name='renderer'>
+<meta content='#F55D54' name='theme-color'>
+<title>
+上屏页面
+</title>
+<link href='images/icon_android.png' rel='icon' sizes='192x192'>
+<link href='images/icon_retina.png' rel='apple-touch-icon' sizes='120x120'>
+<link href='images/icon_retina3x.png' rel='apple-touch-icon' sizes='180x180'>
+<link href='images/icon_ipad.png' rel='apple-touch-icon' sizes='144x144'>
+<link href='images/icon_ipad.png' rel='apple-touch-icon' sizes='152x152'>
+<link href='images/splashes/retina.png' media='(device-width: 320px) and (device-height: 568px)' rel='apple-touch-startup-image'>
+<link href='images/splashes/iphone4_portrait_retina.png' media='(device-width: 320px) and (device-height: 480px)' rel='apple-touch-startup-image'>
+<link href='images/splashes/iphone6_portrait_retina.png' media='(device-width: 375px) and (device-height: 667px)' rel='apple-touch-startup-image'>
+<link href='images/splashes/iphone6plus_portrait_retina.png' media='(device-width: 414px) and (device-height: 736px)' rel='apple-touch-startup-image'>
+<link href='images/splashes/ipad_portrait_retina.png' media='(device-width: 768px) and (device-height: 1024px) and (orientation:portrait)' rel='apple-touch-startup-image'>
+<link href='images/splashes/ipad_landscape_retina.png' media='(device-width: 768px) and (device-height: 1024px) and (orientation:landscape)' rel='apple-touch-startup-image'>
+<style>
+  html, body {
+    font-family: -apple-system, "SF UI Text", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Zen Hei", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+    overflow: hidden;
+    height: 100%; }
+  
+  body {
+    background: whitesmoke;
+    color: #525e71; }
+    body.mobile {
+      background-color: white; }
+  
+  #download, .modal.fade, #header {
+    display: none; }
+  
+  #notification {
+    position: fixed;
+    top: -70px;
+    left: 0; }
+  
+  .notice {
+    padding: 10px;
+    font-size: 14px; }
+    .notice p {
+      margin-bottom: 10px; }
+  
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgba(51, 54, 58, 0.6) transparent;
+    border-radius: 100%;
+    transform-origin: 50% 50% 0px;
+    -webkit-animation: mb-spin 0.8s infinite linear;
+    animation: mb-spin 0.8s infinite linear;
+    display: inline-block; }
+  
+  @-webkit-keyframes mb-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+  
+    100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg); } }
+  
+  @keyframes mb-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+  
+    100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg); } }
+  
+  .actions {
+    visibility: hidden; }
+  
+  #safemode, #logo, #install, .cover, #device {
+    display: none; }
+  
+  #fontawesome {
+    position: absolute;
+    top: -65535px;
+    left: -65535px; }
+    #fontawesome .aw {
+      position: absolute;
+      width: auto;
+      white-space: nowrap; }
+    #fontawesome .ah {
+      position: absolute;
+      height: auto;
+      word-break: break-word;
+      word-wrap: break-word; }
+      #fontawesome .ah p {
+        margin-bottom: 5px;
+        white-space: pre-wrap; }
+        #fontawesome .ah p:last-child {
+          margin-bottom: 0px; }
+  
+  #loading {
+    width: 86px;
+    height: 86px;
+    z-index: 2;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -43px;
+    text-align: center;
+    font-size: 12px; }
+    #loading .logo, #loading .indicator {
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 86px;
+      height: 86px;
+      overflow: hidden;
+      background: url("images/logo-lg.svg");
+      background-size: 86px 86px; }
+    #loading .logo {
+      opacity: 0.3; }
+    #loading .indicator {
+      opacity: 1;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      height: 0%; }
+    #loading span {
+      position: absolute;
+      width: 300px;
+      left: 50%;
+      top: 110px;
+      margin-left: -150px;
+      font-size: 14px;
+      line-height: 28px;
+      color: #f77d77; }
+</style>
+<style>
+  ::-webkit-scrollbar-track {
+    background-color: transparent; }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px; }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.18);
+    border-radius: 4px; }
+  
+  ::-webkit-scrollbar-corner {
+    background-color: transparent; }
+</style>
+
+<style>
+  #splash {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f0f0f2; }
+    #splash img {
+      position: absolute;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+    #splash img.landscape {
+      display: none; }
+    #splash .spinner {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      margin-left: -15px; }
+  
+  @media all and (orientation: landscape) {
+    #splash img {
+      position: absolute;
+      left: 0;
+      -webkit-transform: rotate(90deg);
+      -webkit-transform-origin: bottom left; }
+  
+    #splash .spinner {
+      position: absolute;
+      top: 50%;
+      margin-top: -16px; } }
+</style>
+
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="f97w6rhWV121euMVwuj7ltASzTF5IL76grCRDGPbfqYsTfaCuQrh22lRwlJyK9ZTM2SCltQSvoQg5bFCvbMakg==" />
+</head>
+<body>
+<div id='fontawesome'>
+<i class='fa fa-user'></i>
+<div class='aw'></div>
+<div class='ah'></div>
+</div>
+<div id='loading'>
+<div class='logo'></div>
+<div class='indicator'></div>
+<span>
+正在读取 上屏页面...
+</span>
+</div>
+<div data-user='null' id='workspace'>
+<div id='install'>
+<div class='app-inner'>
+<img class='app-icon' src='images/icon_android.png'>
+<h1 class='app-name'>
+上屏页面
+</h1>
+<div class='app-update-time'>
+<span>
+最后更新
+:
+</span>
+<abbr class='timeago' title='2017-06-28T09:22:25Z'></abbr>
+</div>
+<a class='install-btn' href='/app/oFN17lZILos9iz6qGw9q7PYgyehpo0r?inapp=1'>
+直接查看
+</a>
+<a class='install install-btn'>
+安装
+</a>
+<a class='download' href='https://itunes.apple.com/cn/app/mockingbot/id1050565468?ls=1&amp;mt=8' id='ios-download'>
+下载墨刀客户端获得最佳展示体验
+</a>
+</div>
+</div>
+<div class='cover wechat'>
+<div class='tip-wrapper'>
+<p class='tip'>
+在浏览器中打开
+</p>
+<img class='arrow' src='images/short-arrow.png'>
+</div>
+</div>
+<div class='cover ipad'>
+<div class='tip-wrapper'>
+<p class='tip'>
+请点击
+<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAA1BAMAAADfUYSoAAAAFVBMVEUAAAAGfv8Eff8Xh/8Ae/cAgfcDev8kxpS2AAAABnRSTlMAgGPrExbGXyRsAAAAYUlEQVQ4y+3MsQ2AMBADQMMEofk6VSZgEyZ4Cu8/Ai+QXgpOmTJuYp2cR+aAZGMRM7rOKENzmss1/i/aDaJ5P6thO0s/C0OLJ3PV1/YTfZhtuvFLlOxjk7/LphmWTTPJ0B64+0mEocrEDQAAAABJRU5ErkJggg==' width='19'>
+,
+然后选择&quot;添加到主屏幕&quot;.
+</p>
+<img class='arrow' src='images/short-arrow.png'>
+</div>
+</div>
+<div class='cover iphone'>
+<div class='tip-wrapper iphone'>
+<p class='tip'>
+请点击
+<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAA1BAMAAADfUYSoAAAAFVBMVEUAAAAGfv8Eff8Xh/8Ae/cAgfcDev8kxpS2AAAABnRSTlMAgGPrExbGXyRsAAAAYUlEQVQ4y+3MsQ2AMBADQMMEofk6VSZgEyZ4Cu8/Ai+QXgpOmTJuYp2cR+aAZGMRM7rOKENzmss1/i/aDaJ5P6thO0s/C0OLJ3PV1/YTfZhtuvFLlOxjk7/LphmWTTPJ0B64+0mEocrEDQAAAABJRU5ErkJggg==' width='19'>
+,
+然后选择&quot;添加到主屏幕&quot;.
+</p>
+<img class='arrow' src='images/down-arrow.png'>
+</div>
+</div>
+<div class='cover building'>
+<div class='tip-wrapper'>
+<p class='tip'>
+正在生成 APK 文件
+</p>
+<div class='spinner'></div>
+</div>
+</div>
+</div>
+<div class='safe-mask' id='safemode'>
+<div class='indicator restore'>
+<div class='spinner'></div>
+<div class='text'>
+此操作可能需要几分钟，请您耐心等待...
+<span class='progress'>0%</span>
+</div>
+</div>
+<div class='indicator success'>
+<span class='icon'>
+<i class='fa fa-smile-o'></i>
+</span>
+<div class='text'>
+数据恢复成功，请刷新此页面。<a onclick="window.location.reload()"> 立刻刷新</a>
+</div>
+</div>
+</div>
+<div class='modal fade modal-small' id='safe-modal'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<div class='modal-body'>
+<img alt='' src='data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCIgdmlld0JveD0iMTY4IDAgNjQgNjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQwLjMgKDMzODM5KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9ImljX2Vycm9yX291dGxpbmUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE2OC4wMDAwMDAsIDAuMDAwMDAwKSI+CiAgICAgICAgPGcgaWQ9Ikljb24tMjRweCI+CiAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJTaGFwZSIgcG9pbnRzPSIwIDAgNjQgMCA2NCA2NCAwIDY0Ij48L3BvbHlnb24+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yOS4zMzMzMzMzLDQwIEwzNC42NjY2NjY3LDQwIEwzNC42NjY2NjY3LDQ1LjMzMzMzMzMgTDI5LjMzMzMzMzMsNDUuMzMzMzMzMyBMMjkuMzMzMzMzMyw0MCBaIE0yOS4zMzMzMzMzLDE4LjY2NjY2NjcgTDM0LjY2NjY2NjcsMTguNjY2NjY2NyBMMzQuNjY2NjY2NywzNC42NjY2NjY3IEwyOS4zMzMzMzMzLDM0LjY2NjY2NjcgTDI5LjMzMzMzMzMsMTguNjY2NjY2NyBaIE0zMS45NzMzMzMzLDUuMzMzMzMzMzMgQzE3LjI1MzMzMzMsNS4zMzMzMzMzMyA1LjMzMzMzMzMzLDE3LjI4IDUuMzMzMzMzMzMsMzIgQzUuMzMzMzMzMzMsNDYuNzIgMTcuMjUzMzMzMyw1OC42NjY2NjY3IDMxLjk3MzMzMzMsNTguNjY2NjY2NyBDNDYuNzIsNTguNjY2NjY2NyA1OC42NjY2NjY3LDQ2LjcyIDU4LjY2NjY2NjcsMzIgQzU4LjY2NjY2NjcsMTcuMjggNDYuNzIsNS4zMzMzMzMzMyAzMS45NzMzMzMzLDUuMzMzMzMzMzMgTDMxLjk3MzMzMzMsNS4zMzMzMzMzMyBaIE0zMiw1My4zMzMzMzMzIEMyMC4yMTMzMzMzLDUzLjMzMzMzMzMgMTAuNjY2NjY2Nyw0My43ODY2NjY3IDEwLjY2NjY2NjcsMzIgQzEwLjY2NjY2NjcsMjAuMjEzMzMzMyAyMC4yMTMzMzMzLDEwLjY2NjY2NjcgMzIsMTAuNjY2NjY2NyBDNDMuNzg2NjY2NywxMC42NjY2NjY3IDUzLjMzMzMzMzMsMjAuMjEzMzMzMyA1My4zMzMzMzMzLDMyIEM1My4zMzMzMzMzLDQzLjc4NjY2NjcgNDMuNzg2NjY2Nyw1My4zMzMzMzMzIDMyLDUzLjMzMzMzMzMgTDMyLDUzLjMzMzMzMzMgWiIgaWQ9IlNoYXBlIiBmaWxsPSIjRjc1QjUwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4='>
+<h5>非常抱歉！</h5>
+<p id='alert-msg'></p>
+<button class='btn btn-primary' onclick='window.location.reload()'>立即刷新</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id='modals'>
+<div class='modal fade' id='warning-modal'></div>
+<div class='modal fade' id='sharing-modal'></div>
+<div class='modal fade' id='renew_modal'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<div class='modal-header'>
+<a class='close' data-dismiss='modal' href='#'>×</a>
+<h4>帐户已过期</h4>
+</div>
+<div class='modal-body'>
+<p class='limit team_expired'>
+此团队所属帐户已过期，无法创建新项目，请联系团队所有者续费后重试。
+</p>
+<p class='limit projects_quota screens_quota'>
+您的帐户已超出免费版限制（最多 5 个项目，每项目 20 个页面），您需要升级到付费方案方可继续使用。
+</p>
+<p class='limit collaboration'>
+这是一个协作项目，您需要先续费才能继续编辑此项目，您也可以移除所有成员，并将项目从「我的团队」转移到「我的应用」后，继续编辑。
+</p>
+<p class='limit exporting comments'>
+这是一个收费功能，您需要先续费才能继续使用此功能，如您不是项目或团队所有人，请联系项目或团队所有人续费。
+</p>
+<p class='limit exceed_quota'>
+您的项目已超出免费版图片存储限制（100M），您需要升级到付费方案方可继续使用。
+</p>
+</div>
+<div class='modal-footer'>
+<a class='btn btn-primary' href='/account#plan-card'>
+立即续费
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class='modal fade' id='chrome-warning'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<div class='modal-header'>
+<button aria-label='Close' class='close' data-dismiss='modal' type='button'>
+<span aria-hidden='true'>
+&times
+</span>
+</button>
+<h4 class='modal-title'>
+<i class='fa fa-warning'></i>
+警告
+</h4>
+</div>
+<div class='modal-body'>
+<p>
+我们发现您正在使用Chrome浏览器，要显示小于12像素的文字，您需要先修改Chrome 的默认最小字体大小设置，
+</p>
+<p>
+<a href='https://modao.cc/posts/63' target='blank'>
+设置方法请参看这篇文章。
+</a>
+</p>
+</div>
+<div class='modal-footer'>
+<button class='btn btn-default' data-dismiss='modal' type='button'>
+知道了
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class='modal fade' id='cheating-warning'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<div class='modal-body'>
+<p>
+<b>该 Demo 使用墨刀制作，墨刀是在线的原型工具，用于制作应用演示模型。</b>
+</p>
+<p>
+任何要求转账、汇款、购买授权码的行为均是诈骗行为。除官方渠道<a href="https://modao.cc">modao.cc</a>外，通过其他渠道付费，墨刀概不负责。
+</p>
+</div>
+<div class='modal-footer'>
+<a aria-hidden='true' data-dismiss='modal' href='#'>
+知道了，我不会转账
+</a>
+<p class='tips'>
+付费用户可去除此提示
+</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+  (function() {
+    window.MBLocale = 'zh-CN';
+  
+    window.I18N = {
+      "are_you_sure": "您确定要执行此操作吗？",
+      "choose_app": "选择一个项目",
+      "hdistribute": "水平等间距",
+      "vdistribute": "垂直等间距",
+      "please_validate_email": "请验证您的 Email",
+      "password_protection": "升级帐户添加密码保护。",
+      "duplicate_all": "是，连同子页面一起复制",
+      "duplicate_parent_only": "不，只复制父页面",
+      "choose_move_dst": "选择移动位置",
+      "no_privilege": "对不起，您没有足够的权限执行此操作。",
+      "projects_count": "项目",
+      "no_permission": "对不起，您没有权限编辑此母版，请双击实例进行编辑。",
+      "create": "创建",
+      "setting": "设置",
+      "update": "更新",
+      "delete": "删除",
+      "edit": "编辑",
+      "archive": "移入归档项目",
+      "sharing": "分享",
+      "archived": "归档项目",
+      "last_updated": "最后更新",
+      "support": "技术支持",
+      "carrier": "AT\u0026T",
+      "password": "密码",
+      "screen": "页面",
+      "home": "主页",
+      "share": "分享",
+      "back": "返回",
+      "install": "安装",
+      "tap": "请点击",
+      "public": "公开",
+      "private": "加密",
+      "got_it": "知道了",
+      "network_error": "网络连接超时，无法保存您的操作，请检查您的网络并重新保存，取决于您的网络状况，如您上传的图片文件较大，可能需要多尝试几次。",
+      "unsupported": "不支持此文件类型",
+      "home_screen": "主屏幕",
+      "credential_required": "此项目受密码保护，请输入你的密码凭证：",
+      "state": "状态",
+      "new": "新建",
+      "widgets": "Widgets(1)",
+      "invalid_credential": "无效的密码，请刷新后重试。",
+      "app_device": "设备类型",
+      "app_type": "项目类型",
+      "icon": "图标",
+      "splash": "启动界面",
+      "size": "尺寸",
+      "target": "Target",
+      "png_only": "图标/启动屏幕只支持PNG文件",
+      "download": "下载",
+      "site_title": "墨刀",
+      "wechat": "微信",
+      "choose_screen": "选择要跳转的页面",
+      "unsaved": "未保存",
+      "timer": "定时器",
+      "no_timer": "未设置",
+      "type2search": "输入搜索",
+      "search_doc": "搜索文档",
+      "builtin": "内置",
+      "width": "宽",
+      "height": "高",
+      "sticky": "批注",
+      "auto_scale": "自动缩放",
+      "embed": "嵌入",
+      "app_name": "名称",
+      "free_trial": "14天免费试用，查看价格",
+      "restricted": "白名单",
+      "private_intro": "所有知道 URL 和密码的人都可查看。",
+      "restricted_intro": "只有我指定的人有权查看。 ",
+      "expired": "已过期",
+      "invalid_post": "请输入内容或选择一个项目",
+      "left": "左",
+      "right": "右",
+      "top": "上",
+      "down": "下",
+      "name_copy": "副本",
+      "in_progress": "此操作可能需要几分钟，请您耐心等待...",
+      "screen_list": "页面列表",
+      "team_expired": "此团队所属帐户已过期，无法创建新项目，请联系团队所有者续费后重试。",
+      "order_period": "付款时长",
+      "current_plan": "当前方案",
+      "next_billing_on": "当前方案到期",
+      "balance_left": "translation missing: zh-CN.balance_left",
+      "enterprise": "企业版",
+      "actually_pay": "translation missing: zh-CN.actually_pay",
+      "monthly": "月付",
+      "yearly": "年付",
+      "pro": "增强版",
+      "free": "免费版",
+      "standard": "标准版",
+      "startup": "创业版",
+      "invalid_comment": "评论内容不能为空",
+      "widget_list": "组件列表",
+      "edit_team": "编辑团队",
+      "team": "团队",
+      "role": "角色",
+      "screens_count": "页面",
+      "members_count": "团队成员",
+      "main_state": "Main state",
+      "tutorial": "教程",
+      "android.customize": "自定义安卓设备",
+      "transfer": "转移",
+      "move": "移动",
+      "name": "名称",
+      "replace_image": "替换图片",
+      "cancel": "取消",
+      "coupon": "折扣码",
+      "new_flow": "新工作流",
+      "flow": "工作流",
+      "ipa_device.not_configured": "您目前无可安装设备，请先联系团队管理员添加您的设备",
+      "go_to_account_settings": "前往帐户设置",
+      "import": "导入",
+      "import_template": "导入其它项目母版",
+      "choose_template_to_import": "选择要导入的母版",
+      "full_view": "全局工作流",
+      "expand_all": "展开所有父页",
+      "fold_all": "translation missing: zh-CN.fold_all",
+      "apply_coupon": "应用折扣",
+      "notifications": {
+        "all": "通知",
+        "view_all": "查看全部",
+        "load_more": "加载更多",
+        "request_permission": "若您要在这台电脑上使用墨刀，我们强烈建议您开启桌面通知功能。",
+        "enable_notification": "开启通知功能",
+        "ask_later": "下次再开启",
+        "never_ask_again": "不再询问",
+        "mark_all_as_read": "全部标记为已读",
+        "empty": "目前还没有通知"
+      },
+      "loading": "正在读取",
+      "buy": "购买",
+      "no_post": "还没有帖子，快来创建新帖吧",
+      "click2create": "点击创建",
+      "login_to_vote": "请登录后点赞",
+      "web_signin": "登录",
+      "new_post": "新帖子",
+      "choose_category": "选择分类",
+      "project": "项目",
+      "or": " 或 ",
+      "helpful": " 有帮助 ",
+      "contact_us": "联系我们，获得帮助 ",
+      "no_more": "没有更多了",
+      "search_guides": "搜索教程",
+      "got_message": "收到一条通知",
+      "https_only": "双击编辑URL，处于安全考虑，外部网页组件仅支持https协议网站。",
+      "wait_for_saving": "此页面尚未保存，请您稍后再试。",
+      "dblclick_to_edit": "双击编辑母版",
+      "unsaved_changes": "您的项目还有改动尚未保存，为保证导出内容无误，请先确保所有改动都已保存再重新导出。",
+      "transfer_screen": "转移此页面及子页面到其它项目",
+      "exceed_screen_limit": "这个项目的组件及状态数量已超过 5 万，为了保证项目的打开速度，以及良好的编辑和运行时体验，您暂时不能再在此项目中添加新的页面及状态，我们建议您创建一个新的项目来完成这部分工作。",
+      "data_lost_warning": "您还有数据没有保存，确定要退出吗？",
+      "regenerate": "重新生成",
+      "delete_projects_first": "删除团队前需要先删除所有项目。",
+      "auto_scale_tip": "自动缩放以适配不同设备, 比如，勾选此选项后，为iPhone 5设计的组合在iPhone 6上将会放大1.17倍，在iPhone 6 plus上会放大1.29倍。",
+      "move_tips": "创建一个副本，并移动副本到选定团队。",
+      "no_joined_team": "您没有加入任何团队",
+      "refresh_token_confirmation": "此操作将会重新生成分享URL，使用旧URL将无法再访问此项目，确认要重新生成吗？",
+      "shell_type": "边框类型",
+      "device_shell": "真实设备边框",
+      "default_shell": "默认边框",
+      "none_shell": "无边框",
+      "default_shell_field": "默认边框",
+      "highlight_clickable": "高亮链接区域",
+      "sharing_password": "访问密码（可为空）",
+      "load_project": "正在读取项目数据，请稍候...",
+      "connect_to_push_server": "正在连接同步服务器，请稍候...",
+      "unknown_error": "服务器发生未知错误，我们已经知晓此问题，并正在紧急修复中，为避免数据丢失，请您刷新此页面再进行后续操作。",
+      "new_version_detected": "检测到您已打开此页面\u003cspan\u003e超过10小时\u003c/span\u003e，目前墨刀长时间运行可能会产生一些无法预知的小问题，为了您的正常使用，请先刷新此页面，我们正在解决此问题，给您带来不便我们深感抱歉。",
+      "no_app": "你还没有创建项目",
+      "no_team": "您还没有团队",
+      "no_team_app": "此团队还没有任何项目",
+      "create_app_tips": "你可以在这里快速创建项目原型，或者通过模板创建。",
+      "create_team_tips": "点击这里创建一个团队",
+      "new_team": "创建团队",
+      "client_download": "macOS和Windows版客户端下载",
+      "tutorial_video": "墨刀教程和视频",
+      "created_time": "最早创建在前",
+      "updated_time": "最后修改在前",
+      "demo_author": "制作者",
+      "my_apps": "我的项目",
+      "team_apps": "我的团队",
+      "forum": "讨论区",
+      "all_teams": "所有团队",
+      "created_teams": "我创建的团队",
+      "joined_teams": "我加入的团队",
+      "team_intro": "点击了解团队功能",
+      "liked": "被赞",
+      "karma": "Karma",
+      "edit_profile": "编辑个人资料",
+      "public_projects": "公开作品",
+      "my_posts": "我的发表",
+      "his_posts": "Ta的发表",
+      "my_comments": "我的评论",
+      "his_comments": "Ta的评论",
+      "sharing_app": "分享原型",
+      "embed_app": "嵌入代码",
+      "permission": "权限",
+      "access_permission": "访问权限",
+      "preview_settings": "播放选项",
+      "embed_tips": "通过复制下面的代码将原型插入到网站或博客中。",
+      "view_in_browser": "跳过安装提示界面，直接在微信/浏览器内运行应用。",
+      "functional_widgets": "功能",
+      "locale_text": "EN",
+      "trial_expired": "试用过期",
+      "upgrade": "升级",
+      "renew": "续费",
+      "active": "有效",
+      "guide": "新手教程",
+      "feature_update": "功能更新",
+      "my_account": "我的帐户",
+      "signout": "登出",
+      "switch_to_old": "返回旧版",
+      "trial": "试用中",
+      "new_app": "创建项目",
+      "blank_app": "空白项目",
+      "use_demo": "使用模版",
+      "preview_demo": "预览模板",
+      "template_app": "模板项目",
+      "other_settings": "其它设置",
+      "all_apps": "全部项目",
+      "my_active_apps": "我的项目",
+      "others_apps": "的项目",
+      "inbox": "移入我的项目",
+      "edit_screens": "编辑项目",
+      "edit_workflows": "编辑工作流",
+      "view_app": "直接查看",
+      "view_workflows": "查看工作流",
+      "icon_and_splash": "图标和启动图",
+      "upload_icon": "上传新图标",
+      "upload_splash": "上传新启动图",
+      "make_a_copy": "创建副本",
+      "more_options": "更多选项",
+      "del_app_confirmation": "您确定要删除此项目吗？",
+      "dup_app_confirmation": "确定要复制此项目吗？",
+      "project_duplicated": "副本正在创建中，请稍候...",
+      "project_duplicating": "复制中, 请稍候...",
+      "project_duplicate_failed": "项目复制失败, 请重试",
+      "team_name": "团队名称",
+      "team_icon": "团队图标",
+      "team_color": "团队颜色",
+      "icon_and_color": "图标和颜色",
+      "collaboration": "成员管理",
+      "collaborators": "团队成员",
+      "manage_collaborators": "管理团队成员",
+      "invite": "邀请",
+      "pending": "等待",
+      "remove_me": "退出",
+      "cant_invite_yourself": "不能邀请自己",
+      "invalid_email": "无效的Email.",
+      "owner_only": "只有所有者或管理员可以邀请新成员",
+      "already_invited": "已经邀请过了",
+      "exceed_collaborator_limit": "您已超出当前计划所支持的团队成员数目，需要升级帐户。",
+      "roles": {
+        "admin": "管理员",
+        "admin_desc": "所有权限",
+        "editor": "协作者",
+        "editor_desc": "修改,复制",
+        "viewer": "审阅者",
+        "viewer_desc": "查看,评论",
+        "owner": "所有者"
+      },
+      "add_to": "添加至",
+      "custom_combo": "自定义组合",
+      "lock_widget": "锁定组件",
+      "unlock": "解锁",
+      "widgets_here": "此处的组件",
+      "widgets_selected": "选中的组件",
+      "fixed_widget": "固定位置",
+      "error_project": "当前项目因为数据异常无法打开, 请点击确认将其删除",
+      "recover": "恢复",
+      "no_deleted_screens": "回收站里空空如也",
+      "transh_can": "回收站",
+      "project_transh_can": "项目回收站",
+      "electron_upgrading_title": "请下载最新版客户端",
+      "electron_upgrading_msg": "此功能需要最新版客户端方可使用，\u003ca href='/downloads#sec-desktop' target='_blank'\u003e点击此处下载最新版客户端\u003c/a\u003e",
+      "export_method": "选择导出格式",
+      "download_export_file": "开始下载",
+      "prepared": "完成!",
+      "generate_ipa": "生成应用",
+      "html5_zip": "HTML压缩包",
+      "current_png": "当前页PNG",
+      "current_pngs": "全部PNG",
+      "apk_file": "安卓APK(离线)",
+      "prepare_downloading": "正在为您生成下载文件，请稍候...",
+      "your_file_is_ready": "文件已开始自动下载，如果没有开始，请点击【开始下载】",
+      "ipa_building_starts": "已开始为您生成 iOS 应用程序，就绪后会发送邮件到您的邮箱，请注意查收。",
+      "no_ios_certificate": "没有可使用的苹果开发者证书，请联系墨刀客服添加证书。",
+      "electron_download_alert": "点击没有反应？请先从浏览器进行下载，我们已知悉并正在解决此问题。",
+      "ios_offline": "iOS IPA",
+      "operate": "操作",
+      "save": "保存",
+      "save_tip": "保存 (ctrl+S)",
+      "undo": "撤销",
+      "undo_tip": "撤销 (ctrl+Z)",
+      "redo": "重做",
+      "redo_tip": "重做 (ctrl+Y)",
+      "cut": "剪切",
+      "cut_tip": "剪切 (ctrl+X)",
+      "copy": "复制",
+      "copy_tip": "复制 (ctrl+C)",
+      "paste": "粘贴",
+      "paste_tip": "粘贴 (ctrl+V)",
+      "paste_directly": "到原位置",
+      "paste_to_point": "到当前位置",
+      "send_front": "置于顶层",
+      "send_back": "置于底层",
+      "forward": "上移一层",
+      "backward": "下移一层",
+      "link_line": "链接",
+      "grid": "格线",
+      "ruler": "量尺",
+      "lock": "锁定",
+      "export": "导出",
+      "rotate": "旋转",
+      "layout": "图层",
+      "assets": "图片库",
+      "align": "对齐",
+      "hleft": "左对齐",
+      "hleft_tip": "左对齐 (ctrl+alt+L)",
+      "hcenter": "水平居中",
+      "hcenter_tip": "水平居中 (ctrl+alt+C)",
+      "hright": "右对齐",
+      "hright_tip": "右对齐 (ctrl+alt+R)",
+      "vtop": "顶对齐",
+      "vtop_tip": "顶对齐 (ctrl+alt+T)",
+      "vcenter": "垂直居中",
+      "vcenter_tip": "垂直居中 (ctrl+alt+V)",
+      "vbottom": "底对齐",
+      "vbottom_tip": "底对齐 (ctrl+alt+B)",
+      "distribute": "分布",
+      "hdistribute_tip": "水平等间距 (ctrl+shift+H)",
+      "vdistribute_tip": "垂直等间距 (ctrl+shift+U)",
+      "group": "组合",
+      "group_tip": "组合 (ctrl+G)",
+      "ungroup": "打散",
+      "ungroup_tip": "打散 (ctrl+U)",
+      "landscape": "横屏",
+      "portrait": "竖屏",
+      "zoomin": "放大",
+      "zoomout": "缩小",
+      "launch": "运行",
+      "hide": "隐藏",
+      "font_size": "文字",
+      "bold": "加粗",
+      "italic": "斜体",
+      "underline": "下划线",
+      "line_through": "中线",
+      "text_color": "文字颜色",
+      "h_align": "水平对齐",
+      "v_align": "垂直对齐",
+      "color": "颜色",
+      "fg_color": "前景色",
+      "bg_color": "背景色",
+      "border": "边框",
+      "border_style": "边框类型",
+      "border_color": "边框颜色",
+      "border_width": "线宽",
+      "shadow": "阴影",
+      "shadow_color": "阴影颜色",
+      "shadow_width": "阴影宽度",
+      "widget": "组件",
+      "master": "母版",
+      "combo": "组合",
+      "search_icon": "搜索图标",
+      "search_master": "搜索母版",
+      "search_combo": "搜索组合",
+      "beginner_guide": "新手引导",
+      "shortcuts": "快捷键",
+      "cant_delete_template": "无法删除此母版，请先删除此母版的所有实例。",
+      "watch_tutorial": "观看教学视频",
+      "drag_widgets_2create": "拖拽组件创建组合",
+      "icons": {
+        "all": "全部",
+        "web_app": "Web App",
+        "medical": "医疗",
+        "text_editor": "文字编辑",
+        "spinner": "旋转",
+        "file_type": "文件类型",
+        "directional": "方向",
+        "video_player": "播放器",
+        "form_control": "表单",
+        "transportation": "交通",
+        "chart": "图表",
+        "brand": "Logo",
+        "hand": "手势",
+        "payment": "支付",
+        "currency": "货币",
+        "accessibility": "无障碍",
+        "gender": "性別",
+        "av": "音视频",
+        "action": "动作",
+        "alert": "告警",
+        "communication": "沟通",
+        "content": "编辑",
+        "device": "设备",
+        "editor": "文字编辑",
+        "file": "文件",
+        "handware": "硬件",
+        "image": "影像",
+        "maps": "地图",
+        "navi": "导览",
+        "notif": "通知",
+        "places": "地点",
+        "social": "社交",
+        "toggle": "切换",
+        "widgets": "组件",
+        "tool": "工具",
+        "miscellaneous": "其他"
+      },
+      "w": {
+        "all": "全部",
+        "basic": "基本组件",
+        "label": "文字",
+        "text_view": "多行文字",
+        "icon_button": "图标",
+        "image_view": "图片",
+        "button": "按钮",
+        "mtooltip": "聊天气泡",
+        "webpage": "网页",
+        "functional": "功能组件",
+        "pg": "全局手势",
+        "lr": "链接区域",
+        "sticky": "批注",
+        "shape": "形状组件",
+        "rounded_rect": "矩形",
+        "circle_rect": "圆形",
+        "hr": "线条",
+        "ve": "线条",
+        "triangleb": "三角",
+        "triangletl": "三角",
+        "input": "输入组件",
+        "mtext_input": "单行输入",
+        "mtextarea": "多行输入",
+        "mcheckbox2": "复选框",
+        "mradiobutton": "单选框",
+        "mselect": "下拉框",
+        "mfile_input": "选择文件",
+        "switch": "开关按钮",
+        "bar": "工具栏",
+        "navigation_bar": "标题栏",
+        "tab_bar": "底栏",
+        "rectangle": "空白通栏",
+        "search_bar": "搜索框",
+        "tab_item": "标签",
+        "other": "其他",
+        "map_view": "地图",
+        "keyboard": "键盘",
+        "status_bar": "状态栏",
+        "panel": "母版实例",
+        "group": "群组",
+        "navbar_title": "标题",
+        "search": "搜索",
+        "return": "换行",
+        "carrier": "中国移动",
+        "text_view_placeholder": "如果你无法简洁的表达你的想法，那只说明你还不够了解它。\n  -- 阿尔伯特·爱因斯坦"
+      },
+      "link_back": "返回上一页",
+      "click_to_origin": "点我回原点",
+      "last_saved": "最后保存",
+      "all_saved": "全部操作已保存",
+      "link_to_prev": "返回上一页",
+      "screen_bgcolor": "设置背景色",
+      "screen_bgimage": "设置背景图片",
+      "drag_to_resize": "拖动调节页面高度",
+      "drag_to_link_screen": "拖动圆圈到右侧目标页面创建交互",
+      "drag_to_create_screen": "拖拽图片创建新页",
+      "select_panel_states": "选择一个状态创建母版链接",
+      "state_link_tutorial": "观看母版链接教学视频",
+      "new_state": "新状态",
+      "global_state": "全局状态",
+      "default_state": "默认状态",
+      "global_state_link_error": "全局状态不允许创建状态链接",
+      "new_screen": "新页面",
+      "screen_remove_confirmation": "有\u003cb\u003e {children} 个子页面\u003c/b\u003e，此页面及其所有子页面都将被删除, 您确定吗？",
+      "remove_parent_only": "不，只删除父页面",
+      "remove_all": "是的，删除父页面及所有子页面",
+      "cant_remove_screen": "您的项目需要至少一个页面。",
+      "dc_confirm": "此页面有多个子页面，确定要复制所有子页面吗？",
+      "screen_trash_can": "页面回收站",
+      "component": "元素",
+      "main_panel": "设置",
+      "menu_offset": "菜单偏移%",
+      "reset_target_screen": "重置目标页为初始状态",
+      "images": "图片",
+      "input_types": {
+        "text": "文字",
+        "number": "数字",
+        "search": "搜索",
+        "password": "密码",
+        "date": "日期",
+        "time": "时间",
+        "datetime": "日期时间"
+      },
+      "inspector": {
+        "position": "位置及外观",
+        "rotate": "旋转",
+        "radius": "圆角",
+        "is": "图标大小",
+        "o": "不透明度",
+        "input_type": "键盘样式",
+        "circularize": "圆形",
+        "squareize": "正方形",
+        "checked": "是否勾选",
+        "fixed": "运行时固定位置",
+        "not_fixed": "不固定",
+        "fixed_auto": "自动检测固定方向",
+        "fixed_top": "相对顶部固定",
+        "fixed_bottom": "相对底部固定",
+        "main_state": "默认状态",
+        "text": "文本设置",
+        "line_height": "行高",
+        "padding": "间距",
+        "image": "图片设置",
+        "p": "等比缩放图片",
+        "drag_image_here": "将图片拖到这里或者点击",
+        "upload_image": "上传",
+        "manage_image": "管理图片",
+        "reset": "重置",
+        "clip": "剪贴蒙版",
+        "filter": "滤镜",
+        "blur": "模糊",
+        "grayscale": "灰度",
+        "sepia": "加温",
+        "brightness": "亮度",
+        "contrast": "对比度",
+        "hue_rotate": "色相",
+        "invert": "反色",
+        "saturate": "饱和度",
+        "state": "状态选择",
+        "show_case": "效果展示",
+        "animation": "动效",
+        "ani_delay": "延时",
+        "ani_duration": "动效时长",
+        "ani_count": "重复次数",
+        "kbd_style": "键盘样式",
+        "text_kbd": "文本",
+        "numeric_kbd": "数字",
+        "tt_placement": "箭头方向",
+        "tt_offset": "箭头偏移",
+        "tt_arrow_size": "箭头大小"
+      },
+      "ani": {
+        "none": "无",
+        "attention_seekers": "引起注意",
+        "bouncing_entrances": "弹入",
+        "flippers": "翻转",
+        "rotating_entrances": "旋转",
+        "sliding_entrances": "滑入",
+        "zoom_entrances": "缩放",
+        "specials": "其它",
+        "bounce": "弹跳",
+        "fadeIn": "渐现",
+        "fadeOut": "渐出",
+        "flash": "闪烁",
+        "pulse": "跳动",
+        "rubberBand": "橡皮筋",
+        "shake": "抖动",
+        "swing": "摆动",
+        "tada": "哒啷",
+        "wobble": "摇晃",
+        "jello": "扭曲抖动",
+        "bounceIn": "弹入",
+        "bounceInDown": "上弹入",
+        "bounceInLeft": "左弹入",
+        "bounceInRight": "右弹入",
+        "bounceInUp": "下弹入",
+        "flipInX": "水平翻转",
+        "flipInY": "垂直翻转",
+        "spinning": "旋转（顺时针）",
+        "spinning-reverse": "旋转（逆时针）",
+        "rotateIn": "旋入",
+        "rotateInDownLeft": "左下旋转",
+        "rotateInDownRight": "右下旋转",
+        "rotateInUpLeft": "左上旋转",
+        "rotateInUpRight": "右上旋转",
+        "slideInDown": "上滑入",
+        "slideInLeft": "左滑入",
+        "slideInRight": "右滑入",
+        "slideInUp": "下滑入",
+        "zoomIn": "逐渐放大",
+        "zoomInDown": "从下放大",
+        "zoomInLeft": "从左放大",
+        "zoomInRight": "从右放大",
+        "zoomInUp": "从上放大",
+        "rollIn": "滚入",
+        "lightSpeedIn": "闪入"
+      },
+      "link_settings": "设置手势和转场",
+      "tr": {
+        "none": "默认",
+        "slideleft": "右移入",
+        "slideright": "左移入",
+        "slidebottom": "下移入",
+        "slidetop": "上移入",
+        "leftmenu": "左菜单",
+        "rightmenu": "右菜单",
+        "leftdrawer": "左抽屉",
+        "rightdrawer": "右抽屉",
+        "slideleft2": "左弹入",
+        "slideright2": "右弹入",
+        "topin": "上弹入",
+        "popin": "下弹入",
+        "leftout": "左弹出",
+        "rightout": "右弹出",
+        "topout": "上弹出",
+        "popout": "下弹出"
+      },
+      "g": {
+        "tap": "单击",
+        "left": "左滑",
+        "right": "右滑",
+        "up": "上滑",
+        "down": "下滑",
+        "hold": "长按",
+        "dtap": "双击",
+        "shake": "摇一摇",
+        "timer": "定时器",
+        "vscroll": "垂直滚动"
+      },
+      "animate": "动起来",
+      "ani_name": "动效",
+      "ani_delay": "延迟",
+      "ani_duration": "动效时长",
+      "ani_count": "重复次数",
+      "none": "无",
+      "default": "默认",
+      "infinite": "无限循环",
+      "asset_search": "输入图片名称",
+      "all_assets": "全部图片",
+      "my_assets": "我的图片",
+      "current_project": "当前项目",
+      "my_project": "我的项目",
+      "created_project": "创建项目",
+      "archived_project": "归档项目",
+      "collaborate_project": "协作项目",
+      "team_project": "团队项目",
+      "tags": "标签",
+      "manage": "管理",
+      "finish": "完成",
+      "create_tag": "创建新标签",
+      "type_tag_name": "输入标签名称",
+      "tags_placeholder": "选择一个图片添加标签",
+      "no_selected": "未选择图片",
+      "no_assets": "没有找到您要的素材, 请点击右下角上传",
+      "insert_to_current": "插入当前页",
+      "drag_image_here": "将图片拖到这里或",
+      "upload": "上传",
+      "storage": "存储",
+      "default_color": "默认颜色",
+      "history_color": "最近使用颜色",
+      "prev_step": "上一步",
+      "next_step": "下一步",
+      "step_1_title": "控件区",
+      "step_1_desc": "\u003cb\u003e拖拽\u003c/b\u003e常用组件、多套图标库、自定义组合、动态母版到画布中，\u003cb\u003e快速\u003c/b\u003e进行界面设计。",
+      "step_2_title": "设计区",
+      "step_2_desc": "此处为主要的设计区域。将控件全部拖入中间的设备框中，通过设置控件位置、外观，来完成界面设计。",
+      "step_3_title": "列表区",
+      "step_3_desc": "包含页面列表、页面状态列表、页面控件列表。在此处创建多级页面结构。将控件\u003cb\u003e链接\u003c/b\u003e至列表的具体页面，可添加页面交互效果。",
+      "step_4_title": "工具栏",
+      "step_4_desc": "主工具栏可以对组件或者画布进行常规调整。副工具栏包含常用组件设置功能，可对文本相关控件进行排版和外观设置。",
+      "step_5_title": "运行",
+      "step_5_desc": "点击运行，可模拟真机演示效果；分享二维码，协同查看及时获取他人反馈；开发者模式，可一键获取标注参数。",
+      "step_6_title": "回收站",
+      "step_6_desc": "也叫做页面回收站。可以在这里一键恢复误删的页面。",
+      "step_7_title": "教程",
+      "step_7_desc": "需要帮助？来这看看官方教程吧，解决你的所有疑问！",
+      "preview": {
+        "powered_by_modao": "使用墨刀制作",
+        "comment": {
+          "switch": "评论模式",
+          "tip": "双击预览区域添加新评论",
+          "tip_signin": "登录以添加新评论",
+          "tip_not_collaborator": "当前登录帐号不在协作名单中，请联系项目所有者获取权限，参与讨论",
+          "panel": " 条评论",
+          "thread_create": "评论",
+          "thread_delete_confirm": "永久删除本组评论？",
+          "thread_none": "无评论",
+          "thread_none_tip": "点击底部按钮或双击预览区添加新评论",
+          "thread_none_tip_signin": "使用下方按钮登录以添加新评论",
+          "comment_placeholder": "使用 Shift + Enter 换行",
+          "comment_create": "回复",
+          "comment_create_initial": "创建",
+          "comment_create_initial_title": "创建评论",
+          "comment_delete_confirm": "永久删除本条回复？",
+          "modify_edit": "编辑",
+          "modify_delete": "删除",
+          "reply": " 条回复",
+          "reply_none": "无回复",
+          "reply_none_tip": "请在下方添加评论内容以创建评论",
+          "reply_new": " 未读",
+          "reply_new_thread": "新",
+          "divider_new": "新回复",
+          "show_all_0": "展开",
+          "show_all_1": " 条回复",
+          "tag_edited": "修改",
+          "unfold": "展开"
+        },
+        "screen": {
+          "panel": "页面",
+          "total_page": "页面总数",
+          "open_paren": "（",
+          "close_paren": "）"
+        }
+      },
+      "preview_panel": {
+        "comment": "评论",
+        "developer_mode": "开发者模式",
+        "text": "文字",
+        "typeface": "字型",
+        "font_size": "字号",
+        "offset": "起始",
+        "length": "长度",
+        "Fills": "填充色",
+        "fills": "填充色",
+        "width": "宽",
+        "height": "高",
+        "borders": "边框",
+        "thickness": "宽度",
+        "color": "颜色",
+        "position": "位置",
+        "bd_radius": "圆角宽度",
+        "align": "对齐方式",
+        "line_height": "行高",
+        "copied": "已复制！"
+      },
+      "account": {
+        "pay_success": "支付成功",
+        "reload_after_countdown": "\u003cspan style=\"color: #F55D54\"\u003e\u003c/span\u003e 秒后自动跳转",
+        "switch_plan": "切换方案",
+        "renew": "续费",
+        "pay_with_paypal": "使用Paypal支付",
+        "pay_with_alipay": "使用支付宝支付",
+        "pay_with_wechat": "使用微信支付",
+        "scan_with_wechat": "使用微信扫一扫付款",
+        "provided_by_pingxx": "本支付服务由 Ping++ 提供",
+        "reload": "立即刷新",
+        "balance_left": "剩余时长抵现",
+        "actually_pay": "实际应付",
+        "save_17": "节省17%",
+        "new_plan": "新方案",
+        "new_billing_date": "新续费日",
+        "payment_methods": "支付方式",
+        "wechat_pay": "微信支付",
+        "confirm_pay": "确认支付",
+        "pay": "支付",
+        "discount": "当前折扣"
+      }
+    };
+  
+  }).call(this);
+</script>
+
+<script>
+  (function() {
+    var splash;
+  
+    splash = document.getElementById('splashimg');
+  
+    if (splash && window.innerWidth > window.innerHeight) {
+      splash.style.width = window.innerHeight + 'px';
+      splash.style.height = window.innerWidth + 'px';
+      splash.style.top = (0 - window.innerWidth) + 'px';
+    }
+  
+  }).call(this);
+</script>
+<link rel="stylesheet" media="screen" href="webpack/font-icons-13f959334ad14f410317578f494ed314.css" />
+<link href='css/roboto.css' media='screen' rel='stylesheet'>
+
+<link rel="stylesheet" media="screen" href="assets/sharing-e00ddc71230a851ffe0cf44f274f0593.css" />
+<link rel="stylesheet" media="screen" href="webpack/lib-preview-584c7f90368b7b21a7175b938b7cb63a.css" />
+<link rel="stylesheet" media="screen" href="webpack/preview-9bcacd88ba95d619b2086c8ccc84149e.css" />
+<script>
+  document.getElementsByClassName("indicator")[0].style.height = '30%';
+  var MBServer = "modao.cc";
+</script>
+<script>
+   var webpackManifest = {"0":"0-bf4eee7a4f1177e2d52c.js","1":"1-da93c35feccb9458b82e.js","2":"2-50875353d4eb54253ee7.js","3":"3-fea469d0cedc54226650.js","4":"4-8a8fd3e0ca2f98d38be8.js","5":"5-0cbab40e2e16a4fe4e52.js","6":"6-4c6e7de1f11dcbd8dcb9.js","7":"7-a3eca5411a31d2edf122.js","8":"8-34a76fc14190eaf1b9c0.js","9":"9-cc14ddd4a265d06e29ce.js","10":"10-74bed3b70e4630747c1f.js","11":"11-576929864872ea669d01.js"}
+</script>
+<script src="webpack/manifest-d41d8cd98f00b204e980.js"></script>
+<script src="webpack/vendor-bf4eee7a4f1177e2d52c.js"></script>
+<script src="assets/sharing-7e4c619b8bb5da6f8c4f1657fff89da5.js"></script>
+<script src="webpack/lib-preview-12434574d0843736ec4d.js"></script>
+<script src="webpack/preview-cc14ddd4a265d06e29ce.js"></script>
+<script>
+  (function() {
+    MB.play = function() {
+      return MB.load('oFN17lZILos9iz6qGw9q7PYgyehpo0r', false, '');
+    };
+  
+    $(function() {
+      if (MB.isMobile()) {
+        $("body").addClass('mobile');
+        MB.mp("在移动端打开了应用");
+        MB.ga('send', 'event', 'goal', "在移动端打开了应用");
+      }
+      if (!window.navigator.standalone && !false && MB.isMobile() && !MB.isLocal()) {
+        return MB.initInstall();
+      } else if (MB.isPhantom()) {
+        return $("body").addClass('phantom');
+      } else {
+        return MB.play();
+      }
+    });
+  
+  }).call(this);
+</script>
+
+</body>
+</html>
+<script>window.MBData=
+{"templates":[],"project":{"owner_id":421021,"owner_plan":"startup","owner_name":"bill","owner_email":"986480580@qq.com","owner_paid":false,"owner_avatar":"/uploads3/avatars/42/421021/forum_0.jpeg","limitation":{"collaborators":5,"storage":100000,"exportable":true,"encryptable":true,"projects":6553500},"channels":["986480580qqcom421021"],"screens_count":2,"cid":"p706B0D19301498638048886","team_cid":null,"name":"上屏页面","updated_at":"2017-06-28T09:22:25Z","created_at":"2017-06-28T08:21:05Z","access":"private","access_token":"oFN17lZILos9iz6qGw9q7PYgyehpo0r","version":"v2","icon":"/images/icon_retina.png","splash":null,"width":1440,"height":1024,"device":"web","model":"desktop","scale":100,"archived":false,"template":false,"timestamp":"1498641745","combo":false,"behavior":"inherit","master":false,"builtin":false,"auto_scale":false,"parent_cid":null,"host_cid":null,"clones":0,"shell_type":"none","password":"","wechat":false,"highlight":true,"expired":false,"validated":false,"duplicating":false,"slack_web_hook_url":null},"screens":[{"cid":"sF3AFFD1C5D1498638061858","project_cid":"p706B0D19301498638048886","parent_cid":null,"expanded":false,"name":"页面 2","orientation":"portrait","position":2,"width":1440,"height":1024,"hh":null,"fh":null,"bgcolor":"#FFFFFF","bgimage":null,"deleter_name":null,"deleted_at":null,"artboard_id":null,"artboard_asset_id":null},{"cid":"sE1C89626AB1498638061860","project_cid":"p706B0D19301498638048886","parent_cid":null,"expanded":false,"name":"主页","orientation":"portrait","position":1,"width":1440,"height":1048,"hh":null,"fh":null,"bgcolor":"#FFFFFF","bgimage":null,"deleter_name":null,"deleted_at":null,"artboard_id":null,"artboard_asset_id":null}],"widgets":[{"cid":"w8487BE9D941498638318602","screen_cid":"sE1C89626AB1498638061860","timestamp":34412880,"v":true,"name":"rectangle","left":1055.0,"top":110.0,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-7A496A1DF9BC6A092BAA9","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wF3FBCAEF391498638318627","screen_cid":"sE1C89626AB1498638061860","timestamp":34412884,"v":true,"name":"image_view","left":1067.0,"top":134.0,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-7A496A1DF9BC6A092BAA9","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w6E0E3E40ED1498638318631","screen_cid":"sE1C89626AB1498638061860","timestamp":34412888,"v":true,"name":"label","left":1149.0,"top":122.0,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-7A496A1DF9BC6A092BAA9","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w13010AD4B11498638318634","screen_cid":"sE1C89626AB1498638061860","timestamp":34412892,"v":true,"name":"text_view","left":1148.0,"top":168.0,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-7A496A1DF9BC6A092BAA9","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w0B7E7FCC521498638318636","screen_cid":"sE1C89626AB1498638061860","timestamp":34412896,"v":true,"name":"icon_button","left":1377.0,"top":145.0,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-7A496A1DF9BC6A092BAA9","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wCADF2E9C1C1498638411318","screen_cid":"sE1C89626AB1498638061860","timestamp":34412950,"v":true,"name":"icon_button","left":1150.0,"top":165.0,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w3EFFA394F31498638421948","screen_cid":"sE1C89626AB1498638061860","timestamp":34412953,"v":true,"name":"label","left":1202.5,"top":165.0,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wE2629119BE1498638459885","screen_cid":"sE1C89626AB1498638061860","timestamp":34412962,"v":true,"name":"rounded_rect","left":1055.0,"top":50.0,"width":375.0,"height":60.0,"gid":null,"locked":false,"text":"","fs":14,"br":0,"bs":1,"ha":"center","va":"middle","z":5,"lh":20,"th":"","td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w3E88B83BBE1498638512693","screen_cid":"sE1C89626AB1498638061860","timestamp":34412970,"v":true,"name":"label","left":1279.0,"top":115.0,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第一名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wA14D7974C81498638529215","screen_cid":"sE1C89626AB1498638061860","timestamp":34412975,"v":true,"name":"rectangle","left":1055.0,"top":227.1875,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-7B327727BE0EC3419904F","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w70037CAF5C1498638529218","screen_cid":"sE1C89626AB1498638061860","timestamp":34412979,"v":true,"name":"image_view","left":1067.0,"top":251.1875,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-7B327727BE0EC3419904F","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wDB68762B0A1498638529223","screen_cid":"sE1C89626AB1498638061860","timestamp":34412983,"v":true,"name":"label","left":1149.0,"top":239.1875,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-7B327727BE0EC3419904F","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w443CBFB1701498638529225","screen_cid":"sE1C89626AB1498638061860","timestamp":34412987,"v":true,"name":"text_view","left":1148.0,"top":285.1875,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-7B327727BE0EC3419904F","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w87087F19861498638529228","screen_cid":"sE1C89626AB1498638061860","timestamp":34412991,"v":true,"name":"icon_button","left":1377.0,"top":262.1875,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-7B327727BE0EC3419904F","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w8DD02EEB3D1498638529232","screen_cid":"sE1C89626AB1498638061860","timestamp":34412995,"v":true,"name":"icon_button","left":1150.0,"top":282.1875,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wB178A22A541498638529235","screen_cid":"sE1C89626AB1498638061860","timestamp":34412999,"v":true,"name":"label","left":1202.5,"top":282.1875,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wA6D9843D501498638529237","screen_cid":"sE1C89626AB1498638061860","timestamp":34413003,"v":true,"name":"label","left":1279.0,"top":232.1875,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第二名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w594CED065D1498638532951","screen_cid":"sE1C89626AB1498638061860","timestamp":34413007,"v":true,"name":"rectangle","left":1055.0,"top":344.0,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-7127936FBAEED9CAD4A64","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w891F6EAF251498638532965","screen_cid":"sE1C89626AB1498638061860","timestamp":34413011,"v":true,"name":"image_view","left":1067.0,"top":368.0,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-7127936FBAEED9CAD4A64","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w67E620E80E1498638532970","screen_cid":"sE1C89626AB1498638061860","timestamp":34413015,"v":true,"name":"label","left":1149.0,"top":356.0,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-7127936FBAEED9CAD4A64","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w0BB74BFEF11498638532975","screen_cid":"sE1C89626AB1498638061860","timestamp":34413019,"v":true,"name":"text_view","left":1148.0,"top":402.0,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-7127936FBAEED9CAD4A64","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w574C3925A01498638532977","screen_cid":"sE1C89626AB1498638061860","timestamp":34413023,"v":true,"name":"icon_button","left":1377.0,"top":379.0,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-7127936FBAEED9CAD4A64","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w6E08B85DC01498638532979","screen_cid":"sE1C89626AB1498638061860","timestamp":34413027,"v":true,"name":"icon_button","left":1150.0,"top":399.0,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w9A860D85A61498638532981","screen_cid":"sE1C89626AB1498638061860","timestamp":34413031,"v":true,"name":"label","left":1203.0,"top":399.0,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w167253CD181498638532983","screen_cid":"sE1C89626AB1498638061860","timestamp":34413035,"v":true,"name":"label","left":1279.0,"top":349.0,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第三名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wBAB42D0E581498638545548","screen_cid":"sE1C89626AB1498638061860","timestamp":34413055,"v":true,"name":"rectangle","left":1055.0,"top":461.1875,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-22F02FCF019BE732D44FD","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD281BA06591498638545552","screen_cid":"sE1C89626AB1498638061860","timestamp":34413059,"v":true,"name":"image_view","left":1067.0,"top":485.1875,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-22F02FCF019BE732D44FD","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w1EA6CCC3121498638545554","screen_cid":"sE1C89626AB1498638061860","timestamp":34413063,"v":true,"name":"label","left":1149.0,"top":473.1875,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-22F02FCF019BE732D44FD","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wCD66990E1F1498638545556","screen_cid":"sE1C89626AB1498638061860","timestamp":34413067,"v":true,"name":"text_view","left":1148.0,"top":519.1875,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-22F02FCF019BE732D44FD","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w1D6A3787091498638545559","screen_cid":"sE1C89626AB1498638061860","timestamp":34413071,"v":true,"name":"icon_button","left":1377.0,"top":496.1875,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-22F02FCF019BE732D44FD","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w9C6156E1DE1498638545561","screen_cid":"sE1C89626AB1498638061860","timestamp":34413075,"v":true,"name":"icon_button","left":1150.0,"top":516.1875,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wC74FFA47921498638545564","screen_cid":"sE1C89626AB1498638061860","timestamp":34413079,"v":true,"name":"label","left":1203.0,"top":516.1875,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w7A2EF206A61498638545566","screen_cid":"sE1C89626AB1498638061860","timestamp":34413083,"v":true,"name":"label","left":1279.0,"top":466.1875,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第四名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w39B8E13F661498638556903","screen_cid":"sE1C89626AB1498638061860","timestamp":34413087,"v":true,"name":"rectangle","left":1055.0,"top":578.375,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-EE76971C6FFD80C931EC6","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w2164F1D04F1498638556906","screen_cid":"sE1C89626AB1498638061860","timestamp":34413091,"v":true,"name":"image_view","left":1067.0,"top":602.375,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-EE76971C6FFD80C931EC6","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wBA3012D39F1498638556910","screen_cid":"sE1C89626AB1498638061860","timestamp":34413095,"v":true,"name":"label","left":1149.0,"top":590.375,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-EE76971C6FFD80C931EC6","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wFF0EB48E061498638556913","screen_cid":"sE1C89626AB1498638061860","timestamp":34413099,"v":true,"name":"text_view","left":1148.0,"top":636.375,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-EE76971C6FFD80C931EC6","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w1CEA2561841498638556915","screen_cid":"sE1C89626AB1498638061860","timestamp":34413103,"v":true,"name":"icon_button","left":1377.0,"top":613.375,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-EE76971C6FFD80C931EC6","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w16AD443C531498638556918","screen_cid":"sE1C89626AB1498638061860","timestamp":34413107,"v":true,"name":"icon_button","left":1150.0,"top":633.375,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w84128055781498638556920","screen_cid":"sE1C89626AB1498638061860","timestamp":34413111,"v":true,"name":"label","left":1203.0,"top":633.375,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD8B6BA81A31498638556923","screen_cid":"sE1C89626AB1498638061860","timestamp":34413115,"v":true,"name":"label","left":1279.0,"top":583.375,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第五名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w6C51AF17071498638561173","screen_cid":"sE1C89626AB1498638061860","timestamp":34413119,"v":true,"name":"rectangle","left":1055.0,"top":695.5625,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-78B10A52163ECC50C740C","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wBDBD600FD61498638561176","screen_cid":"sE1C89626AB1498638061860","timestamp":34413123,"v":true,"name":"image_view","left":1067.0,"top":719.5625,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-78B10A52163ECC50C740C","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w0D66A6FDDD1498638561178","screen_cid":"sE1C89626AB1498638061860","timestamp":34413127,"v":true,"name":"label","left":1149.0,"top":707.5625,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-78B10A52163ECC50C740C","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD7AE5B7BB01498638561180","screen_cid":"sE1C89626AB1498638061860","timestamp":34413131,"v":true,"name":"text_view","left":1148.0,"top":753.5625,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-78B10A52163ECC50C740C","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w839970ECDF1498638561183","screen_cid":"sE1C89626AB1498638061860","timestamp":34413135,"v":true,"name":"icon_button","left":1377.0,"top":730.5625,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-78B10A52163ECC50C740C","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w1DCA1B53C71498638561185","screen_cid":"sE1C89626AB1498638061860","timestamp":34413139,"v":true,"name":"icon_button","left":1150.0,"top":750.5625,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD8C3FBA9201498638561190","screen_cid":"sE1C89626AB1498638061860","timestamp":34413143,"v":true,"name":"label","left":1203.0,"top":750.5625,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w8B13A4836D1498638561192","screen_cid":"sE1C89626AB1498638061860","timestamp":34413147,"v":true,"name":"label","left":1279.0,"top":700.5625,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第六名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w4A729755B51498638569196","screen_cid":"sE1C89626AB1498638061860","timestamp":34413175,"v":true,"name":"rectangle","left":1055.0,"top":812.75,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-610E8C3ED1CB7E17C5E86","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w4C24889C401498638569199","screen_cid":"sE1C89626AB1498638061860","timestamp":34413179,"v":true,"name":"image_view","left":1067.0,"top":836.75,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-610E8C3ED1CB7E17C5E86","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w48288A9BB81498638569202","screen_cid":"sE1C89626AB1498638061860","timestamp":34413183,"v":true,"name":"label","left":1149.0,"top":824.75,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-610E8C3ED1CB7E17C5E86","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD56B0EA5681498638569204","screen_cid":"sE1C89626AB1498638061860","timestamp":34413187,"v":true,"name":"text_view","left":1148.0,"top":870.75,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-610E8C3ED1CB7E17C5E86","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"wE07E1B1FFC1498638569207","screen_cid":"sE1C89626AB1498638061860","timestamp":34413191,"v":true,"name":"icon_button","left":1377.0,"top":847.75,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-610E8C3ED1CB7E17C5E86","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w9B016D72CE1498638569217","screen_cid":"sE1C89626AB1498638061860","timestamp":34413195,"v":true,"name":"icon_button","left":1150.0,"top":867.75,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wC6703973B61498638569220","screen_cid":"sE1C89626AB1498638061860","timestamp":34413199,"v":true,"name":"label","left":1203.0,"top":867.75,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wFE957272211498638569222","screen_cid":"sE1C89626AB1498638061860","timestamp":34413203,"v":true,"name":"label","left":1279.0,"top":817.75,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第七名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wCB9DF1BB391498638642094","screen_cid":"sE1C89626AB1498638061860","timestamp":34413230,"v":true,"name":"label","left":1240.0,"top":58.0,"width":97.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e排行榜前八名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wCE6BEBBEE01498638668244","screen_cid":"sE1C89626AB1498638061860","timestamp":34413237,"v":true,"name":"rectangle","left":1055.0,"top":929.9375,"width":375.0,"height":117.1875,"gid":"gE2B400833621D91B277E-06AC420E2070F7CD5C2E7","locked":false,"z":5,"th":"","bg":"","bc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w0289D1D0C41498638668249","screen_cid":"sE1C89626AB1498638061860","timestamp":34413241,"v":true,"name":"image_view","left":1067.0,"top":953.9375,"width":70.3125,"height":70.3125,"gid":"gE2B400833621D91B277E-06AC420E2070F7CD5C2E7","locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wEA9B786B181498638668253","screen_cid":"sE1C89626AB1498638061860","timestamp":34413245,"v":true,"name":"label","left":1149.0,"top":941.9375,"width":228.515625,"height":46.875,"gid":"gE2B400833621D91B277E-06AC420E2070F7CD5C2E7","locked":false,"text":"\u003cp\u003e用户ID\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"left","va":"middle","z":5,"th":"","lh":22,"td":"normal","bo":1,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w783E08B4991498638668256","screen_cid":"sE1C89626AB1498638061860","timestamp":34413249,"v":true,"name":"text_view","left":1148.0,"top":987.9375,"width":228.0,"height":17.0,"gid":"gE2B400833621D91B277E-06AC420E2070F7CD5C2E7","locked":false,"text":"\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","fs":12,"br":0,"bs":0,"ha":"left","va":"top","z":5,"th":"","lh":17,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"#666666","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null},{"cid":"w0037D67CEF1498638668260","screen_cid":"sE1C89626AB1498638061860","timestamp":34413253,"v":true,"name":"icon_button","left":1377.0,"top":964.9375,"width":52.734375,"height":52.734375,"gid":"gE2B400833621D91B277E-06AC420E2070F7CD5C2E7","locked":false,"is":20,"icon":"chevron-right","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"#666666","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wD54871CB0D1498638668263","screen_cid":"sE1C89626AB1498638061860","timestamp":34413257,"v":true,"name":"icon_button","left":1150.0,"top":984.9375,"width":45.0,"height":45.0,"gid":null,"locked":false,"is":24,"icon":"md-mood_bad","br":0,"bs":0,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w05363FED611498638668266","screen_cid":"sE1C89626AB1498638061860","timestamp":34413261,"v":true,"name":"label","left":1203.0,"top":984.9375,"width":28.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e666\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"w0B621AECB01498638668269","screen_cid":"sE1C89626AB1498638061860","timestamp":34413265,"v":true,"name":"label","left":1279.0,"top":934.9375,"width":49.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e第七名\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wF1FD80FBC61498638688118","screen_cid":"sE1C89626AB1498638061860","timestamp":34413277,"v":true,"name":"image_view","left":40.0,"top":60.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wE3CCC14A1B1498638704180","screen_cid":"sE1C89626AB1498638061860","timestamp":34413282,"v":true,"name":"image_view","left":370.0,"top":58.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w2CB355EFCF1498638714358","screen_cid":"sE1C89626AB1498638061860","timestamp":34413286,"v":true,"name":"image_view","left":700.0,"top":58.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w278A86FCD41498638744270","screen_cid":"sE1C89626AB1498638061860","timestamp":34413293,"v":true,"name":"image_view","left":40.0,"top":332.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wD399E3FB001498638744274","screen_cid":"sE1C89626AB1498638061860","timestamp":34413297,"v":true,"name":"image_view","left":370.0,"top":330.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w510B6A655A1498638744277","screen_cid":"sE1C89626AB1498638061860","timestamp":34413301,"v":true,"name":"image_view","left":700.0,"top":330.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w6D00DF62A41498638751976","screen_cid":"sE1C89626AB1498638061860","timestamp":34413305,"v":true,"name":"image_view","left":40.0,"top":602.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w0DF6CFCE691498638751979","screen_cid":"sE1C89626AB1498638061860","timestamp":34413309,"v":true,"name":"image_view","left":370.0,"top":600.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"wDA23E10E6F1498638751981","screen_cid":"sE1C89626AB1498638061860","timestamp":34413313,"v":true,"name":"image_view","left":700.0,"top":600.0,"width":280.0,"height":230.0,"gid":null,"locked":false,"bs":0,"br":0,"image":null,"z":5,"th":"","bg":"","bc":"","tc":"","o":100,"p":true,"ds":0,"sc":"#aaaaaa","ro":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0","clip":null,"filter":""},{"cid":"w361AB890EB1498638771279","screen_cid":"sE1C89626AB1498638061860","timestamp":34413322,"v":true,"name":"label","left":464.5,"top":905.0,"width":166.0,"height":45.0,"gid":null,"locked":false,"text":"\u003cp\u003e展示屏幕为60寸4K屏幕\u003c/p\u003e","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"},{"cid":"wB88285D9D81498641740911","screen_cid":"sE1C89626AB1498638061860","timestamp":34414943,"v":true,"name":"label","left":150.0,"top":145.0,"width":81.0,"height":45.0,"gid":null,"locked":false,"text":"英雄上岗证","fs":16,"br":0,"bs":0,"ha":"center","va":"middle","z":5,"th":"","lh":23,"td":"normal","bo":0,"i":0,"bg":"","bc":"","tc":"","o":100,"ts":0,"tsc":"#aaaaaa","ds":0,"sc":"#aaaaaa","ro":0,"padding":0,"ls":0,"fixed":false,"fixed_type":1,"ani_name":"none","ani_delay":"0","ani_count":"1","ani_duration":"0"}],"links":[],"panels":[],"screen_aligns":[],"screenstates":[],"widgetstates":[],"panelstates":[],"devices":{"android":{"google_nexus":{"width":360,"height":640,"name":"Google Pixel"},"samsung":{"width":360,"height":640,"name":"Samsung"},"Xiaomi":{"width":360,"height":640,"name":"XiaoMi"},"Huawei":{"width":360,"height":640,"name":"Huawei"},"Meizu":{"width":360,"height":600,"name":"Meizu","hide":true},"google_nexus_4":{"width":384,"height":640,"name":"Google Nexus 4","hide":true},"customize":{"width":360,"height":640,"name":"Customize"}},"iphone":{"iphone_4":{"width":320,"height":480,"scale":100,"icon_size":"120x120","name":"iPhone 4","hide":true},"iphone_5":{"width":320,"height":568,"scale":100,"icon_size":"120x120","name":"iPhone SE"},"iphone_6":{"width":375,"height":667,"scale":100,"icon_size":"180x180","name":"iPhone 7"},"iphone_6_plus":{"width":414,"height":736,"scale":100,"icon_size":"180x180","name":"iPhone 7 Plus"},"ipad_3_4":{"width":768,"height":1024,"scale":75,"icon_size":"152x152","name":"iPad"},"ipad_pro":{"width":1024,"height":1366,"scale":75,"icon_size":"152x152","name":"iPad Pro"}},"ipad":{"ipad_3_4":{"width":768,"height":1024,"scale":75,"icon_size":"152x152","name":"iPad"},"ipad_pro":{"width":1024,"height":1366,"scale":75,"icon_size":"152x152","name":"iPad Pro"}},"web":{"desktop":{"width":1440,"height":1024,"name":"Webpage"}},"default":{"iphone":"iphone_5","ipad":"ipad_3_4","android":"google_nexus"}},"collaborators":[],"threads":[],"comments":[],"teams":[]}</script>

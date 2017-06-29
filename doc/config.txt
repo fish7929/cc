@@ -1,10 +1,10 @@
-appId:wxbc5448ffcd7d3933
-appKey:986ff934a2f21dce3c0b265534d30749
-
 
 leancloud
+登录账户：18917634569@189.cn
 账号:zhirongwangluo
 密码:Zhirong189
+appId:NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz
+appKey:wqmHFKHKc8YoGi3PTIQ5zd8k
 
 
 开发者账号：WEIXIN@streamgroup.cn
@@ -16,6 +16,7 @@ leancloud
 
 project@streamgroup.cn
 
-SIE88888888
+SIE88888888 
+appId:wxbc5448ffcd7d3933
+appKey:986ff934a2f21dce3c0b265534d30749
 
-爱的色放
