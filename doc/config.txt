@@ -1,1 +1,87 @@
-nothing
+
+leancloud
+登录账户：18917634569@189.cn
+账号:zhirongwangluo
+密码:Zhirong189
+appId:NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz
+appKey:wqmHFKHKc8YoGi3PTIQ5zd8k
+
+
+开发者账号：WEIXIN@streamgroup.cn
+密码：SIE88888888
+
+
+公众号：
+人潮互娱
+
+project@streamgroup.cn
+
+SIE88888888 
+appId:wxbc5448ffcd7d3933
+appKey:986ff934a2f21dce3c0b265534d30749
+
+
+
+问题数组
+
+var Q0=["器大活好",
+"拥有洪荒之力",
+"嘿嘿嘿",
+"辣眼睛",
+"快枪手",
+"老司机",
+"妖艳贱货",
+"精力旺盛",
+"深不可测",
+"金枪不倒",
+"不寒而栗（不含而立）",
+"日理万机（日里万鸡）",
+"触手可及",
+"舌战群儒"];
+
+var Q2=[
+"江湖段子手",
+"一言不合就飙车",
+"一言不合就上天",
+"套路小哥",
+"飘逸女司机",
+"人气小鲜肉",
+"键盘侠",
+"激萌小萝莉",
+"毫无节操",
+"Freestyle",
+"极品逗逼",
+"撩妹达人",
+"单身狗",
+"浪的飞起",
+"胸大无脑"]
+
+var Q2=[
+"蓝瘦香菇",
+"你是猴子请来得逗逼么",
+"人丑就要多读书",
+"我想静静",
+"已经使出了洪荒之力",
+"主要看气质",
+"我的内心几乎使崩溃得",
+"因缺思厅",
+"也是醉了",
+"日了狗",
+"画面太美我不敢看",
+"宝宝心里苦，但是宝宝不说"
+]
+
+数据表：
+上岗证表：card
+
+usernick  	string  用户昵称，
+user_id  	string  用户id
+q0 			string Q0标签2个中间用,隔开
+q1 			string Q0标签2个中间用,隔开
+q2 			string Q0标签2个中间用,隔开
+qrcode 		string 用户二维码链接
+card_url 	string 上岗证效果图地址
+
+
+
+
