@@ -1,0 +1,12 @@
+.idea
+dist
+node_modules
+npm-debug.log
+.DS_Store
+/doc/config.txt/
+
+**/.idea
+**/dist
+**/node_modules
+**/npm-debug.log
+**/.DS_Store

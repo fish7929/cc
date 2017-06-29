@@ -1,0 +1,15 @@
+/** 
+ * @component index.scss
+ * @description 组件样式
+ * @time 2017-6-21 16:30
+ * @author fishYu
+ */
+@import "../../styles/common/_mixins.scss";
+ /***没有更多样式****/
+.no-more {
+    text-align: center;
+    font-size: calc-rem(28);
+    color: $hintColor;
+    line-height: calc-rem(64);
+    padding: calc-rem(40) 0;
+}

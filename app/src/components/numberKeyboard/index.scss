@@ -1,0 +1,49 @@
+/**
+ * @component number_keyboard.scss
+ * @description 通用数字键盘样式。
+ * @time 2017-06-12 11:00
+ * @author fishYu
+ **/
+@import "../../styles/common/_mixins.scss";
+ /**数字键盘样式样式*/
+.number-keyboard-wrapper{
+    position: fixed;
+    z-index: 99990;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.number-keyboard-common-item{
+    width: 33.33%;
+    height: calc-rem(106);
+    float: left;
+    background-color: #fff;
+    color: #333;
+    border-bottom: 1px solid #b9b9b9;
+    border-right: 1px solid #b9b9b9;
+    box-sizing: border-box;
+    line-height: calc-rem(106);
+    text-align: center;
+    font-size: calc-rem(52);
+}
+
+.number-keyboard-common-item:nth-child(3n){
+    border-right: 0;
+}
+.number-keyboard-common-item:nth-last-child(1),.number-keyboard-common-item:nth-last-child(2),.number-keyboard-common-item:nth-last-child(3){
+    border-bottom: 0;
+}
+.number-keyboard-special-item{
+    background-color: #d1d4da !important;
+}
+.number-keyboard-del-item{
+    background: url($delIcon) center no-repeat;
+    background-size: calc-rem(72); 
+}
+
+.number-keyboard-common-item:active, .number-keyboard-common-item:focus{
+    background-color: #D8D8D8;
+}
+

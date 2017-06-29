@@ -1,0 +1,63 @@
+/** 
+ * @component index.scss
+ * @description 组件样式
+ * @time 2017-6-21 15:30
+ * @author fishYu
+ */
+@import "../../styles/common/_mixins.scss";
+ /****加载中样式**/
+.loading {
+    text-align: center;
+    width: 100%;
+    font-size: calc-rem(28);
+    color: $textColor;
+    line-height: calc-rem(64);
+}
+
+.loading-box {
+    width: calc-rem(260);
+    margin: calc-rem(40) auto;
+}
+
+.loading-boll {
+    border-radius: 100%;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    border: 1px solid #333;
+    border-bottom-color: transparent;
+    height: 24px;
+    width: 24px;
+    background: transparent !important;
+    -webkit-animation: loading-boll-rotate 0.75s 0s linear infinite;
+    animation: loading-boll-rotate 0.75s 0s linear infinite;
+    float: left;
+}
+
+@-webkit-keyframes loading-boll-rotate {
+    0% {
+        -webkit-transform: rotate(0deg) scale(1);
+        transform: rotate(0deg) scale(1); }
+
+    50% {
+        -webkit-transform: rotate(180deg) scale(0.6);
+        transform: rotate(180deg) scale(0.9); }
+
+    100% {
+        -webkit-transform: rotate(360deg) scale(1);
+        transform: rotate(360deg) scale(1); }
+}
+
+@keyframes loading-boll-rotate {
+    0% {
+        -webkit-transform: rotate(0deg) scale(1);
+        transform: rotate(0deg) scale(1); }
+
+    50% {
+        -webkit-transform: rotate(180deg) scale(0.6);
+        transform: rotate(180deg) scale(0.9); }
+
+    100% {
+        -webkit-transform: rotate(360deg) scale(1);
+        transform: rotate(360deg) scale(1); }
+}

@@ -1,0 +1,37 @@
+/**
+ * @component header.scss
+ * @description 通用的头部样式。
+ * @time 2017-06-21 14:00
+ * @author fishYu
+ **/
+@import "../../styles/common/_mixins.scss";
+.app-header{
+    width: 100%;
+    background-color: $yellowColor;
+    padding-top: calc-rem($timebarHeight);  /*顶部时间栏的高度*/
+    div{
+        width: 100%;
+        height: calc-rem($headerHeight);
+        line-height: calc-rem($headerHeight);
+        position: relative;
+        button{
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: calc-rem(102);
+            height: 100%;
+            background: url($backIcon) no-repeat calc-rem(26) center;
+            background-size: calc-rem(50);
+            z-index: 9;
+        }
+
+        span{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: calc-rem(34);
+            color: $whiteColor;
+        }
+    }
+}

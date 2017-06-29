@@ -1,0 +1,31 @@
+{
+    "status": 0,
+    "msg": "success",
+    "data": [
+        {
+            "code": "ALL",
+            "titleName": "全部",
+            "amount": 19
+        },
+        {
+            "code": "pdl",
+            "titleName": "PDL",
+            "amount": 5
+        },
+        {
+            "code": "cashloan",
+            "titleName": "CL",
+            "amount": 3
+        },
+        {
+            "code": "merchant",
+            "titleName": "商城",
+            "amount": 4
+        },
+        {
+            "code": "mobile",
+            "titleName": "话费",
+            "amount": 7
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+/**
+ * @component _variables.scss
+ * @description 全局的样式变了。
+ * @time 2017-03-27 11:00
+ * @author fishYu
+ **/
+$baseSize: 14; /*默认字体*/
+$ratio: 2; /*缩放比*/
+$factor: 320/375;  /*屏幕和设计稿的比例（750尺寸）*/
+$headerHeight: 86;  /*顶部的高度*/
+// $topHeight: 126;  /*有头部的高度*/
+$topHeight: 0;
+// $timebarHeight: 40;
+$timebarHeight: 0;
+$lighter: 300;  /***表示font-weight*/
+$normal: 400;  /***表示font-weight*/
+$bold: 700;  /***表示font-weight*/
+
+$greyColor: #f6f6f6;  /*全局背景色*/
+$yellowColor: #FFCA00;  /*黄色*/
+$textColor: #909090; /*全局文字色*/
+$hintColor: #b4b4b4;   /*提示文字颜色*/
+$labelColor: #535A6B; /*提示标签颜色*/
+$btnColor: #FDDC60;  /*按钮没点击的颜色*/
+$whiteColor: #fff;  /*白色*/
+$blackColor: #000;  /*白色*/
+$tipColor: #6997f5;  /*协议链接提示颜色*/
+$opacityColor: rgba(20,20,20,.48);  /**带透明度颜色*/
+
+$bankColor: #FF4C18;  /**银行提示颜色**/
+$phoneColor: #b8c9cf;  /**电话颜色*/
+$borderRadius: 13; /*全局圆角大小*/
+$commonBorder: 1px solid $greyColor;
+/**各种图片资源***/
+$notFoundIcon : '../../assets/images/not-found.png'; /*打烊图片*/
+$applyTimeIcon: '../../assets/images/apply-time.png';
+$borrowMoneyIcon: '../../assets/images/borrow-money.png';
+$borrowTimeIcon: '../../assets/images/borrow-time.png';
+/*在组件内加载的时候*/
+$loadingFont1 : '../../../assets/fonts/glyphicons-halflings-regular.eot';
+$loadingFont2 : '../../../assets/fonts/glyphicons-halflings-regular.eot?#iefix';
+$loadingFont3 : '../../../assets/fonts/glyphicons-halflings-regular.woff2';
+$loadingFont4 : '../../../assets/fonts/glyphicons-halflings-regular.woff';
+$noItemIcon: '../../../assets/images/no_item.png';
+$backIcon: '../../../assets/images/back.png';
+$deleteIcon: '../../../assets/images/delete.png';
+
+$phoneIcon: '../../../assets/images/phone.png';
+$passwordIcon: '../../../assets/images/password.png';
+$weixinIcon: '../../../assets/images/weixin.png';
+
+
+

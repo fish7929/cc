@@ -1,0 +1,24 @@
+/**
+ * @component picker_address.scss
+ * @description 通用地址选择组件的所有样式。
+ * @time 2017-04-13 11:00
+ * @author fishYu
+ **/
+
+ /**全屏对话框样式*/
+ @import './scss/index.scss';
+ .ui-picker-address {
+    .ui-popup-content{
+        display: flex;
+        .ui-picker-wrapper {
+            flex: 1;
+        }
+    }
+    //  .ui-picker-wrapper {
+    //     width: 33%;
+    //     float: left;
+    // }
+    // .ui-picker-wrapper:nth-child(2){
+    //     width: 34%;
+    // }
+}

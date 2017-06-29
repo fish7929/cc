@@ -1,0 +1,43 @@
+/**
+ * @component password_input.scss
+ * @description 通用密码输入框样式。
+ * @time 2017-06-12 11:50
+ * @author fishYu
+ **/
+ @import "../../styles/common/_mixins.scss";
+ /**密码输入框样式*/
+.password-input-wrapper{
+    width: 100%;
+    // position: absolute;
+    // z-index:  99900;
+    height: auto;
+    box-sizing: border-box;
+    text-align: center
+}
+
+.password-input-common-item{
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -webkit-text-security: disc;
+    text-align: center;
+    border: 1px solid #b9b9b9;
+    width: calc-rem(110);
+    height: calc-rem(110);
+    padding: 0;
+    box-sizing: border-box;
+    margin-right: calc-rem(5);
+    border-radius: calc-rem(8);
+    font-size: calc-rem(52);
+    background-color: #fff; 
+    &:last-child{
+        margin-right: 0;
+    }
+}
+
+.password-input-focus{
+    border: 2px solid #fff !important;
+}
+

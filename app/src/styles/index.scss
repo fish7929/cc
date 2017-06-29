@@ -1,0 +1,112 @@
+/**
+ * @component index.scss
+ * @description 全局的样式。
+ * @time 2017-03-13 11:00
+ * @author fishYu
+ **/
+@import './common/common.scss';
+// @include font-face('FZLTHJW--GB1-0', '../assets/font/FZLTHJW--GB1-0')
+@mixin adaptive {
+	@media screen and (max-device-width:320px) {
+        $factor:320/375;
+		font-size: ($baseSize*$factor)+px;
+	}
+
+    @media screen and (min-device-width: 414px) {
+        body,html {
+            font-size: 15.456px;
+        }
+    }
+}
+html,body {
+    -webkit-user-select:none;
+    user-select:none;
+    background-color: $greyColor;
+    font-size: $baseSize+px;
+    @include adaptive
+}
+body {
+	color: $textColor;
+    background-color: transparent;
+    font-family: 'Helvetica Neue', Helvetica,Arial,sans-serif;
+}
+p{
+    margin: 1rem 0;
+}
+#app{
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/**404页面*/
+.not-found-container{
+    text-align: center;
+    background: url($notFoundIcon) center  calc-rem(152)  no-repeat;
+    background-size:  calc-rem(488) calc-rem(408);
+    padding-top: calc-rem(638);
+    color: $textColor;
+    font-size: calc-rem(36);
+}
+/**清除浮动 */
+.clearfix {
+  @include clearfix
+}
+.clear{
+    clear: both;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+.center{
+    text-align: center;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.x-center{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+.y-center{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.xy-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.no-events{
+    pointer-events: none;
+}
+
+.btn-active:active{
+    opacity: .8;
+}
