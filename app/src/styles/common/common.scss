@@ -74,4 +74,41 @@
     background-size: calc-rem(24);
 }
 
+.common-border-image{
+    position: relative;
+    width: calc-rem(700);
+    min-height: calc-rem(550);
+    border-left:calc-rem(5) solid transparent;
+    border-top:calc-rem(30) solid transparent;
+    border-right:calc-rem(5) solid transparent;
+    border-bottom:calc-rem(30) solid transparent;
+    -webkit-border-image: url($borderIcon)  30 5 stretch stretch; 
+    border-image: url($borderIcon) 30 5 stretch stretch; 
+    box-sizing: border-box;
+    .yuan-border{
+        position: absolute;
+        width: calc-rem(80);
+        height: calc-rem(80);
+        border-radius: 100%;
+        background: url($yuanIcon) no-repeat center;
+        background-size: contain; 
+    }
+    .yuan-border:nth-child(1){
+        left: calc-rem(-40);
+        top: calc-rem(-40);
+    }
+    .yuan-border:nth-child(2){
+        right: calc-rem(-40);
+        top: calc-rem(-40);
+    }
+    .yuan-border:nth-child(3){
+        left: calc-rem(-40);
+        bottom: calc-rem(-40);
+    }
+    .yuan-border:nth-child(4){
+        right: calc-rem(-40);
+        bottom: calc-rem(-40);
+    }
+}
+
  

@@ -51,10 +51,19 @@ class Home extends React.Component {
     render() {
         return (
             <Page id='home-page-container'>
-                <div className="home-page-logo"></div>
-                <div className="home-page-button btn-active"
-                    onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}
-                >制作我的英雄上岗证</div>
+                <div className="common-border-image xy-center">
+                    <div className='yuan-border'></div>
+                    <div className='yuan-border'></div>
+                    <div className='yuan-border'></div>
+                    <div className='yuan-border'></div>
+                </div>
+                <div className='home-page-button-wrapper'>
+                    <span className='button-left-border'></span>
+                    <span className="home-page-button btn-active"
+                        onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}
+                    >制作我的英雄上岗证</span>
+                    <span className='button-right-border'></span>
+                </div>
             </Page>
         );
     }

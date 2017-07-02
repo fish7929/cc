@@ -53,7 +53,12 @@ class Question extends React.Component {
         if (_tab <= FIRST) {
             this.setState({ tab: _tab + 1 });
         } else { //提交
-
+            let parm = {
+                Q0: this.state.currentQ0,
+                Q1: this.state.currentQ1,
+                Q2: this.state.currentQ2
+            }
+            console.log(parm,'提交');
         }
     }
     /**
@@ -68,6 +73,7 @@ class Question extends React.Component {
         let obj = {};
         if (key == 'currentQ2') {
             obj[key] = val;
+            console.log(obj, 899);
         } else {
             let old = this.state[key];
             if(old.indexOf(val) > -1){
@@ -85,10 +91,11 @@ class Question extends React.Component {
         this.setState(obj);
     }
     renderRadioItem(item, index) {
-        let { curentQ2 } = this.state;
+        let { currentQ2 } = this.state;
+        console.log(currentQ2, 7889);
         return (
-            <label className="question-conten-item" key={index} htmlFor={index}>
-                <input type="radio" id={index} value={curentQ2 == item} name='quertion2'
+            <label className="question-conten-item" key={index} htmlFor={'currentQ2' + index}>
+                <input type="radio" id={'currentQ2' + index} checked={currentQ2 == item} name='quertion2'
                     onChange={(e) => this.changeStateHandler(e, 'currentQ2', item)} /> {item}
             </label>
         );
@@ -97,10 +104,10 @@ class Question extends React.Component {
         let { tab } = this.state;
         let key = 'currentQ' + tab;
         let currentArr = this.state[key];
-        console.log(currentArr, key, 6666);
+        console.log(currentArr, key, 6666, item, currentArr.indexOf(item) > -1);
         return (
-            <label className="question-conten-item" key={index} htmlFor={index}>
-                <input type="checkbox" id={index} value={currentArr.indexOf(item) > -1}
+            <label className="question-conten-item" key={index} htmlFor={key + index}>
+                <input type="checkbox" id={key + index} checked={currentArr.indexOf(item) > -1}
                     onChange={(e) => this.changeStateHandler(e, key, item)} /> {item}
             </label>
         );

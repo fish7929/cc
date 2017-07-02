@@ -7,34 +7,52 @@
  * @author fishYu
  **/
 #home-page-container{
-    background: $whiteColor;
+    background: url($titleIcon) top center no-repeat $bgColor;
+    background-size: contain; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 }
-.home-page-logo{
-    margin: 0 auto;
-    margin-top: calc-rem(200); 
-    width: calc-rem(460);
-    height: calc-rem(145);
-    background: url($logoIcon) center no-repeat;
-    background-size: calc-rem(459) calc-rem(144);  
-}
 
-.home-page-button{
+.home-page-button-wrapper{
     position: absolute;
+    width: calc-rem(700);
     bottom: calc-rem(150);
-    left: 15%;
-    width: 70%;
+    left: 7%;
     height: calc-rem(120);
     line-height: calc-rem(120);
-    box-sizing: border-box;
-    // border: $commonBorder;
-    border-radius: calc-rem(20);
+    width: 86%;
     font-size: calc-rem(36);
+    color: $buttonTextColor;
     text-align: center;
-    color: $textColor;
-    background-color: $btnColor;
+    box-sizing: border-box;
+    span{
+        display: inline-block;
+        text-align: center;
+    }
+}
+.button-left-border{
+    position: absolute;
+    left: 0;
+    width: calc-rem(30);
+    height: 100%;
+    background: url($leftBorderIcon) center no-repeat;
+    background-size: contain; 
+}
+.button-right-border{
+    position: absolute;
+    right: 0;
+    width: calc-rem(30);
+    height: 100%;
+    background: url($rightBorderIcon) center no-repeat;
+    background-size: contain; 
+}
+.home-page-button{
+    background: $buttonColor;
+    height: calc-rem(90);
+    width: -webkit-calc(100% - #{calc-rem(40)});
+    width: calc(100% - #{calc-rem(40)});
+    line-height: calc-rem(90);
 }
