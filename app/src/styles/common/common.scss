@@ -32,83 +32,46 @@
 .btn-active:active{
     opacity: .8;
 }
-.common-item{
-    position: relative;
-    color: #333;
-    font-size: calc-rem(24);
-    margin-bottom: calc-rem(30);
-    // padding-left: calc-rem(210);
-}
-.common-item:before{
-    position: relative;
-    margin-left: calc-rem(40);
-    color: #999;
-    content: attr(data-hint);
-    margin-right:calc-rem(30);
-}
-.borrow-money-item:after{
-    position: absolute;
-    left: 0;
-    width: calc-rem(24);
-    height: 100%;
-    content: '';
-    background: url($borrowMoneyIcon) 0 center no-repeat;
-    background-size: calc-rem(24);
-}
-.borrow-time-item:after{
-    position: absolute;
-    left: 0;
-    width: calc-rem(24);
-    height: 100%;
-    content: '';
-    background: url($borrowTimeIcon) 0 center no-repeat;
-    background-size: calc-rem(24);
-}
-.report-time-item:after{
-    position: absolute;
-    left: 0;
-    width: calc-rem(24);
-    height: 100%;
-    content: '';
-    background: url($applyTimeIcon) 0 center no-repeat;
-    background-size: calc-rem(24);
-}
 
 .common-border-image{
     position: relative;
-    width: calc-rem(700);
-    min-height: calc-rem(550);
-    border-left:calc-rem(5) solid transparent;
-    border-top:calc-rem(30) solid transparent;
-    border-right:calc-rem(5) solid transparent;
-    border-bottom:calc-rem(30) solid transparent;
-    -webkit-border-image: url($borderIcon)  30 5 stretch stretch; 
-    border-image: url($borderIcon) 30 5 stretch stretch; 
+    width: 96%;
+    min-height: calc-rem(621);
+    background: url($borderIcon) center no-repeat;
+    background-size: cover;
     box-sizing: border-box;
-    .yuan-border{
-        position: absolute;
-        width: calc-rem(80);
-        height: calc-rem(80);
-        border-radius: 100%;
-        background: url($yuanIcon) no-repeat center;
-        background-size: contain; 
+}
+.common-button-wrapper{
+    position: absolute;
+    width: 90%;
+    bottom: calc-rem(200);
+    left: 5%;
+    height: calc-rem(160);
+    line-height: calc-rem(160);
+    font-size: calc-rem(52);
+    color: $buttonTextColor;
+    text-align: center;
+    box-sizing: border-box;
+    span{
+        display: inline-block;
+        text-align: center;
     }
-    .yuan-border:nth-child(1){
-        left: calc-rem(-40);
-        top: calc-rem(-40);
-    }
-    .yuan-border:nth-child(2){
-        right: calc-rem(-40);
-        top: calc-rem(-40);
-    }
-    .yuan-border:nth-child(3){
-        left: calc-rem(-40);
-        bottom: calc-rem(-40);
-    }
-    .yuan-border:nth-child(4){
-        right: calc-rem(-40);
-        bottom: calc-rem(-40);
-    }
+}
+.button-left-border{
+    position: absolute;
+    left: 0;
+    width: calc-rem(41);
+    height: 100%;
+    background: url($leftBorderIcon) left center no-repeat;
+    background-size: cover; 
+}
+.button-right-border{
+    position: absolute;
+    right: 0;
+    width: calc-rem(41);
+    height: 100%;
+    background: url($rightBorderIcon) right  center no-repeat;
+    background-size: cover; 
 }
 
  

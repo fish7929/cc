@@ -15,44 +15,26 @@
     width: 100%;
     height: 100%;
 }
+.home-border-image{
+    width: 96%;
+    top: 18%;
+    height: calc-rem(621);
+    background: url($homeBorderIcon) center no-repeat;
+    background-size: cover;
+}
+.home-logo{
+    width: calc-rem(426);
+    height: calc-rem(321);
+    background: url($logoIcon) center no-repeat;
+    background-size: calc-rem(426) calc-rem(321);
+}
 
-.home-page-button-wrapper{
-    position: absolute;
-    width: calc-rem(700);
-    bottom: calc-rem(150);
-    left: 7%;
-    height: calc-rem(120);
-    line-height: calc-rem(120);
-    width: 86%;
-    font-size: calc-rem(36);
-    color: $buttonTextColor;
-    text-align: center;
-    box-sizing: border-box;
-    span{
-        display: inline-block;
-        text-align: center;
-    }
-}
-.button-left-border{
-    position: absolute;
-    left: 0;
-    width: calc-rem(30);
-    height: 100%;
-    background: url($leftBorderIcon) center no-repeat;
-    background-size: contain; 
-}
-.button-right-border{
-    position: absolute;
-    right: 0;
-    width: calc-rem(30);
-    height: 100%;
-    background: url($rightBorderIcon) center no-repeat;
-    background-size: contain; 
-}
+
+
 .home-page-button{
     background: $buttonColor;
-    height: calc-rem(90);
+    height: calc-rem(135);
     width: -webkit-calc(100% - #{calc-rem(40)});
     width: calc(100% - #{calc-rem(40)});
-    line-height: calc-rem(90);
+    line-height: calc-rem(135);
 }

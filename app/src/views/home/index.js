@@ -43,7 +43,7 @@ class Home extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         //测试跳转到问题列表
-        navigate.push(RoutPath.ROUTER_QUESTION);
+        navigate.push(RoutPath.ROUTER_QUESTION + '/1');
     }
     /**
      * 渲染界面
@@ -51,13 +51,10 @@ class Home extends React.Component {
     render() {
         return (
             <Page id='home-page-container'>
-                <div className="common-border-image xy-center">
-                    <div className='yuan-border'></div>
-                    <div className='yuan-border'></div>
-                    <div className='yuan-border'></div>
-                    <div className='yuan-border'></div>
+                <div className="home-border-image x-center">
+                    <div className="home-logo xy-center"></div>
                 </div>
-                <div className='home-page-button-wrapper'>
+                <div className='common-button-wrapper'>
                     <span className='button-left-border'></span>
                     <span className="home-page-button btn-active"
                         onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}
@@ -71,7 +68,7 @@ class Home extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '首页';
+        var title = '英雄执照';
         return title;
     }
     /**

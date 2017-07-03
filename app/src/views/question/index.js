@@ -15,7 +15,8 @@ import { connect } from 'react-redux';
 
 //require submodule
 import Page from '../../components/page';
-import { ZERO, FIRST, SECOND, THREE } from '../../constants';
+import QuestionComponent from './QuestionComponent';
+import { FIRST, SECOND, THREE } from '../../constants';
 import { fetchData } from './reducer/action';
 
 import "./index.scss";
@@ -25,127 +26,63 @@ class Question extends React.Component {
      */
     constructor(props) {
         super(props);
-        this.state = this.getInitState();
-    }
-    /**
-     * 初始化的状态
-     */
-    getInitState(state) {
-        state = state || {};
-        return Object.assign(state, {
-            tab: ZERO,
+        let type = this.props.params && this.props.params.type;
+        this.type = parseInt(type);
+        this.state = {
             Q0: this.props.remoteData.Q0 || [],
             Q1: this.props.remoteData.Q1 || [],
             Q2: this.props.remoteData.Q2 || [],
-            currentQ0: [],
-            currentQ1: [],
-            currentQ2: ''
-        });
+            isShowMask: false  //是否显示遮罩
+        }
     }
     /**
      * 返回按钮点击处理事件
-     * @param {事件} e 
+     * @param {string} val 返回事件 
      */
-    gotoNextHandler(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        let _tab = this.state.tab;
-        if (_tab <= FIRST) {
-            this.setState({ tab: _tab + 1 });
-        } else { //提交
-            let parm = {
-                Q0: this.state.currentQ0,
-                Q1: this.state.currentQ1,
-                Q2: this.state.currentQ2
-            }
-            console.log(parm,'提交');
-        }
-    }
-    /**
-     * 改变state
-     * @param {object} e 事件
-     * @param {string} e 键值
-     * @param {string} val 需要存储的值
-     */
-    changeStateHandler(e, key, val) {
-        e.preventDefault();
-        e.stopPropagation();
-        let obj = {};
-        if (key == 'currentQ2') {
-            obj[key] = val;
-            console.log(obj, 899);
-        } else {
-            let old = this.state[key];
-            if(old.indexOf(val) > -1){
-                old = old.filter((item, index) => item != val);
+    gotoNextHandler(val) {
+        this.setState({isShowMask: true});
+        setTimeout(() => {
+            if(this.type != THREE){
+                navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
             }else{
-                if (old.length == 2) {
-                    AppModal.toast('亲，最多只能选择两项哦！');
-                    return;
-                } else {
-                    old.push(val);
-                }
+                console.log('生存英雄执照');
             }
-            obj[key] = old;
-        }
-        this.setState(obj);
-    }
-    renderRadioItem(item, index) {
-        let { currentQ2 } = this.state;
-        console.log(currentQ2, 7889);
-        return (
-            <label className="question-conten-item" key={index} htmlFor={'currentQ2' + index}>
-                <input type="radio" id={'currentQ2' + index} checked={currentQ2 == item} name='quertion2'
-                    onChange={(e) => this.changeStateHandler(e, 'currentQ2', item)} /> {item}
-            </label>
-        );
-    }
-    renderCheckboxItem(item, index) {
-        let { tab } = this.state;
-        let key = 'currentQ' + tab;
-        let currentArr = this.state[key];
-        console.log(currentArr, key, 6666, item, currentArr.indexOf(item) > -1);
-        return (
-            <label className="question-conten-item" key={index} htmlFor={key + index}>
-                <input type="checkbox" id={key + index} checked={currentArr.indexOf(item) > -1}
-                    onChange={(e) => this.changeStateHandler(e, key, item)} /> {item}
-            </label>
-        );
+            
+        }, 1000);
     }
     /**
-     * 渲染问题内容部分
+     * 获取渲染的内容
      */
-    renderContentSection() {
-        let { tab } = this.state;
-        let key = "Q" + tab;
-        let Q = this.state[key];
-        let questionHint = 'Q0：你心目中的英雄应该（可以选择两项）？';
-        if (tab == FIRST) {
-            questionHint = 'Q1：你的超能力是（可以选择两项）？';
-        } else if (tab == SECOND) {
-            questionHint = 'Q2：最想对你的对手说（单选）？';
+    getComponent() {
+        let { Q0, Q1, Q2 } = this.state;
+        let comp = null;
+        console.log(Q0, Q1, Q2, 999);
+        switch (this.type) {
+            case FIRST:
+                comp = <QuestionComponent type={this.type} title='你登记想成为什么英雄 ？'
+                    data={Q0} callback={(val) => this.gotoNextHandler(val)} />
+                break;
+            case SECOND:
+                comp = <QuestionComponent type={this.type} title='选择你想要的英雄技能 ？'
+                    data={Q1} callback={(val) => this.gotoNextHandler(val)} />
+                break;
+            case THREE:
+                comp = <QuestionComponent type={this.type} title='选择一句响亮的口号吧  !'
+                    data={Q2} callback={(val) => this.gotoNextHandler(val)} />
+                break;
+            default:
+                break;
         }
-        return (
-            <div className="question-page-content">
-                <div className="question-hint">{questionHint}</div>
-                {Q.map((item, index) => {
-                    return (tab == SECOND ? this.renderRadioItem(item, index) :
-                        this.renderCheckboxItem(item, index))
-                })}
-            </div>
-        );
+        return comp;
     }
     /**
      * 渲染界面
      */
     render() {
-        let btnHint = this.state.tab != SECOND ? '下一题' : '提交';
         return (
             <Page id='question-page-container'>
-                {this.renderContentSection()}
-                <div className="question-page-button btn-active"
-                    onTouchTap={(e) => this.gotoNextHandler(e)}
-                >{btnHint}</div>
+                {this.state.isShowMask ? <div className='question-mask'></div> : null}
+                {this.getComponent()}
             </Page>
         );
     }
@@ -153,7 +90,7 @@ class Question extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '问题';
+        var title = '英雄执照';
         return title;
     }
     /**
@@ -164,18 +101,18 @@ class Question extends React.Component {
         var title = this.getTitle();
         Base.setTitle(title);
         this.getInitData();
-        if (!this.props.isFetching) {
-            AppModal.hide();
-        }
+        // if (!this.props.isFetching) {
+        //     AppModal.hide();
+        // }
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.isFetching) {
-            AppModal.hide();
-        }
+        // if (!nextProps.isFetching) {
+        //     AppModal.hide();
+        // }
         this.setState({
             Q0: nextProps.remoteData.Q0 || [],
             Q1: nextProps.remoteData.Q1 || [],

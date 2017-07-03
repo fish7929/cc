@@ -30,12 +30,15 @@ $opacityColor: rgba(20,20,20,.48);  /**带透明度颜色*/
 $bankColor: #FF4C18;  /**银行提示颜色**/
 $phoneColor: #b8c9cf;  /**电话颜色*/
 $borderRadius: 13; /*全局圆角大小*/
-$commonBorder: 1px solid $greyColor;
-/**各种图片资源***/
-$notFoundIcon : '../../assets/images/not-found.png'; /*打烊图片*/
-$applyTimeIcon: '../../assets/images/apply-time.png';
-$borrowMoneyIcon: '../../assets/images/borrow-money.png';
-$borrowTimeIcon: '../../assets/images/borrow-time.png';
+
+$bgColor: #001e55;
+$buttonColor: #094271;
+$buttonTextColor: #00caf4;
+$borderColor: #45ffff;
+$buttonSelectColor: #1b7a9c;
+
+$commonBorder: 1px solid $borderColor;
+$notFoundIcon: '../../assets/images/not-found.png';
 /*在组件内加载的时候*/
 $loadingFont1 : '../../../assets/fonts/glyphicons-halflings-regular.eot';
 $loadingFont2 : '../../../assets/fonts/glyphicons-halflings-regular.eot?#iefix';
@@ -52,15 +55,12 @@ $weixinIcon: '../../../assets/images/weixin.png';
 /**首页图片*/
 
 $borderIcon: '../../assets/images/border.png';
-$yuanIcon: '../../assets/images/yuan.png';
-
+$leftBorderIcon: '../../assets/images/border-left.png';
+$rightBorderIcon: '../../assets/images/border-right.png';
+$homeBorderIcon: '../../../assets/images/home-border.png';
+$logoIcon: '../../../assets/images/logo.png';
 $titleIcon: '../../../assets/images/title.png';
 
-$leftBorderIcon: '../../../assets/images/border-left.png';
-$rightBorderIcon: '../../../assets/images/border-right.png';
-$bgColor: #001c56;
-$buttonColor: #094271;
-$buttonTextColor: #1895c0;
 
 
 

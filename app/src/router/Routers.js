@@ -17,14 +17,14 @@ import App from '../views/App';
  */
 let Home = (location, cb) => {
     //开始加载
-    AppModal.loading();
+    // AppModal.loading();
     require.ensure([], require => {
         cb(null, require('../views/home').default);
     }, 'home');
 };
 let Question = (location, cb) => {
     //开始加载
-    AppModal.loading();
+    // AppModal.loading();
     require.ensure([], require => {
         cb(null, require('../views/question').default);
     }, 'question');
@@ -48,7 +48,7 @@ const Routers = React.createClass({
                 <Route path={RoutPath.ROUTER_HOME} component={App} >
                     <IndexRoute getComponent={Home}/>
                     <Route path={RoutPath.ROUTER_LOGIN}  getComponent={Login} />
-                    <Route path={RoutPath.ROUTER_QUESTION}  getComponent={Question} />
+                    <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
             </Router>
