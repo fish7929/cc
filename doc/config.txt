@@ -20,6 +20,10 @@ SIE88888888
 appId:wxbc5448ffcd7d3933
 appKey:986ff934a2f21dce3c0b265534d30749
 
+服务器：
+114.215.169.119
+root
+Zyzh12#$
 
 
 问题数组
