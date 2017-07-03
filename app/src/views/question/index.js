@@ -56,7 +56,6 @@ class Question extends React.Component {
     getComponent() {
         let { Q0, Q1, Q2 } = this.state;
         let comp = null;
-        console.log(Q0, Q1, Q2, 999);
         switch (this.type) {
             case FIRST:
                 comp = <QuestionComponent type={this.type} title='你登记想成为什么英雄 ？'
@@ -135,7 +134,6 @@ class Question extends React.Component {
 
 
 let mapStateToProps = state => {
-    console.log(state);
     return ({
         isFetching: state.questionData.isFetching,
         remoteData: state.questionData.remoteData

@@ -42,13 +42,9 @@
     line-height: calc-rem(90);
 }
 .question-list-wrapper{
-    // height: calc-rem(972);
     margin: 0 auto;
-    margin-top: 30%;
+    margin-top: 22%;
     text-align: center;
-    padding: 0 calc-rem(80); 
-    padding-top: calc-rem(220); 
-    padding-bottom: calc-rem(150); 
     box-sizing: border-box;
     .question-item{
         display: inline-block;

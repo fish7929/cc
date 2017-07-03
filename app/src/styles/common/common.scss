@@ -36,9 +36,12 @@
 .common-border-image{
     position: relative;
     width: 96%;
-    min-height: calc-rem(621);
-    background: url($borderIcon) center no-repeat;
-    background-size: cover;
+    border-top: calc-rem(190) solid transparent;
+    border-left: calc-rem(80) solid transparent;
+    border-right: calc-rem(80) solid transparent;
+    border-bottom: calc-rem(130) solid transparent;
+    -webkit-border-image: url($borderIcon) 190 80 130 stretch stretch;
+    border-image: url($borderIcon) 190 80 130 stretch stretch;
     box-sizing: border-box;
 }
 .common-button-wrapper{
