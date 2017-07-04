@@ -1,0 +1,41 @@
+@import '../../styles/common/_mixins.scss';
+
+#chat-view{
+    
+    .chat-view-list{
+        width: 100%;
+        height: calc(100% - #{calc-rem(90)});
+        overflow: auto;
+        background: #001e55;
+    }
+
+    .input-div{
+        width: 100%;
+        height: calc-rem(90);
+        background: #094271;
+        padding: 0 calc-rem(40);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input{
+            color: #fff;
+            font-size: calc-rem(32);
+            width: calc(100% - #{calc-rem(160)});
+            background: rgba(0,0,0,0)
+        }
+
+        input::-webkit-input-placeholder{
+            color: #fff;
+        }
+
+        button{
+            height: calc-rem(60);
+            width: calc-rem(140);
+            border: calc-rem(4) solid #42f7fd;
+            background: rgba(0,0,0,0);
+            color: #fff;
+        }
+    }
+    
+}

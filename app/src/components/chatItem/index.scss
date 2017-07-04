@@ -1,0 +1,50 @@
+@import "../../styles/common/_mixins.scss";
+
+.chat-item{
+    width: 100%;
+    min-height: calc-rem(210);
+    padding: 0 calc-rem(40);
+    padding-top: calc-rem(40);
+    
+
+    .chat-item-div{
+        width: 100%;
+    }
+
+    .header-div{
+        width: calc-rem(130);
+        height: calc-rem(130);
+        border-radius: calc-rem(130);
+        border: calc-rem(6) solid #42f7fd;
+        background-color: #1b7a9c;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        float: left;
+
+        img{
+            width: calc-rem(124);
+            height: calc-rem(124);
+            border-radius: calc-rem(124);
+        }
+    }
+
+    .content{
+        width: calc(100% - #{calc-rem(130)});
+        padding: calc-rem(20);
+        float: right;
+        font-size: calc-rem(32);
+        color: #fff;
+        line-height: calc-rem(42);
+    }
+
+    .chat-item-div.active{
+        .header-div{
+            float: right;
+        }
+
+        .content{
+            float: left;
+        }
+    }
+}

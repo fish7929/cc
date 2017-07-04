@@ -35,6 +35,18 @@ let Login = (location, cb) => {
     }, 'login');
 };
 
+let ChatHistory = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/chatHistory').default);
+    }, 'chatHistory');
+}
+
+let ChatView = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/chat').default);
+    }, 'chatView');
+}
+
 let NotFoundPage = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../views/404').default);
@@ -49,6 +61,8 @@ const Routers = React.createClass({
                     <IndexRoute getComponent={Home}/>
                     <Route path={RoutPath.ROUTER_LOGIN}  getComponent={Login} />
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
+                    <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
+                    <Route path={RoutPath.ROUTER_CHAT_VIEW} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
             </Router>

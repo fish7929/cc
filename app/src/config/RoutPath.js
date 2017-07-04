@@ -14,6 +14,8 @@ const RoutPath = {
     ROUTER_LOGIN: ROOT_ROUTER + '/login',
     ROUTER_QUESTION: ROOT_ROUTER + '/question',
     ROUTER_COMMON: ROOT_ROUTER + '*',
+    ROUTER_CHAT_HISTORY: ROOT_ROUTER + '/chatHistory',
+    ROUTER_CHAT_VIEW: ROOT_ROUTER + '/chat'
 };
 
 export default RoutPath;
