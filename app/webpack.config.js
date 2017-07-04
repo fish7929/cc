@@ -53,7 +53,7 @@ var common = {
         ]
     },
     output: {
-        path: path.join(__dirname, '../jdweb-server/src/main/resources/static'),    //编译完的项目增加到该目录下
+        path: path.join(__dirname, './dist'),    //编译完的项目增加到该目录下
         filename: isProd() ? './js/[name].[chunkhash:8].js' : './js/[name].js',
         chunkFilename: isProd() ? './js/[name].chunk.[chunkhash:8].js' : './js/[name].chunk.js',
         publicPath: isProd() ? '' : '/dist/'
