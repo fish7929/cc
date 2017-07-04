@@ -22,6 +22,7 @@ $headerBorder: calc-rem(4) solid #42f7fd;
     width: 100%;
     height: 100%;
     padding: calc-rem(25);
+    overflow-y: auto;
 }
 
 .hero-title{
@@ -43,11 +44,10 @@ $headerBorder: calc-rem(4) solid #42f7fd;
     margin-top: calc-rem(35); 
     .hero-mask{
         position: absolute;
-        top: 0;
         z-index: 1;
-        width: 80%;
+        width: 88%;
+        left: 6%;
         top: calc-rem(20);
-        left: 10%;
         height: calc-rem(665);
         background: #0e4c79;
     }
@@ -61,10 +61,10 @@ $headerBorder: calc-rem(4) solid #42f7fd;
     }
     .hero-detail{
         position: absolute;
-        left: 10%;
+        left: 6%;
         top: calc-rem(80);
         height: calc-rem(600);
-        width: 80%;
+        width: 88%;
         padding: 0 calc-rem(40);
         z-index: 3;
         .hero-detail-left{
@@ -151,7 +151,21 @@ $headerBorder: calc-rem(4) solid #42f7fd;
                 color: $whiteColor;
             }
         }
+        .button-left-border, .button-right-border{
+            background-size: contain; 
+        }
     }
     
+}
+.hero-button-active{
+    background: $buttonSelectColor !important;
+    color: $whiteColor !important;
+}
+
+@media only screen and (min-width: 376px) and (max-width: 415px){
+    .hero-detail, .hero-mask{
+        width: 80% !important;
+        left: 10% !important;
+    }
 }
 

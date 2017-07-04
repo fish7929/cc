@@ -16,11 +16,12 @@ import { connect } from 'react-redux';
 //require submodule
 import Page from '../../components/page';
 import QRcode from '../../components/qrcode';
-import { FIRST, SECOND, THREE } from '../../constants';
+import { ZERO, FIRST, SECOND, THREE } from '../../constants';
 import { fetchData } from './reducer/action';
 
 import "./index.scss";
 import DefaultHeader from '../../../assets/images/header.png';
+const ClientWidth = document.body.clientWidth;
 class Hero extends React.Component {
     /**
      *构造函数
@@ -30,37 +31,50 @@ class Hero extends React.Component {
         let type = this.props.params && this.props.params.type;
         this.type = parseInt(type);
         this.state = {
+            type: ZERO
         };
     }
     /**
      * 返回按钮点击处理事件
-     * @param {string} val 返回事件 
+     * @param {object} e 返回事件 
+     * @param {number} type 表示按钮类型
      */
-    gotoNextHandler(val) {
-        this.setState({isShowMask: true});
-        setTimeout(() => {
-            if(this.type != THREE){
-                navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
-            }else{
-                console.log('生存英雄执照');
-            }
-        }, 1000);
+    heroOperationHandler(e, type) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.setState({ type });
+        switch (type) {
+            case FIRST:
+                console.log('分享');
+                break;
+            case SECOND:
+                console.log('上屏');
+                break;
+            case THREE:
+                navigate.push(RoutPath.ROUTER_CHAT_HISTORY);
+                break;
+        }
     }
     /**
      * 获取渲染的内容
      */
     getComponent() {
+        let { type } = this.state;
+        let _width = ClientWidth > 375 ? ClientWidth * 0.175 : ClientWidth * 0.192;
+        let _selected1 = type == FIRST ? 'hero-button-active' : '';
+        let _selected2 = type == SECOND ? 'hero-button-active' : '';
+        let _selected3 = type == THREE ? 'hero-button-active' : '';
         return (
             <div className="hero-page-content">
                 <div className='hero-title'>
-                    你好英雄！<br/> 请务必守卫地球和平！
+                    你好英雄！<br /> 请务必守卫地球和平！
                 </div>
                 <div className='hero-wrapper'>
                     <div className="hero-mask"></div>
                     <div className="hero-border"></div>
                     <div className='hero-detail'>
                         <div className='hero-detail-left'>
-                            <img src={DefaultHeader}/>
+                            <img src={DefaultHeader} />
                         </div>
                         <div className='hero-detail-right'>
                             <div className='hero-detail-text no-wrap'>微信ID人称</div>
@@ -71,7 +85,7 @@ class Hero extends React.Component {
                             <div className='hero-detail-text no-wrap'>现在我宣誓</div>
                             <div className='hero-detail-text no-wrap'><span>人丑就要多读书</span></div>
                             <div className='hero-qrcode'>
-                                <QRcode text={'http://www.baidu.com'} width={72} height={72}/>
+                                <QRcode text={'http://www.baidu.com'} width={_width} height={_width} />
                             </div>
                             <span className='hero-qrcode-hint'>长按图片识别二维码</span>
                         </div>
@@ -80,17 +94,17 @@ class Hero extends React.Component {
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
-                        <span className="hero-button-hint">分享</span>
+                        <span className={"hero-button-hint " + _selected1} onTouchTap={(e) => this.heroOperationHandler(e, FIRST)}>分享</span>
                         <span className='button-right-border'></span>
                     </div>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
-                        <span className="hero-button-hint">上屏</span>
+                        <span className={"hero-button-hint " + _selected2}onTouchTap={(e) => this.heroOperationHandler(e, SECOND)}>上屏</span>
                         <span className='button-right-border'></span>
                     </div>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
-                        <span className="hero-button-hint">私信</span>
+                        <span className={"hero-button-hint " + _selected3} onTouchTap={(e) => this.heroOperationHandler(e, THREE)}>私信</span>
                         <span className='button-right-border'></span>
                     </div>
                 </div>
@@ -134,8 +148,9 @@ class Hero extends React.Component {
         // if (!nextProps.isFetching) {
         //     AppModal.hide();
         // }
-        // this.setState({
-        // });
+        this.setState({
+            type: ZERO
+        });
     }
     /**
      * 获取网络初始化数据，

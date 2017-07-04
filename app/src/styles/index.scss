@@ -110,3 +110,9 @@ p{
 .btn-active:active{
     opacity: .8;
 }
+
+.no-wrap{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}

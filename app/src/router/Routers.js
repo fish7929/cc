@@ -34,12 +34,22 @@ let Login = (location, cb) => {
         cb(null, require('../views/login').default);
     }, 'login');
 };
-
 let Hero = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../views/hero').default);
     }, 'hero');
 };
+let ChatHistory = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/chatHistory').default);
+    }, 'chatHistory');
+}
+
+let ChatView = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/chat').default);
+    }, 'chatView');
+}
 
 let NotFoundPage = (location, cb) => {
     require.ensure([], require => {
@@ -56,6 +66,8 @@ const Routers = React.createClass({
                     <Route path={RoutPath.ROUTER_LOGIN}  getComponent={Login} />
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
                     <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
+                    <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
+                    <Route path={RoutPath.ROUTER_CHAT_VIEW} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
             </Router>
