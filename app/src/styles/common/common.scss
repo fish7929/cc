@@ -66,7 +66,7 @@
     width: calc-rem(41);
     height: 100%;
     background: url($leftBorderIcon) left center no-repeat;
-    background-size: cover; 
+    background-size: contain; 
 }
 .button-right-border{
     position: absolute;
@@ -74,7 +74,7 @@
     width: calc-rem(41);
     height: 100%;
     background: url($rightBorderIcon) right  center no-repeat;
-    background-size: cover; 
+    background-size: contain; 
 }
 
  

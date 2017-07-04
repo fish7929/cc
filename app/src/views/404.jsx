@@ -38,7 +38,7 @@ class NoFoundPage extends React.Component {
         return (
             <Page id="not-found-page" >
                 {/*<Header title="系统维护" onBackClick={ (e) => this.backHandler(e)}/>*/}
-                <div className='page-content-container not-found-container' >侠哥被劫持了，明日回来</div>
+                <div className='page-content-container not-found-container' >英雄被劫持了，明日回来</div>
             </Page>
         );
     }

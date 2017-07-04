@@ -46,8 +46,8 @@ class Question extends React.Component {
                 navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
             }else{
                 console.log('生存英雄执照');
+                navigate.push(RoutPath.ROUTER_HERO);
             }
-            
         }, 1000);
     }
     /**

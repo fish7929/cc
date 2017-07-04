@@ -40,6 +40,9 @@
     width: -webkit-calc(100% - #{calc-rem(40)});
     width: calc(100% - #{calc-rem(40)});
     line-height: calc-rem(90);
+    color: $whiteColor;
+    -webkit-text-shadow:  calc-rem(4) 0 calc-rem(2) rgba(255,255,255,.57);
+    text-shadow: calc-rem(4) 0 calc-rem(2) rgba(255,255,255,.57);
 }
 .question-list-wrapper{
     margin: 0 auto;

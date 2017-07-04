@@ -35,6 +35,12 @@ let Login = (location, cb) => {
     }, 'login');
 };
 
+let Hero = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/hero').default);
+    }, 'hero');
+};
+
 let NotFoundPage = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../views/404').default);
@@ -49,6 +55,7 @@ const Routers = React.createClass({
                     <IndexRoute getComponent={Home}/>
                     <Route path={RoutPath.ROUTER_LOGIN}  getComponent={Login} />
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
+                    <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
             </Router>
