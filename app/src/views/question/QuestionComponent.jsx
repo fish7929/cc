@@ -49,10 +49,7 @@ class QuestionComponent extends React.Component {
         let { data, current, title, type } = this.state;
         return (
             <div className="question-page-content">
-                <div className='common-button-wrapper question-button-wrapper'>
-                    <span className='button-left-border'></span>
-                    <span className="question-hint">{title}</span>
-                    <span className='button-right-border'></span>
+                <div className={'question-hint question-hint-wrapper' + type}>
                 </div>
                 <div className="common-border-image question-list-wrapper">
                     {data.map((item, index) => {

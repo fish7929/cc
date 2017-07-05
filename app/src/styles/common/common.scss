@@ -45,10 +45,10 @@
     box-sizing: border-box;
 }
 .common-button-wrapper{
-    position: absolute;
+    position: relative;
     width: 90%;
-    bottom: calc-rem(200);
-    left: 5%;
+    margin: 0 auto;
+    margin-top: calc-rem(50);
     height: calc-rem(160);
     line-height: calc-rem(160);
     font-size: calc-rem(52);

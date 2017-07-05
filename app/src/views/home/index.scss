@@ -7,35 +7,36 @@
  * @author fishYu
  **/
 #home-page-container{
-    background: url($titleIcon) top center no-repeat $bgColor;
+    background: url($homeBgIcon) top center no-repeat;
     background-size: contain; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow-y: auto;
 }
-.home-border-image{
-    width: 96%;
-    top: 18%;
-    height: calc-rem(621);
-    background: url($homeBorderIcon) center no-repeat;
-    background-size: cover;
+.home-title{
+    width: 100%;
+    height: calc-rem(213);
+    background: url($titleIcon) center no-repeat;
+    background-size: contain;
 }
 .home-logo{
-    width: calc-rem(426);
-    height: calc-rem(321);
+    margin: 0 auto;
+    margin-top: calc-rem(43);
+    width: calc-rem(722);
+    height: calc-rem(611);
     background: url($logoIcon) center no-repeat;
-    background-size: calc-rem(426) calc-rem(321);
+    background-size: calc-rem(722) calc-rem(611);
 }
 
 
 
 .home-page-button{
-    background: $buttonColor;
+    margin-top: calc-rem(12.5);
     height: calc-rem(135);
     width: -webkit-calc(100% - #{calc-rem(40)});
     width: calc(100% - #{calc-rem(40)});
-    line-height: calc-rem(135);
+    background: url($homeButtonIcon) no-repeat center;
+    background-size: contain; 
 }

@@ -32,10 +32,10 @@ $phoneColor: #b8c9cf;  /**电话颜色*/
 $borderRadius: 13; /*全局圆角大小*/
 
 $bgColor: #001e55;
-$buttonColor: #094271;
+$buttonColor: #453aa1;
 $buttonTextColor: #00caf4;
 $borderColor: #45ffff;
-$buttonSelectColor: #1b7a9c;
+$buttonSelectColor: #453aa0;
 
 $commonBorder: 1px solid $borderColor;
 $notFoundIcon: '../../assets/images/not-found.png';
@@ -63,5 +63,20 @@ $titleIcon: '../../../assets/images/title.png';
 $heroBorderIcon: '../../../assets/images/hero-border.png';
 
 
+$homeButtonIcon: '../../../assets/images/home-button.jpg';
+$homeBgIcon: '../../../assets/images/home-bg.jpg';
+$titleIcon: '../../../assets/images/title.png';
 
+$questionBgIcon: '../../../assets/images/question-bg.jpg';
+$questionHint1Icon: '../../../assets/images/question-hint1.png';
+$questionHint2Icon: '../../../assets/images/question-hint2.png';
+$questionHint3Icon: '../../../assets/images/question-hint3.png';
+
+$heroHintIcon: '../../../assets/images/hero-hint.png';
+$upScreenIcon: '../../../assets/images/up-screen.png';
+$buttonIcon: '../../../assets/images/button.png';
+$heroDetailIcon: '../../../assets/images/hero-detail.png';
+$headBgIcon: '../../../assets/images/head-bg.png';
+$heroCardIcon: '../../../assets/images/hero-card.png';
+$commonBorderIcon: '../../../assets/images/common-border.png';
 

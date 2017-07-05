@@ -22,7 +22,8 @@
     height: 100%;
 }
 .question-page-content{
-    background: $bgColor;
+    background: url($questionBgIcon) top center no-repeat;
+    background-size: contain; 
     position: absolute;
     top: 0;
     left: 0;
@@ -30,24 +31,26 @@
     height: 100%;
     overflow-y: auto;
 }
-
-.question-button-wrapper{
-    top: 5%;
-    height: calc-rem(115) !important;
-    line-height: calc-rem(115) !important;
-}
 .question-hint{
-    height: calc-rem(90);
-    width: -webkit-calc(100% - #{calc-rem(40)});
-    width: calc(100% - #{calc-rem(40)});
-    line-height: calc-rem(90);
-    color: $whiteColor;
-    -webkit-text-shadow:  calc-rem(4) 0 calc-rem(2) rgba(255,255,255,.57);
-    text-shadow: calc-rem(4) 0 calc-rem(2) rgba(255,255,255,.57);
+    width: 100%;
+    height: calc-rem(174);
+    margin-top: calc-rem(50);
+}
+.question-hint-wrapper1{
+    height: calc-rem(177);
+    background: url($questionHint1Icon) center no-repeat;
+    background-size: cover; 
+}
+.question-hint-wrapper2{
+    background: url($questionHint2Icon) center no-repeat;
+    background-size: cover; 
+}
+.question-hint-wrapper3{
+    background: url($questionHint3Icon) center no-repeat;
+    background-size: cover; 
 }
 .question-list-wrapper{
     margin: 0 auto;
-    margin-top: 22%;
     text-align: center;
     box-sizing: border-box;
     .question-item{

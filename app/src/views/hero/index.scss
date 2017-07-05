@@ -1,6 +1,5 @@
 @import '../../styles/common/_mixins.scss';
 
-$headerBorder: calc-rem(4) solid #42f7fd;
 /**
  * @component index.scss
  * @description 英雄
@@ -15,121 +14,38 @@ $headerBorder: calc-rem(4) solid #42f7fd;
     height: 100%;
  }
 .hero-page-content{
-    background: $bgColor;
+    background: url($questionBgIcon) top center no-repeat;
+    background-size: contain; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    padding: calc-rem(25);
     overflow-y: auto;
 }
 
 .hero-title{
     width: 100%;
-    height: calc-rem(210);
-    border: calc-rem(4) solid #000;
-    background: #011841;
-    color: #09b7df;
-    font-size: calc-rem(50);
-    padding: calc-rem(40) 0;
-    text-align: center;
-    line-height: calc-rem(65);
-    box-sizing: border-box;
+    height: calc-rem(174);
+    margin-top: calc-rem(50);
+    background: url($heroHintIcon) center no-repeat;
+    background-size: cover;
 }
-.hero-wrapper{ 
-    position: relative;
-    width: 100%;
-    height: calc-rem(750);
-    margin-top: calc-rem(35); 
-    .hero-mask{
-        position: absolute;
-        z-index: 1;
-        width: 88%;
-        left: 6%;
-        top: calc-rem(20);
-        height: calc-rem(665);
-        background: #0e4c79;
-    }
-    .hero-border{
-        position: absolute;
-        z-index: 2;
-        height: calc-rem(700);
-        width: 100%;
-        background: url($heroBorderIcon) center no-repeat;
-        background-size: contain; 
-    }
-    .hero-detail{
-        position: absolute;
-        left: 6%;
-        top: calc-rem(80);
-        height: calc-rem(600);
-        width: 88%;
-        padding: 0 calc-rem(40);
-        z-index: 3;
-        .hero-detail-left{
-            display: inline-block;
-            width: calc-rem(120);
-            height: 100%;
-            vertical-align: top;
-            img{
-                width: calc-rem(120);
-                height: calc-rem(120);
-                border: $headerBorder;
-                box-sizing: border-box;
-                border-radius: 100%;
-                display: inline-block;
-                margin-top: calc-rem(20);
-            }
-        }
-        .hero-detail-right{
-            display: inline-block;
-            width: -webkit-calc(100% - #{calc-rem(120)});
-            width: calc(100% - #{calc-rem(120)});
-            padding-left: calc-rem(30);
-            box-sizing: border-box;
-            height: 100%;
-            .hero-detail-text{
-                font-size: calc-rem(32);
-                line-height: calc-rem(55);
-                color: #08abd2;
-                font-style: italic;
-                span{
-                    font-size: calc-rem(40);
-                    color: $whiteColor;
-                }
-            }
-        }
-    }
-    .hero-qrcode{
-        margin-top: calc-rem(10); 
-        margin-left: calc-rem(30);
-        height: calc-rem(162);
-        width: calc-rem(162);
-        background: $whiteColor;
-        padding: calc-rem(9);
-        box-sizing: border-box;
-    }
-    .hero-qrcode-hint{
-        display: block;
-        margin-top: calc-rem(15); 
-        font-size: calc-rem(20);
-        color: $whiteColor;
-        font-style: italic;
-    }
-}
+
 
 .hero-buttons-group{
     position: relative;
     width: 100%;
-    height: calc-rem(100);
-    line-height: calc-rem(100);
+    padding: 0 calc-rem(25);
+    height: calc-rem(90);
+    line-height: calc-rem(90);
+    margin-top: calc-rem(35);
     .hero-button-wrapper{
         position: relative;
         display: inline-block;
-        width: 30%;
+        width: 32%;
         height: 100%;
-        margin-right: 5%;
+        margin-right: 2%;
         text-align: center;
         box-sizing: border-box;
         span{
@@ -140,32 +56,28 @@ $headerBorder: calc-rem(4) solid #42f7fd;
             margin-right: 0;
         }
         .hero-button-hint{
-            background: $buttonColor;
-            color: $buttonTextColor;
-            height: calc-rem(75);
-            width: -webkit-calc(100% - #{calc-rem(40)});
-            width: calc(100% - #{calc-rem(40)});
-            line-height: calc-rem(75);
+            background: url($buttonIcon) no-repeat center;
+            background-size: cover; 
+            color: $whiteColor;
+            height: calc-rem(70);
+            width: -webkit-calc(100% - #{calc-rem(20)});
+            width: calc(100% - #{calc-rem(20)});
+            line-height: calc-rem(70);
+            font-size: calc-rem(36);
             &:active{
-                background: $buttonSelectColor;
-                color: $whiteColor;
+                opacity: .8;
             }
         }
         .button-left-border, .button-right-border{
             background-size: contain; 
         }
     }
-    
-}
-.hero-button-active{
-    background: $buttonSelectColor !important;
-    color: $whiteColor !important;
-}
-
-@media only screen and (min-width: 376px) and (max-width: 415px){
-    .hero-detail, .hero-mask{
-        width: 80% !important;
-        left: 10% !important;
+    .up-screen{
+        color: $whiteColor;
+        font-size: calc-rem(44);
+        background: url($upScreenIcon) center no-repeat;
+        background-size: contain; 
     }
+    
 }
 
