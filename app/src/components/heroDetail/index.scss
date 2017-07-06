@@ -13,7 +13,7 @@
     margin-top: calc-rem(55);
     background: url($heroDetailIcon) center no-repeat;
     background-size: cover; 
-    padding-top: calc-rem(105);
+    padding-top: calc-rem(84);
     padding-left: calc-rem(30);
     .hero-detail-left{
         display: inline-block;
@@ -52,7 +52,7 @@
         }
         .hero-qrcode-hint{
             display: block;
-            margin-top: calc-rem(21); 
+            margin-top: calc-rem(10); 
             font-size: calc-rem(22);
             color: $whiteColor;
             font-style: italic;
@@ -88,3 +88,53 @@
         }
     }
 }
+
+
+.hero-prize-top1{
+    margin: 0 auto;
+    width: calc-rem(295);
+    height: calc-rem(204);
+    background: url($top1Icon) center no-repeat;
+    background-size: contain; 
+}
+
+.hero-prize-top2{
+    margin: 0 auto;
+    width: calc-rem(184);
+    height: calc-rem(134);
+    background: url($top2Icon) center no-repeat;
+    background-size: contain; 
+}
+
+.hero-prize-top3{
+    margin: 0 auto;
+    width: calc-rem(184);
+    height: calc-rem(134);
+    background: url($top3Icon) center no-repeat;
+    background-size: contain; 
+}
+
+.hero-prize-top4{
+    margin: 0 auto;
+    width: calc-rem(184);
+    height: calc-rem(134);
+    background: url($top4Icon) center no-repeat;
+    background-size: contain; 
+}
+
+.hero-prize-top5{
+    margin: 0 auto;
+    width: calc-rem(184);
+    height: calc-rem(134);
+    background: url($top5Icon) center no-repeat;
+    background-size: contain; 
+}
+.no-margin-top{
+    margin-top: 0 !important;
+}
+
+.hero-top+.hero-qrcode{
+    margin-top: 0 !important;
+}
+
+

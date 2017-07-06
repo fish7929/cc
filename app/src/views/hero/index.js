@@ -31,6 +31,7 @@ class Hero extends React.Component {
         let type = this.props.params && this.props.params.type;
         this.type = parseInt(type);
         this.state = {
+            isShow: false,
             type: ZERO
         };
     }
@@ -45,6 +46,7 @@ class Hero extends React.Component {
         this.setState({ type });
         switch (type) {
             case FIRST:
+                this.setState({isShow: true});
                 console.log('分享');
                 break;
             case SECOND:
@@ -56,6 +58,15 @@ class Hero extends React.Component {
         }
     }
     /**
+     * 隐藏分享图层
+     * @param {object} e 返回事件 
+     */
+    hideShareLayerHandler(e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.setState({isShow: false});
+    }
+    /**
      * 获取渲染的内容
      */
     getComponent() {
@@ -63,11 +74,11 @@ class Hero extends React.Component {
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail  ref='my-hero'/>
+                <HeroDetail ref='my-hero' />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
-                        <span className={"hero-button-hint "} onTouchTap={(e) => this.heroOperationHandler(e, FIRST)}>分享</span>
+                        <span className={"hero-button-hint "} onTouchTap={(e) => this.heroOperationHandler(e, FIRST)}>炫耀</span>
                         <span className='button-right-border'></span>
                     </div>
                     <div className='hero-button-wrapper up-screen' onTouchTap={(e) => this.heroOperationHandler(e, SECOND)}>上&emsp;屏
@@ -87,6 +98,8 @@ class Hero extends React.Component {
     render() {
         return (
             <Page id='hero-page-container'>
+                {this.state.isShow ? <div className='hero-share'
+                    onTouchTap={(e) => this.hideShareLayerHandler(e)}></div> : null}
                 {this.getComponent()}
             </Page>
         );
@@ -132,6 +145,10 @@ class Hero extends React.Component {
      * 组件渲染完成调用
      */
     componentWillUnmount() {
+        this.setState({
+            isShow: false,
+            type: ZERO
+        });
     }
 
 }
