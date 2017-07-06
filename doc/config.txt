@@ -9,7 +9,13 @@ appKey:wqmHFKHKc8YoGi3PTIQ5zd8k
 
 开发者账号：WEIXIN@streamgroup.cn
 密码：SIE88888888
+AppID：wxf82fb57ce47d0df6
+AppSecret：5cb09a5d891191e6ad181d5c8e62223d
 
+域名是www.6itec.com
+
+代码目录
+/var/www/html
 
 公众号：
 人潮互娱
@@ -20,10 +26,49 @@ SIE88888888
 appId:wxbc5448ffcd7d3933
 appKey:986ff934a2f21dce3c0b265534d30749
 
+第三方登录：用户登录默认密码为：www.6itec.com第三方登录（MD5加密文:6fda947a37f30dd0）
 服务器：
 114.215.169.119
 root
 Zyzh12#$
+
+需求逻辑：
+这个交互应该是 用户扫码进入页面 如果之前没登录注册先注册，登录，然后加二维码所有者为好友， ，，，，， 而二维码的产生是 用户在 生成上岗证的时候 给二维码 绑定用户的id作为用户识别标记，对吧？？
+
+没登录得先登录，才能私信
+登录会有微信授权操作
+
+英雄榜： 根据聊天数据数排序，最多的在前面。聊天数据是指接收到的消息，自己发出去的不算
+
+新加入英雄：根据两个东西来排列，已经上屏状态，和点击上屏按钮的时间。上屏状态越小越快上屏，同一状态，点击上屏按钮时间越早，越快上屏。
+上屏状态：0 从来没上过屏幕  1 屏幕循环标记 2 上屏循环标记。
+上屏后状态变化：状态0 -〉 状态 2 -〉状态 1 -〉状态 2
+
+
+数据表：
+一：用户表
+
+
+二：上岗证表：card
+objectId    string 上岗证ID
+usernick  	string  用户昵称
+user_id  	string  用户id
+q0 			string Q0标签2个中间用,隔开
+q1 			string Q0标签2个中间用,隔开
+q2 			string Q0标签2个中间用,隔开
+qrcode 		string 用户二维码链接
+card_url 	string 上岗证效果图地址
+
+三：聊天私信表：即时通信
+
+四：关注粉丝表（2个表）
+friend 
+user_id
+friend
+
+关于排行榜的数据加载逻辑：
+英雄榜： 根据聊天数据数排序，最多的在前面
+新加入英雄：根据扫码进来登录注册时间排序
 
 
 问题数组
@@ -74,18 +119,3 @@ var Q2=[
 "画面太美我不敢看",
 "宝宝心里苦，但是宝宝不说"
 ]
-
-数据表：
-上岗证表：card
-
-usernick  	string  用户昵称，
-user_id  	string  用户id
-q0 			string Q0标签2个中间用,隔开
-q1 			string Q0标签2个中间用,隔开
-q2 			string Q0标签2个中间用,隔开
-qrcode 		string 用户二维码链接
-card_url 	string 上岗证效果图地址
-
-
-
-

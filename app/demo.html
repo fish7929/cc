@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>nyh demo page</title>
+    <script>
+        function getMobileCode() {
+             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri=http%3a%2f%2fwww.6itec.com%2fshare%2fdemo%2flogincallback.html&response_type=code&scope=snsapi_login&state="+new Date().getTime()+"#wechat_redirect", "_self");
+        } 
+    </script>
+</head>
+
+<body>
+    <div>
+        <br><br><br>
+        <input type="button" value="微信登录--微信内部浏览器授权" onclick="getMobileCode()" />
+
+        <br><br><br> <br><br><br> 扫码(注册、登录)进入，同时关注二维码用户
+
+        <br><br> demo链接:http://www.6itec.com/share/demo/logincallback?user=595dd8b35c497d0058a6e091
+        <br><br>
+        <img src="my.png" />
+</body>
+
+</html>

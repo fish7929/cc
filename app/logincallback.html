@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>微信登录成功页面</title>
+    <script src="av-min.js"></script>
+    <script src="login.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+
+    <script> 
+         $(document).ready(function () {
+            var code = lc_api.GetRequest()["code"]; 
+            var user = lc_api.GetRequest()["user"]; 
+            if (code) { 
+                    lc_api.userOauthLogin(code);
+            } else if(user){
+                lc_api.userQrcodeLogin(code); 
+            }else{
+                return;alert("code为空！");
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <div id="contentDiv"></div>
+    </div>
+    <div id="codeDiv">
+        <img src="my.png">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="applisalonion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<link href="css/iconeffects.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />	
+<link rel="stylesheet" href="css/swipebox.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.js"> </script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!--/web-font-->
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+<!-- swipe box js -->
+	<script src="js/jquery.swipebox.min.js"></script> 
+	    <script type="text/javascript">
+			jQuery(function($) {
+				$(".swipebox").swipebox();
+			});
+	</script>
+<!-- //swipe box js -->
+
+</head>
+<body>
+<!--start-home-->
+		<div class="banner w3l" id="home">
+		<div class="header-bottom">
+		     <div class="container">
+			  <div class="fixed-header">
+			      <!--logo-->
+			       <div class="logo wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+                      <a href="index.html"><h1>致戎网络科技</h1></a>
+				   </div>
+					<!--//logo-->
+					<div class="top-menu wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+							<span class="menu"> </span>
+							<nav class="link-effect-4" id="link-effect-4">
+                              <ul>
+								 <li class="active"><a data-hover="首页" href="index.html">首页</a></li>
+								<li><a data-hover="整合营销" href="#services" class="scroll">整合营销</a></li>
+								<li><a data-hover="技术服务" href="#about" class="scroll">技术服务</a></li>
+								<li><a data-hover="案例分享" href="#gallery" class="scroll">案例分享</a></li>
+								<!--<li><a data-hover="技术案例" href="#testimonials" class="scroll">技术案例</a></li>-->
+								<li><a data-hover="关于我们" href="#team1" class="scroll">关于我们</a></li>
+							 </ul>
+							</nav>
+							</div>
+							<!-- script-for-menu -->
+								<script>
+									$("span.menu").click(function(){
+										$(".top-menu ul").slideToggle("slow" , function(){
+										});
+									});
+								</script>
+								<!-- script-for-menu -->
+
+				 <div class="clearfix"></div>
+					<script>
+				$(document).ready(function() {
+					 var navoffeset=$(".header-bottom").offset().top;
+					 $(window).scroll(function(){
+						var scrollpos=$(window).scrollTop(); 
+						if(scrollpos >=navoffeset){
+							$(".header-bottom").addClass("fixed");
+						}else{
+							$(".header-bottom").removeClass("fixed");
+						}
+					 });
+					 
+				});
+				</script>
+			 </div>
+		</div>
+	</div>
+		<div class="banner-slider w3ls">
+				<div class="callbacks_container">
+					<ul class="rslides" id="slider4">
+					    <li>
+						   <div class="banner-info wthree wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+							      <h3>整合营销</h3>
+								  <p>以客户为中心，聚焦全面的客户体验，展现整合营销的宗旨</p>
+							  </div>
+						</li>
+						<li>
+						   <div class="banner-info wthree wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+							    <h3>营销与科技</h3>
+								 <p>营销与科技相结合，传统的传播形式与互联科技相结合，使整合营销展现更多的可能性！</p>
+								  
+								
+							  </div>
+						</li>
+						<li>
+						   <div class="banner-info wthree wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+							      <h3>精英团队</h3>
+								  <p>专业的营销团队，极致认真的工作精神，为客户负责的理念，打造最靠谱的整合营销！</p>
+								   
+								   
+						   </div>
+					  </li>
+					</ul>
+			  </div>
+		<!--banner Slider starts Here-->
+	  	<script src="js/responsiveslides.min.js"></script>
+			 <script>
+			    // You can also use "$(window).load(function() {"
+			    $(function () {
+			      // Slideshow 4
+			      $("#slider4").responsiveSlides({
+			        auto: true,
+			        pager:true,
+			        nav:false,
+			        speed: 500,
+			        namespace: "callbacks",
+			        before: function () {
+			          $('.events').append("<li>before event fired.</li>");
+			        },
+			        after: function () {
+			          $('.events').append("<li>after event fired.</li>");
+			        }
+			      });
+			
+			    });
+			  </script>
+	      <!--banner Slider starts Here-->
+		 </div>
+	</div>
+<!-- service-type-grid -->
+	<div class="different agileits all_pad" id="services">
+	<div class="container">
+		<h3 class="title">整合营销</h3>
+		<div class="diff-grids">
+			<div class="col-md-4 diff-grid diff-one bor-bot wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+				<div class="port-1 effect-3">
+                	<div class="image-box">
+                    	<img class="img-responsive" src="images/p4.jpg" alt="Image-3">
+                    </div>
+                    <div class="text-desc">
+                    	<h4>直播/视频</h4>
+                        <p>我们提供网络直播、会议活动拍摄、创意活动拍摄剪辑、商业摄影摄像、特效视频制作等视频服务</p>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-4 diff-grid bor-bot bar-two wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+				<div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon1"></a>
+						<h4>营销策略咨询</h4>
+						<p>聚合型跨界专家组合，基于大创意+前沿互动技术+绝佳用户体验+网络媒体+eCRM的整体策略咨询</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 diff-grid diff-one bor-bot wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+				<div class="port-1 effect-3">
+                	<div class="image-box">
+                    	<img class="img-responsive" src="images/p2.jpg" alt="Image-3">
+                    </div>
+                    <div class="text-desc">
+                    	<h4>活动策划执行</h4>
+                        <p>公关创意、媒体传播、深度咨询到现场执行，提供高度专业、创新的系统服务，实现了以营销服务平台、会议服务平台、高端客户服务平台为支撑模块的服务架构</p>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-4 diff-grid diff-one bor-top bar-two wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+				<div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon2"></a>
+						<h4>SEO/全网覆盖</h4>
+						<p>SEM策略、关键词优化、投放效果优化与再营销、服务平台包括谷歌、百度、搜狗等SEM</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 diff-grid bor-top wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+				<div class="port-1 effect-3">
+                	<div class="image-box">
+                    	<img class="img-responsive" src="images/p1.jpg" alt="Image-3">
+                    </div>
+                    <div class="text-desc">
+                    	<h4>微信定制化开发</h4>
+                        <p>微信定制化开发+H5场景化开发+H5小游戏定制化开发+微信小程序开发</p>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-4 diff-grid diff-one bor-top bar-two wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+				<div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
+					<div class="abt-icon">
+						<a href="#" class="hi-icon icon3"></a>
+						<h4>渠道推广</h4>
+						<p>社会化媒体+网络视频媒体+移动媒体+网络门户等多媒体渠道推广</p>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- //service-type-grid -->
+<!--/products-->
+		  <div class="about w3agile" id="about">
+		     <div class="container">
+			 <h3 class="tittle">技术服务</h3>
+			 <!--/about-section2-->
+			   <div class="about-section">
+			   
+			        <div class="col-md-5 ab-text two wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+			             
+						
+						  <p>拥有极客级的研发精英团队
+团队由多位战略咨询专家、品牌策划经理、互联网资深的架构师、系统工程师、前端工程师组成，在整合营销、网络协议、开源领域、互联网安全等领域拥有较深的造诣，并对移动互联网的产品的传播及技术的发展趋势拥有深刻理解及丰富的经验储备。
+</p>
+<br></br>
+						<p>拥有国际级的道德规范及职业行为准则
+团队拥有国际标准的项目管理流程，拥有PMI项目管理培训认证。用科学客观的软件研发管理流程交付出让客户满意的互联网产品，我们用我们对研发事业的热爱及对自身苛刻的要求，致力于成为国内最靠谱的软件服务团队。&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+
+
+
+
+
+</p>
+
+
+						
+
+					</div>
+						<div class="col-md-7 ab-left wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+
+				  <div class="grid">
+			        <div class="h-f">
+					<figure class="effect-jazz">
+					<img src="images/s4.jpg" alt="img25"/>
+						<figcaption>
+							<h4>Interior</h4>
+							<p>When Jazz starts to chase cars, the whole world stands still.</p>
+							
+						</figcaption>			
+					</figure>
+					
+				 </div>
+				 <div class="h-f">
+					<figure class="effect-jazz">
+						<img src="images/s3.jpg" alt="img25"/>
+						<figcaption>
+							<h4>Interior</h4>
+							<p>When Jazz starts to chase cars, the whole world stands still.</p>
+						
+						</figcaption>			
+					</figure>
+					
+				 </div>
+				 <div class="clearfix"> </div>
+				 </div>
+			   </div>
+					<div class="clearfix"> </div>
+			 </div>
+			  <!--//about-section2-->
+			 <!--/about-section-->
+			   <div class="about-section agileinfo">
+				<div class="col-md-7 ab-left wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+				  <div class="grid">
+			        <div class="h-f">
+					<figure class="effect-jazz">
+					<img src="images/s1.jpg" alt="img25"/>
+						<figcaption>
+							<h4>Interior</h4>
+							<p>When Jazz starts to chase cars, the whole world stands still.</p>
+							
+						</figcaption>			
+					</figure>
+					
+				 </div>
+				 <div class="h-f">
+					<figure class="effect-jazz">
+						<img src="images/s2.jpg" alt="img25"/>
+						<figcaption>
+							<h4>Interior</h4>
+							<p>When Jazz starts to chase cars, the whole world stands still.</p>
+							
+						</figcaption>			
+					</figure>
+					
+				 </div>
+				 <div class="clearfix"> </div>
+				 </div>
+			   </div>
+			   <div class="col-md-5 ab-text wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+			            
+						 
+						   <p><br>微信开发：微商城、O2O、微分销基础版及各种行业延伸功能定制<br>
+						   	  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp开发客户所想即我们所以实现。<br><br>
+
+APP开发：原生IOS、Android开发、Html5开发，Webapp开发。<br><br>
+网站开发：中高端定制设计企业网站擅长各类OA ERP 系统电商<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspB2C B2B2C等高难度系统php/java实现。<br><br>
+电商开发: &nbspShopsn商城系统以最低的成本帮助用户快速搭建商<br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp城，基于PHP语言及MYSQL数据库的开源系统。 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br><br>
+</p>
+						<p></p>
+						<p></p>
+						
+
+					</div>
+					<div class="clearfix"> </div>
+			 </div>
+			  <!--//about-section-->
+			</div>
+	     </div>
+<!--//products-->
+  <!--bottom-->
+	    <div class="bottom w3-1">
+		<div class="container">
+		       <div class="bottom-top wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+			    <h3>We Are Sharing</h3>
+				   <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since, Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+				   
+			   </div>
+		</div>
+	</div>
+<!--Gallery-->
+<div class="gallery w3l-1" id="gallery">
+	<div class="container">
+		<h3 class="tittle">案例分享</h3>
+				<div class="gallery-grids">
+					<div class="col-md-6 baner-top wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+
+						<a href="images/g1.jpg" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/g1.jpg" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa molestias minus laborum velit, nulla nisi hic quasi enim.</p>
+										<span class="separator"></span>
+										
+									</div>		
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 baner-top wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+						<a href="images/g2.png" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/g2.png" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa molestias minus laborum velit, nulla nisi hic quasi enim.</p>
+										<span class="separator"></span>
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-3 baner-top ban-mar wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+						<a href="images/c1.png" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/c1.png" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<img src="images/c11.png" alt=" " />
+										<!--<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa.</p>
+										<span class="separator"></span>
+										-->
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-3 baner-top ban-mar wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+						<a href="images/c2.png" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/c2.png" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<img src="images/c22.png" alt=" " />
+										<!--<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa.</p>
+										<span class="separator"></span>
+									-->
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-3 baner-top ban-mar wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+						<a href="images/c3.png" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/c3.png" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<img src="images/c33.png" alt=" " />
+										<!--<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa.</p>
+										<span class="separator"></span>
+									    -->
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-3 baner-top ban-mar wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+						<a href="images/c4.png" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/c4.png" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<img src="images/c44.png" alt=" " />
+										<!--<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa.</p>
+										<span class="separator"></span>
+									-->
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 baner-top wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+						<a href="images/g7.jpg" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/g7.jpg" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa molestias minus laborum velit, nulla nisi hic quasi enim.</p>
+										<span class="separator"></span>
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 baner-top wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+						<a href="images/g8.jpg" class="b-link-stripe b-animate-go  swipebox">
+							<div class="gal-spin-effect vertical ">
+								<img src="images/g8.jpg" alt=" " />
+								<div class="gal-text-box">
+									<div class="info-gal-con">
+										<h4>Interior</h4>
+										<span class="separator"></span>
+										<p>Sit accusamus, vel blanditiis iure minima ipsa molestias minus laborum velit, nulla nisi hic quasi enim.</p>
+										<span class="separator"></span>
+										
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+	</div>
+<!-- //gallery -->
+<!--start-banner-bottom-->
+   <!--/reviews-->
+	<div id="review" class="reviews agile-1">
+				<div class="test-monials" id="testimonials">
+					<h4 class="tittle">Testimonials</h3>
+					
+				<!--//screen-gallery-->
+						<div class="sreen-gallery-cursual">
+							 <!-- required-js-files-->
+							<link href="css/owl.carousel.css" rel="stylesheet">
+							    <script src="js/owl.carousel.js"></script>
+							        <script>
+							    $(document).ready(function() {
+							      $("#owl-demo").owlCarousel({
+							        items : 1,
+							        lazyLoad : true,
+							        autoPlay : true,
+							        navigation : false,
+							        navigationText :  false,
+							        pagination : true,
+							      });
+							    });
+							    </script>
+								 <!--//required-js-files-->
+						       <div id="owl-demo" class="owl-carousel">
+					                 <div class="item-owl">
+					                		<div class="test-review wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+											   <p><img src="images/left-quotes.png" alt=""> Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <img src="images/right-quotes.png" alt=""></p>
+						                	  <img src="images/t3.jpg" class="img-responsive" alt=""/>
+											  <h5>Henry</h5>
+					                	    </div>
+					                </div>
+					                 <div class="item-owl">
+					                	<div class="test-review wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+										 <p> <img src="images/left-quotes.png" alt="">Polite sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<img src="images/right-quotes.png" alt=""></p>
+						                	<img src="images/t2.jpg" class="img-responsive" alt=""/>
+											 <h5>Smith</h5>
+					                	</div>
+					                </div>
+					                 <div class="item-owl">
+					                	<div class="test-review wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+										     <p><img src="images/left-quotes.png" alt=""> Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <img src="images/right-quotes.png" alt=""></p>
+						                	<img src="images/t1.jpg" class="img-responsive" alt=""/>
+											 <h5>Steave</h5>
+					                	</div>
+					                </div>
+				              </div>
+						<!--//screen-gallery-->
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+		</div>
+<!--//reviews-->
+ <!--start-services-->
+	<div class="team-section" id="team1">
+	 	  <div class="container">
+		  <h3 class="tittle">我们的团队</h3>
+	 		<div class="box2">
+	 		   <div class="col-md-3 s-1 wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+			   <a href="#">
+	 		   	<div class="view view-fifth">
+                    <img src="images/chef1.jpg" alt="chef">
+                    <div class="mask">
+                        <h4>Vivamus moles</h4>
+                        <p>A wonderful serenity has taken possession of my entire soul,  I enjoy with my whole heart.</p>
+                        <ul>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon1">	
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon2">
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon3">
+									</div>
+								</a>
+							</li>
+						</ul>
+                     </div>
+                   
+				    </div>
+				  </a>
+			<h3>Rogerer</h3>
+				</div>
+		<div class="col-md-3 s-2 wow fadeInLeft animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+		<a href="#">
+	 		   	<div class="view view-fifth">
+                      <img src="images/chef2.jpg" alt="chef">
+                       <div class="mask">
+                        <h4>Vivamus moles</h4>
+                        <p>A wonderful serenity has taken possession of my entire soul,  I enjoy with my whole heart.</p>
+                        <ul>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon1">	
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon2">
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon3">
+									</div>
+								</a>
+							</li>
+						</ul>
+                     </div>
+               
+				    </div>
+				  </a>
+				<h3>Henry</h3>
+				</div>
+			  <div class="col-md-3 s-3 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+			  <a href="#">
+	 		   	<div class="view view-fifth">
+                     <img src="images/chef3.jpg" alt="chef">
+                    <div class="mask">
+                        <h4>Vivamus moles</h4>
+                        <p>A wonderful serenity has taken possession of my entire soul,  I enjoy with my whole heart.</p>
+                        <ul>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon1">	
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon2">
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon3">
+									</div>
+								</a>
+							</li>
+						</ul>
+                     </div>
+                  
+				    </div>
+				  </a>
+					<h3>Steave</h3>
+				</div>
+				<div class="col-md-3 s-4 wow fadeInRight animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+				 <a href="#">
+	 		   	 <div class="view view-fifth">
+                      <img src="images/chef4.jpg" alt="chef">
+                    <div class="mask">
+                        <h4>Vivamus moles</h4>
+                        <p>A wonderful serenity has taken possession of my entire soul,  I enjoy with my whole heart.</p>
+                        <ul>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon1">	
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon2">
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="morph pic fb_icon3">
+									</div>
+								</a>
+							</li>
+						</ul>
+                     </div>
+                   
+				    </div>
+				  </a>
+					<h3>Martin</h3>
+				</div>
+				<div class="clearfix"></div>
+		     </div>
+	 	    </div>
+	 	</div>
+	<!--end-team-->
+	 <!--newsletter-->
+<div class="newsletter wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+		<div class="container">
+			<h3>sign up for our newsletter</h3>
+			<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.</p>
+			<form action="#" method="post">
+				<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+				<input type="submit" value="Subscribe">
+			</form>
+		</div>
+	</div>
+	 <!--/newsletter-->
+	 <!--contact-->
+	<div class="contact_w3agile" id="contact">
+	<div class="container wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+		<h2 class="title">联系我们</h2>
+		
+		<form action="#" method="post">
+			<input type="text" value="Name" name="Name" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Name';}">
+			<input type="email address" value="Email" name="Email" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Email';}">
+			<textarea name="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}" required="">Message</textarea>
+			<div class="con-form text-center">
+				<input type="submit" value="Send">
+			</div>
+		</form>
+		
+	</div>
+<!--
+</div>
+	 <div class="map wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+		<iframe src="" style="border:0"></iframe>
+	 </div>
+	-->
+	<div class="footer">
+		<div class="footer-info">
+			<div class="container">	
+				<div class="icons wow fadeInUp animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">	
+					<ul>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><img src="images/i1.png" alt=""></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><img src="images/i2.png" alt=""> </a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google+"><img src="images/i3.png" alt=""></a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="LinkedIn"><img src="images/i4.png" alt=""> </a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest"><img src="images/i5.png" alt=""> </a></li>
+					</ul>
+					<script>$(function () {
+					  $('[data-toggle="tooltip"]').tooltip()
+					})</script>
+				</div>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>					
+			</div>
+		</div>
+	</div>
+<!--/footer-->	 	
+		<!--start-smooth-scrolling-->
+						<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+								<!--end-smooth-scrolling-->
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- animation-effect -->
+<link href="css/animate.min.css" rel="stylesheet"> 
+<script src="js/wow.min.js"></script>
+<script>
+ new WOW().init();
+</script>
+<!-- //animation-effect -->
+
+</body>
+</html>
+
