@@ -28,8 +28,10 @@ class HeroDetail extends React.Component {
     getInitState(state) {
         state = state || {};
         return Object.assign(state, {
+            image: ""
         });
     }
+
     /**
      * 渲染界面
      */
@@ -40,7 +42,12 @@ class HeroDetail extends React.Component {
         let q1 = '没心没肺的的孙悟空';
         return (
             <div className='hero-detail'>
-                <div className='hero-detail-left'>
+                <img src={this.state.image} style={{width: "100%", height: "100%"}} />
+
+                <div className='hero-qrcode'>
+                    <QRcode text={'http://www.baidu.com'} width={180} height={180} />
+                </div>
+                {/*<div className='hero-detail-left'>
                     <div className='hero-head'>
                         <img src={DefaultHeader} />
                     </div>
@@ -65,7 +72,7 @@ class HeroDetail extends React.Component {
                         <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
                     </div>
                     
-                </div>
+                </div>*/}
             </div>
         );
     }
@@ -73,15 +80,28 @@ class HeroDetail extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
-        //动态设置页面标题
+        let canvas = document.getElementsByTagName("canvas")[0]
+        //动态设置
+        let opt = {
+            headImg: "/assets/images/head-01.png",
+            username: "没心没肺的的孙悟空",
+            q1: "一言不合就飙车",
+            q2: "带你装逼，带你飞",
+            qrCode: canvas.toDataURL("image/png")
+        }
+        Base.getPersonalCardImage(opt).then(data => {
+            this.setState({
+                image: data
+            })
+        })
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        this.setState({
-        });
+        // this.setState({
+        // });
     }
     /**
      * 组件渲染完成调用
