@@ -3,92 +3,40 @@
 /**
  * @component index.scss
  * @description 英雄
- * @time 2017-03-13 12:00
+ * @time 2017-07-7 2:00
  * @author fishYu
  **/
- #hero-page-container{
+ #big-screen-container{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
- }
-.hero-page-content{
-    background: url($questionBgIcon) top center no-repeat;
-    background-size: contain; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.hero-title{
-    width: 100%;
-    height: calc-rem(174);
-    margin-top: calc-rem(50);
-    background: url($heroHintIcon) center no-repeat;
-    background-size: cover;
-}
-
-
-.hero-buttons-group{
-    position: relative;
-    width: 100%;
-    padding: 0 calc-rem(25);
-    height: calc-rem(90);
-    line-height: calc-rem(90);
-    margin-top: calc-rem(35);
-    .hero-button-wrapper{
-        position: relative;
+    width: calc-rem(3840);
+    height: calc-rem(2160);
+    background: url($screenBgIcon) center no-repeat;
+    background-size: cover; 
+    overflow: auto;
+    .big-screen-title{
+        margin: 0 auto;
+        width: calc-rem(3799);
+        height: calc-rem(446);
+        background: url($screenTitleIcon) center no-repeat;
+        background-size: cover; 
+    }
+    .new-hero-content{
         display: inline-block;
-        width: 32%;
-        height: 100%;
-        margin-right: 2%;
-        text-align: center;
-        box-sizing: border-box;
-        span{
-            display: inline-block;
-            text-align: center;
-        }
-        &:last-child{
-            margin-right: 0;
-        }
-        .hero-button-hint{
-            background: url($buttonIcon) no-repeat center;
-            background-size: cover; 
-            color: $whiteColor;
-            height: calc-rem(70);
-            width: -webkit-calc(100% - #{calc-rem(20)});
-            width: calc(100% - #{calc-rem(20)});
-            line-height: calc-rem(70);
-            font-size: calc-rem(36);
-            &:active{
-                opacity: .8;
-            }
-        }
-        .button-left-border, .button-right-border{
-            background-size: contain; 
-        }
+        width: calc-rem(1882);
+        height: calc-rem(1679);
+        margin-left: calc-rem(70);
+        margin-right: calc-rem(50);
+        background: url($newHeroBgIcon) center no-repeat;
+        background-size: cover; 
     }
-    .up-screen{
-        color: $whiteColor;
-        font-size: calc-rem(44);
-        background: url($upScreenIcon) center no-repeat;
-        background-size: contain; 
+
+    .top-hero-content{
+        display: inline-block;
+        width: calc-rem(1882);
+        height: calc-rem(1679);
+        background: url($topHeroBgIcon) center no-repeat;
+        background-size: cover; 
     }
-    
-}
-
-.hero-share{
-    position: absolute;
-    z-index: 99;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: url($shareIcon) right top no-repeat rgba(0,0,0,.7);
-    background-size: 100%  calc-rem(421);
-}
-
+ }

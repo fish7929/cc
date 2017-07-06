@@ -40,6 +40,8 @@
         .hero-qrcode{
             margin: 0 auto;
             margin-top: calc-rem(32); 
+            width: calc-rem(210);
+            height: calc-rem(210);
             background: $whiteColor;
             padding: calc-rem(15);
             box-sizing: border-box;

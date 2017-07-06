@@ -40,7 +40,7 @@ class BigScreen extends React.Component {
         let { newHero } = this.state;
         return (
             <div className="new-hero-content">
-                {newHero.map((item, index) => <HeroDetail type={FIRST}  class='new-hero-item'/>)}
+                {newHero.map((item, index) => <HeroDetail type={FIRST} key={item + ' ' + index} class='new-hero-item'/>)}
             </div>
         );
     }
@@ -61,6 +61,7 @@ class BigScreen extends React.Component {
     render() {
         return (
             <Page id='big-screen-container'>
+                <div className='big-screen-title'></div>
                 {this.renderNewHeroSection()}
                 {this.renderTopHeroSection()}
             </Page>

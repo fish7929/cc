@@ -38,6 +38,9 @@ class HeroDetail extends React.Component {
             image: ""
         });
     }
+    /**
+     * 渲染英雄图片
+     */
     renderHeroImgSection() {
         return (<div className='hero-detail'>
             <img src={this.state.image} style={{ width: "100%", height: "100%" }} />
@@ -52,7 +55,8 @@ class HeroDetail extends React.Component {
     renderCommonHeroSection() {
         let { classname, top, isDrawImg } = this.state;
         let noMarginTop = top ? ' no-margin-top' : ' ';
-        let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
+        // let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
+        let _width = 180 * 0.5;
         let q2 = '一言不合就飙车';
         let q3 = '带你装逼，带你飞';
         let q1 = '没心没肺的的孙悟空';
@@ -75,7 +79,6 @@ class HeroDetail extends React.Component {
                         微信ID人称<br />
                         <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
                     </div>
-
                     <div className='hero-detail-text no-wrap'>
                         我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
                         的方式拯救世界
@@ -113,7 +116,6 @@ class HeroDetail extends React.Component {
                         微信ID人称<br />
                         <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
                     </div>
-
                     <div className='hero-detail-text no-wrap'>
                         我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
                         的方式拯救世界

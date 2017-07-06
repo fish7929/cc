@@ -50,7 +50,11 @@ let ChatView = (location, cb) => {
         cb(null, require('../views/chat').default);
     }, 'chatView');
 }
-
+let BigScreen = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../views/bigScreen').default);
+    }, 'bigScreen');
+};
 let NotFoundPage = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../views/404').default);
@@ -68,6 +72,7 @@ const Routers = React.createClass({
                     <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
                     <Route path={RoutPath.ROUTER_CHAT_VIEW} getComponent={ChatView} />
+                    <Route path={RoutPath.ROUTER_BIG_SCREEN} getComponent={BigScreen} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
             </Router>
