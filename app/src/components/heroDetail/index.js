@@ -33,21 +33,32 @@ class HeroDetail extends React.Component {
         return Object.assign(state, {
             type: this.props.type || FIRST,
             classname: this.props.classname || '',
-            top: this.props.top || ZERO
+            isDrawImg: this.props.isDrawImg || false,
+            top: this.props.top || ZERO,
+            image: ""
         });
+    }
+    renderHeroImgSection() {
+        return (<div className='hero-detail'>
+            <img src={this.state.image} style={{ width: "100%", height: "100%" }} />
+            <div className='hero-qrcode-img'>
+                <QRcode text={'http://www.baidu.com'} width={180} height={180} />
+            </div>
+        </div>);
     }
     /**
      * 渲染界面
      */
     renderCommonHeroSection() {
-        let { classname, top } = this.state;
-        let noMarginTop = top ? 'no-margin-top' : '';
+        let { classname, top, isDrawImg } = this.state;
+        let noMarginTop = top ? ' no-margin-top' : ' ';
         let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
         let q2 = '一言不合就飙车';
         let q3 = '带你装逼，带你飞';
         let q1 = '没心没肺的的孙悟空';
         return (
-            <div className={'hero-detail ' + classname }>
+            isDrawImg ? this.renderHeroImgSection() :
+            <div className={'hero-detail hero-detail-bg ' + classname}>
                 <div className='hero-detail-left'>
                     <div className={'hero-head ' + noMarginTop}>
                         <img src={DefaultHeader} />
@@ -73,7 +84,6 @@ class HeroDetail extends React.Component {
                         最后，我想说一句<br />
                         <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
                     </div>
-
                 </div>
             </div>
         );
@@ -112,7 +122,6 @@ class HeroDetail extends React.Component {
                         最后，我想说一句<br />
                         <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
                     </div>
-
                 </div>
             </div>
         );
@@ -130,7 +139,23 @@ class HeroDetail extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
-        //动态设置页面标题
+        if (this.state.isDrawImg) {  //如果需要绘制图片的情况
+            let canvas = document.getElementsByTagName("canvas")[0]
+            //动态设置
+            let opt = {
+                headImg: "/assets/images/head-01.png",
+                username: "没心没肺的的孙悟空",
+                q1: "一言不合就飙车",
+                q2: "带你装逼，带你飞",
+                qrCode: canvas.toDataURL("image/png")
+            }
+            Base.getPersonalCardImage(opt).then(data => {
+                this.setState({
+                    image: data
+                })
+            })
+        }
+
     }
     /**
      * 属性改变的时候触发
@@ -140,6 +165,7 @@ class HeroDetail extends React.Component {
         this.setState({
             type: nextProps.type || FIRST,
             top: nextProps.top || ZERO,
+            isDrawImg: nextProps.isDrawImg || false,
             classname: nextProps.class || ''
         });
     }
@@ -155,6 +181,7 @@ class HeroDetail extends React.Component {
  */
 HeroDetail.propTypes = {
     type: React.PropTypes.number,
+    isDrawImg: React.PropTypes.bool,
     top: React.PropTypes.number,
     classname: React.PropTypes.string
 };
@@ -163,6 +190,7 @@ HeroDetail.propTypes = {
  */
 HeroDetail.defaultProps = {
     type: FIRST,
+    isDrawImg: false,
     top: ZERO,
     classname: ''
 };

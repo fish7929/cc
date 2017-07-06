@@ -11,10 +11,6 @@
     width: calc-rem(692);
     margin: 0 auto;
     margin-top: calc-rem(55);
-    background: url($heroDetailIcon) center no-repeat;
-    background-size: cover; 
-    padding-top: calc-rem(84);
-    padding-left: calc-rem(30);
     .hero-detail-left{
         display: inline-block;
         width: calc-rem(228);
@@ -44,8 +40,6 @@
         .hero-qrcode{
             margin: 0 auto;
             margin-top: calc-rem(32); 
-            height: calc-rem(228);
-            width: calc-rem(228);
             background: $whiteColor;
             padding: calc-rem(15);
             box-sizing: border-box;
@@ -88,7 +82,22 @@
         }
     }
 }
-
+.hero-detail-bg{
+    background: url($heroDetailIcon) center no-repeat;
+    background-size: cover; 
+    padding-top: calc-rem(84);
+    padding-left: calc-rem(30);
+}
+.hero-qrcode-img{
+    margin: 0 auto;
+    margin-top: calc-rem(32); 
+    height: 180px;
+    width: 180px;
+    background: $whiteColor;
+    padding: calc-rem(15);
+    box-sizing: border-box;
+    display: none;
+}
 
 .hero-prize-top1{
     margin: 0 auto;
