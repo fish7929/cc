@@ -13,9 +13,13 @@
             var code = lc_api.GetRequest()["code"]; 
             var user = lc_api.GetRequest()["user"]; 
             if (code) { 
-                    lc_api.userOauthLogin(code);
+                if(lc_api.GetRequest()["user_id"]){
+                    lc_api.userOauthLogin(code,lc_api.GetRequest()["user_id"]); 
+                }  else{
+                    lc_api.userOauthLogin(code,"");
+                }
             } else if(user){
-                lc_api.userQrcodeLogin(code); 
+                lc_api.userQrcodeLogin(user); 
             }else{
                 return;alert("code为空！");
             }
