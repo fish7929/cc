@@ -121,7 +121,6 @@ lc_api.GetRequest = function () {
   return theRequest;
 }
 
-
 //根据code获取用户对象
 lc_api.userOauthLogin = function (code, user_id) {
   lc_api.getWXLogin(code, function (data) {

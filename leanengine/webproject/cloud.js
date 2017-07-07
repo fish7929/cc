@@ -90,7 +90,7 @@ AV.Cloud.define("updateUserInfo", function (request, response) {
                   results.increment('msg_count', 1);//累计加一
                 } else{
                   results.set(column_name, column_val);
-                } 
+                }
                 results.save(null, {
                     success: function (msg) {
                         response.success(msg);
@@ -105,3 +105,137 @@ AV.Cloud.define("updateUserInfo", function (request, response) {
         }
     })
 });
+
+
+/** 微信分享接口 
+    1.获取token
+    2.获取ticket签名
+    url参数为前端访问的url
+**/
+AV.Cloud.define("wxShare", function (request, response) {
+ 
+    var _url = request.params.url;// "http://www.agoodme.com/wx/wx.html";//request.params.url;
+
+    console.log("_url>>>>", _url);
+    var cb_err = function (error) {
+        console.log("wxshare error>>>:", JSON.stringify(error));
+        response.error(error);
+        return;
+    }
+
+    var appid = "wxbc5448ffcd7d3933";
+    var appkey = "986ff934a2f21dce3c0b265534d30749";
+
+    if (!_url) {
+        cb_err("url parame is null");
+    }
+
+    var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + appkey;
+    var ticket_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
+
+    var createNonceStr = function () {
+        return Math.random().toString(36).substr(2, 15);
+    };
+
+    var createTimeStamp = function () {
+        return parseInt(new Date().getTime() / 1000) + '';
+    };
+
+    var oriArray = new Array();
+
+    // 计算签名方法
+    var calcSignature = function (ticket, noncestr, ts, url) {
+        oriArray = ["jsapi_ticket=" + ticket, "noncestr=" + noncestr, "timestamp=" + ts, "url=" + url]
+        oriArray.sort(); //sort默认是按ascii排序
+        var str = oriArray[0] + "&" + oriArray[1] + "&" + oriArray[2] + "&" + oriArray[3];
+        //var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + ts + '&url=' + url;
+        console.log(">>>string1:" + str);
+        try {
+            var sha = sha1(str);//sha1加密
+            console.log("sha1:", sha1(str));
+            return sha1(str);
+        } catch (e) {
+            cb_err("jsSHA error:" + e.message);
+        }
+    }
+    var index = 0;
+    var httpGetSignature = function () {
+      requestClient(url, function (error, res, body) { 
+        if (!error && res.statusCode == 200) {
+                var wxdata = JSON.parse(body.text);
+                var access_token = wxdata.access_token;
+                try {
+                    if (wxdata.access_token) {
+                        try {
+                            requestClient(ticket_url + '?access_token=' + access_token + '&type=jsapi',function (error2, res2, callData) { 
+                                    if (!error && res.statusCode == 200) { 
+                                    index++; 
+                                    console.log(">>>>ticket:", JSON.stringify(callData));
+                                    //生成签名方法 
+                                    var signature = calcSignature(JSON.parse(callData.text).ticket, createNonceStr(), createTimeStamp(), _url);
+                                    console.log("signature>>>" + signature);
+
+                                    console.log(">>>" + index + ">>>token:" + access_token + "|ticket:" + JSON.parse(callData.text).ticket + "|signature:" + signature);
+
+                                    var call_data = {
+                                        "data": {
+                                            "appid": appid,
+                                            "timestamp": createTimeStamp(),
+                                            "noncestr": createNonceStr(),
+                                            "signature": signature,
+                                            "url": _url
+                                        }
+                                    }
+                                    //signature有效期为7200秒,所以为减轻服务器压力和超过1万次请求限制进行缓存,
+                                    cachedSignatures[_url] = {
+                                        "appid": appid,
+                                        "timestamp": createTimeStamp(),
+                                        "noncestr": createNonceStr(),
+                                        "signature": signature,
+                                        "url": _url
+                                    }
+                                    //做缓存
+                                    response.success(call_data);
+                                  }else{
+                                  cb_err("request wxshare user exception：" + error2.message);
+                                }
+                            });
+                        } catch (e) {
+                            console.log("request wxshare user exception：" + e.message);
+                            cb_err("request wxshare user exception：" + e.message);
+                        }
+                    } else {
+                        cb_err("access_token or access_token excesption");
+                    }
+
+                } catch (e) {
+                    console.log("request wxshare access_token exception：" + e.message);
+                    cb_err("request wxshare access_token exception：" + e.message);
+                }
+        }else{
+           cb_err("request wxshare access_token exception：" + error.message);
+        }
+      });
+    }
+    
+    httpGetSignature();
+    
+    //做缓存
+    //var signatureObj = cachedSignatures[_url];
+    //if (signatureObj && signatureObj.timestamp) {//缓存升级为以缓存access_token和ticket为主
+    //    console.log("signatrue from catch>>>", JSON.stringify(cachedSignatures[_url]));
+
+    //    var t = createTimeStamp() - signatureObj.timestamp;
+    //    // 未过期，并且访问的是同一个地址,判断地址是因为微信分享出去后会额外添加一些参数，地址就变了不符合签名规则，需重新生成签名
+    //    if (t < expireTime && signatureObj.url == _url) {//
+    //        var call_data = { "data": signatureObj }
+    //        response.success(call_data);
+    //    } else {
+    //        httpGetSignature();
+    //    }
+    //} else {
+    //    httpGetSignature();
+    //}
+
+});
+
