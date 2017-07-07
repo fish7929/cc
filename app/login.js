@@ -76,35 +76,35 @@ lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
     cb_ok("自己扫码自己登录");
     return;
   }
-    var f = AV.Object.extend('friend');
-    // 新建对象
-    var obj = new f();
-    obj.set('user_id', user_id);
-    obj.set('friend', current);
-    obj.save().then(function (todo) {
-      //根据user_id查询该用户对象
-      var query = new AV.Query('_User');
-      query.equalTo('objectId', user_id);
-      query.first().then(function (data) {
-        if (data) {
-          // 新建对象
-          var obj2 = new f();
-          obj2.set('user_id', current.id);
-          obj2.set('friend', data);
-          obj2.save().then(function (todo) {
-            cb_ok();
-          }, function (error) {
-            cb_err(error);
-          });
-        } else {
-          cb_ok(data);
-        }
-      }, function (error) {
-        cb_err(error);
-      });
+  var f = AV.Object.extend('friend');
+  // 新建对象
+  var obj = new f();
+  obj.set('user_id', user_id);
+  obj.set('friend', current);
+  obj.save().then(function (todo) {
+    //根据user_id查询该用户对象
+    var query = new AV.Query('_User');
+    query.equalTo('objectId', user_id);
+    query.first().then(function (data) {
+      if (data) {
+        // 新建对象
+        var obj2 = new f();
+        obj2.set('user_id', current.id);
+        obj2.set('friend', data);
+        obj2.save().then(function (todo) {
+          cb_ok();
+        }, function (error) {
+          cb_err(error);
+        });
+      } else {
+        cb_ok(data);
+      }
     }, function (error) {
       cb_err(error);
     });
+  }, function (error) {
+    cb_err(error);
+  });
 }
 
 //获取url的参数
@@ -148,10 +148,10 @@ lc_api.userQrcodeLogin = function (user_id) {
   var userFriendList = [];
 
   var checkFriend = function (uid) {
-    var b=false;
+    var b = false;
     for (var i = 0; i < userFriendList.length; i++) {
       if (uid == userFriendList[i].get("friend").id) {
-        b=true;
+        b = true;
         break;
       }
     }
@@ -164,7 +164,7 @@ lc_api.userQrcodeLogin = function (user_id) {
     query.limit(1000);
     query.find().then(function (results) {//查找出二维码用户的所有好友 
       if (results.length > 0) {
-        userFriendList = results; 
+        userFriendList = results;
         if (checkFriend(current.id) == true) {
           //去到系统页面
           alert("去系统页面");
@@ -191,7 +191,116 @@ lc_api.userQrcodeLogin = function (user_id) {
     //注意,成功回调地址多了个user_id参数
     window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri=http%3a%2f%2fwww.6itec.com%2fshare%2fdemo%2flogincallback.html?user_id=" + user_id + "&response_type=code&scope=snsapi_login&state=" + new Date().getTime() + "#wechat_redirect", "_self");
   }
+}
 
+//////////////////////////////////////////// 以下为api部分 /////////////////////////////////////
+/** 根据用户id查询用户好友
+ *  user_id 用户id
+ *  pageSize 第几页
+ *  pageNumber,每页显示条数
+ *  orderby 排序字段，默认createdAt
+ *  isdesc 是否降序，true/false
+ * **/
+lc_api.getFriend = function (options, cb_ok, cb_err) {
+
+  if (!AV.User.current()) {
+    cb_err("请先登录!");
+    return;
+  }
+  var orderby = options.orderby || "createdAt",
+    isdesc = options.isdesc,
+    pageSize = options.pageSize || 0,
+    pageNumber = options.pageNumber || 6,
+    userid = options.userid;
+
+  var skip = 0;
+  var limit = pageNumber;
+  if (pageSize != 0) {
+    skip = pageSize * pageNumber;
+  }
+  var query = new AV.Query("friend");
+  query.equalTo("user_id", userid);
+  query.include("friend");
+  query.skip(skip);
+  query.limit(limit);
+  //排序
+  if (orderby.length > 0) {
+    if (isdesc) {
+      query.descending(orderby);
+    } else {
+      query.ascending(orderby);
+    }
+  }
+
+  query.find().then(function (results) {
+    cb_ok(results);
+  }, function (error) {
+    cb_err(error);
+  });
+}
+
+/** 修改用户的问题属性
+ * user_id,用户id
+ * column_name，问题字段（q0,q1,q2），用户英雄执照地址（card_url）,消息总数（msg_count，接口自动累计加1前台可不传column_val值，写明字段值就行），上屏（on_screnn,新加入英雄：根据两个东西来排列，已经上屏状态，和点击上屏按钮的时间。上屏状态越小越快上屏，同一状态，点击上屏按钮时间越早，越快上屏。上屏状态：0 从来没上过屏幕  1    屏幕循环标记 2 上屏循环标记。上屏后状态变化：状态0 -〉 状态 2 -〉状态 1 -〉状态 2）
+ * column_val，字段值请自行保证输入类型
+ */
+lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
+  var user_id = options.user_id || "",
+     column_name = options.column_name || "",
+     column_val = options.column_val||"";
+  
+  if(user_id.length==0){
+    cb_err("user_id不能为空!");
+    return;
+  }
+
+  AV.Cloud.run('updateUserInfo', {
+    "userid": user_id,
+    "column_name": column_name,
+    "column_val": column_val
+  }).then(function (data) {
+    cb_ok(data);
+  }, function (error) {
+    cb_err(error);
+  });
+}
+
+/** 查询用户表
+ *  pageSize 第几页
+ *  pageNumber,每页显示条数
+ *  orderby 排序字段，默认createdAt（新加入英雄排序查询）, msg_count-对话总数（可以用于英雄风云榜排序查询）
+ *  isdesc 是否降序，true/false
+ * **/
+lc_api.getUser = function (options, cb_ok, cb_err) {
+ 
+  var orderby = options.orderby || "createdAt",
+    isdesc = options.isdesc,
+    pageSize = options.pageSize || 0,
+    pageNumber = options.pageNumber || 6;
+
+  var skip = 0;
+  var limit = pageNumber;
+  if (pageSize != 0) {
+    skip = pageSize * pageNumber;
+  }
+
+  var query = new AV.Query("_User");
+  query.skip(skip);
+  query.limit(limit);
+  //排序
+  if (orderby.length > 0) {
+    if (isdesc) {
+      query.descending(orderby);
+    } else {
+      query.ascending(orderby);
+    }
+  }
+
+  query.find().then(function (results) {
+    cb_ok(results);
+  }, function (error) {
+    cb_err(error);
+  });
 }
 
 window.lc_api = lc_api;

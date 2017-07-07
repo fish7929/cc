@@ -47,27 +47,23 @@ Zyzh12#$
 
 数据表：
 一：用户表
-
-
-二：上岗证表：card
-objectId    string 上岗证ID
-usernick  	string  用户昵称
-user_id  	string  用户id
-q0 			string Q0标签2个中间用,隔开
-q1 			string Q0标签2个中间用,隔开
-q2 			string Q0标签2个中间用,隔开
-qrcode 		string 用户二维码链接
-card_url 	string 上岗证效果图地址
+User表 新加的业务属性字段：
+q1 ,string 问题1
+q2 ,string 问题2
+q3 ,string 问题3
+card_url ， string 用户英雄执照地址 
+msg_count，number 接收消息总数，
+on_screnn，number 上屏状态
 
 三：聊天私信表：即时通信
 
 四：关注粉丝表（2个表）
-friend 
+friend表名
 user_id
 friend
 
 关于排行榜的数据加载逻辑：
-英雄榜： 根据聊天数据数排序，最多的在前面
+英雄榜： 根据聊天数据数排序，最多的在前面。不包括自己发出的数据
 新加入英雄：根据扫码进来登录注册时间排序
 
 

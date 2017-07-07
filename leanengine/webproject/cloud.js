@@ -71,3 +71,37 @@ AV.Cloud.define("wxLogin", function (request, response) {
     });
 });
 
+/**修改用户信息pc端个人中心在用
+  userid,用户id
+  column_name，字段名字
+  column_val，字段值
+**/
+AV.Cloud.define("updateUserInfo", function (request, response) {
+    var user_id = request.params.user_id;
+    var column_name = request.params.column_name;
+    var column_val = request.params.column_val;
+
+    var query = new AV.Query("_User");
+    query.equalTo("objectId", user_id);
+    query.first({
+        success: function (results) {
+            if (results) {
+                if(column_val==""){
+                  results.increment('msg_count', 1);//累计加一
+                } else{
+                  results.set(column_name, column_val);
+                } 
+                results.save(null, {
+                    success: function (msg) {
+                        response.success(msg);
+                    }
+                });
+            } else {
+                response.error("查无对象!");
+            }
+        },
+        error: function (error) {
+            response.error(err.message);
+        }
+    })
+});
