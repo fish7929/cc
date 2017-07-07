@@ -122,15 +122,17 @@ lc_api.GetRequest = function () {
 }
 
 //根据code获取用户对象
-lc_api.userOauthLogin = function (code, user_id) {
+lc_api.userOauthLogin = function (code, user_id, cb_ok) {
   lc_api.getWXLogin(code, function (data) {
     document.getElementById("contentDiv").innerHTML = "微信用户信息：" + JSON.stringify(data);
     lc_api.getUserStatus(data, function (user) {//进行登录或注册
       if (user_id) {//存在user_id为扫码注册登录完成 
         //去关注
-        lc_api.userQrcodeLogin(user_id);
+        lc_api.userQrcodeLogin(user_id, cb_ok);
       } else {
         alert("注册完成并登录成功：" + AV.User.current().get("user_nick"));
+        cb_ok&&cb_ok()
+        // window.open("http://www.6itec.com/share/demo/demo.html", "_self");
       }
     }, function (error) {
       alert(error.message);
@@ -141,7 +143,7 @@ lc_api.userOauthLogin = function (code, user_id) {
 }
 
 //根据二维码注册登录进入系统，同时加二维码用户为好友
-lc_api.userQrcodeLogin = function (user_id) {
+lc_api.userQrcodeLogin = function (user_id, cb_ok) {
   if (!user_id) return;
 
   var userFriendList = [];
@@ -167,10 +169,12 @@ lc_api.userQrcodeLogin = function (user_id) {
         if (checkFriend(current.id) == true) {
           //去到系统页面
           alert("去系统页面");
+          cb_ok && cb_ok()
         } else {
           //进行关注
           lc_api.setFriend(user_id, current, function (obj) {
             alert("去系统页面");
+            cb_ok && cb_ok()
           }, function (error) {
             alert(error);
           });
@@ -179,6 +183,7 @@ lc_api.userQrcodeLogin = function (user_id) {
         //进行关注
         lc_api.setFriend(user_id, current, function (obj) {
           alert("去系统页面");
+          cb_ok && cb_ok()
         }, function (error) {
           alert(error);
         });
@@ -214,6 +219,8 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
 
   var skip = 0;
   var limit = pageNumber;
+  var skip = 0;
+  var limit = pageNumber;
   if (pageSize != 0) {
     skip = pageSize * pageNumber;
   }
@@ -245,10 +252,10 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
  */
 lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
   var user_id = options.user_id || "",
-     column_name = options.column_name || "",
-     column_val = options.column_val||"";
-  
-  if(user_id.length==0){
+    column_name = options.column_name || "",
+    column_val = options.column_val || "";
+
+  if (user_id.length == 0) {
     cb_err("user_id不能为空!");
     return;
   }
@@ -271,7 +278,7 @@ lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
  *  isdesc 是否降序，true/false
  * **/
 lc_api.getUser = function (options, cb_ok, cb_err) {
- 
+
   var orderby = options.orderby || "createdAt",
     isdesc = options.isdesc,
     pageSize = options.pageSize || 0,
@@ -301,5 +308,62 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
     cb_err(error);
   });
 }
+
+
+lc_api.initWXShare = function () {
+  alert("AV.Cloud.run('wxShare'")
+  AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
+    alert(obj.data.appid)
+    try {
+      wx.config({
+        debug: false,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: obj.data.appid,
+        timestamp: obj.data.timestamp,
+        nonceStr: obj.data.noncestr,
+        signature: obj.data.signature,
+        jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      wx.ready(function () {
+        //朋友圈
+        wx.onMenuShareTimeline({
+          title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
+          link: location.href, // 分享链接
+          imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
+          success: function () {
+            alert("node api朋友圈分享成功");
+          },
+          cancel: function () {
+            alert('onMenuShareTimeline失败')
+          }
+        });
+
+        //朋友
+        wx.onMenuShareAppMessage({
+          title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
+          desc: "sdfdsf撒旦法第三方的", // 分享描述
+          link: location.href, // 分享链接
+          imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
+          type: 'link', // 分享类型,music、video或link，不填默认为link
+          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          success: function () {
+            alert("node api朋友分享成功");
+          },
+          cancel: function () {
+            alert('onMenuShareAppMessage失败')
+          }
+        });
+      });
+      wx.error(function (error) {
+        alert(obj.data.signature + "wx error:" + JSON.stringify(error));
+      });
+    } catch (e) {
+      alert(e.message);
+    }
+  }, function (error) {
+    alert(error.message);
+  })
+}
+
+lc_api.getLoca
 
 window.lc_api = lc_api;

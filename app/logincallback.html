@@ -14,14 +14,29 @@
             var user = lc_api.GetRequest()["user"]; 
             if (code) { 
                 if(lc_api.GetRequest()["user_id"]){
-                    lc_api.userOauthLogin(code,lc_api.GetRequest()["user_id"]); 
+                    lc_api.userOauthLogin(code, lc_api.GetRequest()["user_id"], function(){
+                        alert("userOauthLogin 1")
+                        var d = Date.now()
+                        window.localStorage.setItem("loginStamp", d)
+                        window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                    }); 
                 }  else{
-                    lc_api.userOauthLogin(code,"");
+                    lc_api.userOauthLogin(code, "", function(){
+                        alert("userOauthLogin 2")
+                        var d = Date.now()
+                        window.localStorage.setItem("loginStamp", d)
+                        window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                    });
                 }
             } else if(user){
-                lc_api.userQrcodeLogin(user); 
+                lc_api.userQrcodeLogin(user, function(){
+                    alert("userQrcodeLogin 1")
+                    var d = Date.now()
+                    window.localStorage.setItem("loginStamp", d)
+                    window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                }); 
             }else{
-                return;alert("code为空！");
+                return;
             }
          });
     </script>

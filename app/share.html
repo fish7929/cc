@@ -15,7 +15,7 @@
     //使用nodejs接口分享
         function wxShare() {
             //alert(encodeURIComponent(location.href.split('#')[0]));
-            alert(location.href);
+            alert(location.href)
             AV.Cloud.run('wxShare', { url:location.href }).then(function (obj) {
                     debugger;
                     document.getElementById("info").innerHTML = JSON.stringify(obj.data);
