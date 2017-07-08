@@ -71,10 +71,11 @@ class Hero extends React.Component {
      */
     getComponent() {
         let { type } = this.state;
+        //isDrawImg={true} 
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail ref='my-hero' isDrawImg={true} />
+                <HeroDetail ref='my-hero' />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>

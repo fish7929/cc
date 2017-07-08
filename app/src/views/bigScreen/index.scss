@@ -6,7 +6,7 @@
  * @time 2017-07-7 2:00
  * @author fishYu
  **/
- #big-screen-container{
+#big-screen-container{
     position: absolute;
     top: 0;
     left: 0;
@@ -23,20 +23,48 @@
         background-size: cover; 
     }
     .new-hero-content{
-        display: inline-block;
+        float: left;
         width: calc-rem(1882);
         height: calc-rem(1679);
-        margin-left: calc-rem(70);
-        margin-right: calc-rem(50);
+        margin-left: calc-rem(20);
+        margin-right: calc-rem(20);
         background: url($newHeroBgIcon) center no-repeat;
         background-size: cover; 
+        padding: 0 calc-rem(10);
+        padding-top: calc-rem(275);
+        .new-hero-item{
+            display: inline-block;
+            margin-top: 0;
+            -webkit-transform:scale(0.745);
+            transform:scale(0.745);
+            margin-right: calc-rem(-112);
+            margin-bottom: calc-rem(-112);
+        }
     }
 
     .top-hero-content{
-        display: inline-block;
+        float: left;
         width: calc-rem(1882);
         height: calc-rem(1679);
         background: url($topHeroBgIcon) center no-repeat;
         background-size: cover; 
+        padding: 0 calc-rem(10);
+        padding-top: calc-rem(275);
+        .top-hero-item{
+            display: inline-block;
+            margin-top: 0;
+            -webkit-transform:scale(0.745);
+            transform:scale(0.745);
+            margin-right: calc-rem(-112);
+            margin-bottom: calc-rem(-112);
+        }
     }
- }
+}
+.top-hero-2{
+    background: url($top2BgIcon) center no-repeat;
+    background-size: contain; 
+}
+.top-hero-3{
+    background: url($top3BgIcon) center no-repeat;
+    background-size: contain; 
+}

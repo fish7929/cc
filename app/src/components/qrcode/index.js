@@ -81,12 +81,12 @@ module.exports = React.createClass({
 		return  options.render == "canvas" ? createCanvas() : createTable();
 	},
 	componentDidMount: function() {
-	$('#qrcode').append(this.qrcode())
+	$('#'+ this.props.qrid).append(this.qrcode())
 	// this.refs.qrcode.append(this.qrcode())
 	},
 	render: function() {
 		return (
-				<div id='qrcode' ref='qrcode' ></div>
+				<div id={this.props.qrid} ref='qrcode' ></div>
 		)
 	}
 });

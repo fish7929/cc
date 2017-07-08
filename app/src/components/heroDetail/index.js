@@ -62,67 +62,75 @@ class HeroDetail extends React.Component {
         let q1 = '没心没肺的的孙悟空';
         return (
             isDrawImg ? this.renderHeroImgSection() :
-            <div className={'hero-detail hero-detail-bg ' + classname}>
-                <div className='hero-detail-left'>
-                    <div className={'hero-head ' + noMarginTop}>
-                        <img src={DefaultHeader} />
+                <div className={'hero-detail hero-detail-bg ' + classname}>
+                    <div className='hero-detail-left'>
+                        <div className={'hero-head ' + noMarginTop}>
+                            <img src={DefaultHeader} />
+                        </div>
+                        {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
+                        <div className='hero-qrcode'>
+                            <QRcode text={'http://www.baidu.com'} width={_width} height={_width} qrid={this.props.qrid} />
+                        </div>
+                        <span className='hero-qrcode-hint'>长按图片识别二维码</span>
                     </div>
-                    {top ? <div className={"hero-top hero-prize-top" + top }></div> : null}
-                    <div className='hero-qrcode'>
-                        <QRcode text={'http://www.baidu.com'} width={_width} height={_width} />
+                    <div className='hero-detail-right'>
+                        <div className='hero-card'></div>
+                        <div className='hero-detail-text no-wrap'>
+                            微信ID人称<br />
+                            <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
+                        </div>
+                        <div className='hero-detail-text no-wrap'>
+                            我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
+                            的方式拯救世界
                     </div>
-                    <span className='hero-qrcode-hint'>长按图片识别二维码</span>
+                        <div className='hero-detail-text no-wrap'>
+                            最后，我想说一句<br />
+                            <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
+                        </div>
+                    </div>
                 </div>
-                <div className='hero-detail-right'>
-                    <div className='hero-card'></div>
-                    <div className='hero-detail-text no-wrap'>
-                        微信ID人称<br />
-                        <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
-                    </div>
-                    <div className='hero-detail-text no-wrap'>
-                        我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
-                        的方式拯救世界
-                    </div>
-                    <div className='hero-detail-text no-wrap'>
-                        最后，我想说一句<br />
-                        <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
-                    </div>
-                </div>
-            </div>
         );
     }
     /**
-     * 渲染界面
+     * 渲染TOP1界面
      */
     renderTop1HeroSection() {
-        let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
+        let _width = 117.5;
         let q2 = '一言不合就飙车';
         let q3 = '带你装逼，带你飞';
         let q1 = '没心没肺的的孙悟空';
         return (
-            <div className='hero-detail'>
-                <div className='hero-detail-left'>
-                    <div className='hero-head'>
+            <div className='top1-hero-detail-wrapper'>
+                <div className='top1-hero-detail-left'>
+                    <div className='top1-hero-head'>
                         <img src={DefaultHeader} />
                     </div>
-                    <div className='hero-qrcode'>
-                        <QRcode text={'http://www.baidu.com'} width={_width} height={_width} />
-                    </div>
-                    <span className='hero-qrcode-hint'>长按图片识别二维码</span>
+                    <div className={"hero-top1 hero-prize-top1"}></div>
                 </div>
-                <div className='hero-detail-right'>
-                    <div className='hero-card'></div>
-                    <div className='hero-detail-text no-wrap'>
-                        微信ID人称<br />
-                        <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
+                <div className='top1-hero-detail-right'>
+                    <div className='top1-hero-right-title'>
                     </div>
-                    <div className='hero-detail-text no-wrap'>
-                        我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
-                        的方式拯救世界
-                    </div>
-                    <div className='hero-detail-text no-wrap'>
-                        最后，我想说一句<br />
-                        <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
+                    <div className='tops-hero-right-bottom'>
+                        <div className='top1-hero-detail'>
+                            <div className='hero-detail-text no-wrap'>
+                                微信ID人称<br />
+                                <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
+                            </div>
+                            <div className='hero-detail-text no-wrap'>
+                                我将用<span className='no-wrap' alt={q2} title={q2}>{q2}</span><br />
+                                的方式拯救世界
+                            </div>
+                            <div className='hero-detail-text no-wrap'>
+                                最后，我想说一句<br />
+                                <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
+                            </div>
+                        </div>
+                        <div className='top1-hero-qrcode'>
+                            <div className='hero1-qrcode'>
+                                <QRcode text={'http://www.baidu.com'} width={_width} height={_width} qrid={this.props.qrid} />
+                            </div>
+                            <span className='hero1-qrcode-hint'>长按图片识别二维码</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,7 +193,8 @@ HeroDetail.propTypes = {
     type: React.PropTypes.number,
     isDrawImg: React.PropTypes.bool,
     top: React.PropTypes.number,
-    classname: React.PropTypes.string
+    classname: React.PropTypes.string,
+    qrid: React.PropTypes.string,
 };
 /**
  * 验证props
@@ -194,7 +203,8 @@ HeroDetail.defaultProps = {
     type: FIRST,
     isDrawImg: false,
     top: ZERO,
-    classname: ''
+    classname: '',
+    qrid: 'qrcode'
 };
 
 export default HeroDetail;

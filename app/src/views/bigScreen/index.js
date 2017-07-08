@@ -29,8 +29,8 @@ class BigScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newHero: [1,2,3,4,5,6],
-            topHero: [11,12,13,14,15,16]
+            newHero: [1, 2, 3, 4, 5, 6],
+            topHero: [11, 12, 13, 14, 15]
         };
     }
     /**
@@ -40,7 +40,7 @@ class BigScreen extends React.Component {
         let { newHero } = this.state;
         return (
             <div className="new-hero-content">
-                {newHero.map((item, index) => <HeroDetail type={FIRST} key={item + ' ' + index} class='new-hero-item'/>)}
+                {newHero.map((item, index) => <HeroDetail type={FIRST} key={item + ' ' + index} qrid={'qrcod-new-hero-' + index} classname='new-hero-item' />)}
             </div>
         );
     }
@@ -51,7 +51,13 @@ class BigScreen extends React.Component {
         let { topHero } = this.state;
         return (
             <div className="top-hero-content">
-                <HeroDetail />
+                {topHero.map((item, index) => {
+                    let _type = index == 0 ? SECOND : FIRST;
+                    let _class = index <= 2 ? (index == 0 ? '' : 'top-hero-item top-hero-' + (index + 1))
+                        : 'top-hero-item';
+                    return (<HeroDetail type={_type} key={item + ' ' + index}
+                        qrid={'qrcod-top-hero-' + index} classname={_class} top={index + 1} />)
+                })}
             </div>
         );
     }
@@ -109,8 +115,8 @@ class BigScreen extends React.Component {
      */
     componentWillUnmount() {
         this.setState({
-            newHero: [1,2,3,4,5,6],
-            topHero: [11,12,13,14,15,16]
+            newHero: [1, 2, 3, 4, 5, 6],
+            topHero: [11, 12, 13, 14, 15, 16]
         });
     }
 
