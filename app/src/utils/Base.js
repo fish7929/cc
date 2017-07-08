@@ -341,6 +341,8 @@ module.exports = {
             if(ctx == null) reject && reject()
 
             let image = new Image()
+            image.width = "124px"
+            image.height = "124px"         
             image.src = url
             image.onload = ()=> {
                 ctx.save(); // 保存当前ctx的状态

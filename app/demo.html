@@ -3,11 +3,29 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <title>nyh demo page</title>
+    <script src="av-min.js"></script>
+    <script src="login.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
     <script>
         function getMobileCode() {
-             window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri=http%3a%2f%2fwww.6itec.com%2fshare%2fdemo%2flogincallback.html&response_type=code&scope=snsapi_login&state="+new Date().getTime()+"#wechat_redirect", "_self");
-        } 
+            window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri=http%3a%2f%2fwww.6itec.com%2fshare%2fdemo%2flogincallback.html&response_type=code&scope=snsapi_login&state=" + new Date().getTime() + "#wechat_redirect", "_self");
+        }
+
+        $(document).ready(function () {
+            var userAg = navigator.userAgent.toLowerCase();
+            if (userAg.indexOf("micromessenger") > -1) {
+                var loginStamp = window.localStorage.getItem("loginStamp")
+                var params = lc_api.GetRequest()
+                if (loginStamp && params && params.bust && loginStamp == params.bust) {
+                    alert("已经登陆过了")
+                    lc_api.initWXShare()
+                } else {
+                    window.open("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri=http%3a%2f%2fwww.6itec.com%2fshare%2fdemo%2flogincallback.html&response_type=code&scope=snsapi_login&state=" + new Date().getTime() + "#wechat_redirect", "_self");
+                }
+            }
+        })
     </script>
 </head>
 
@@ -18,7 +36,7 @@
 
         <br><br><br> <br><br><br> 扫码(注册、登录)进入，同时关注二维码用户
 
-        <br><br> demo链接:http://www.6itec.com/share/demo/logincallback?user=595dd8b35c497d0058a6e091
+        <br><br> demo链接:http://www.6itec.com/share/demo/logincallback.html?user=595dd8b35c497d0058a6e091
         <br><br>
         <img src="my.png" />
 </body>
