@@ -49,7 +49,8 @@ var common = {
             'react-router-redux',
             'react-redux',
             'redux',
-            'redux-thunk'
+            'redux-thunk',
+            './src/lib/av-min.js'
         ]
     },
     output: {

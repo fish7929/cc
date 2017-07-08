@@ -80,6 +80,29 @@ class Home extends React.Component {
         if (!this.props.isFetching) {
             AppModal.hide();
         }
+
+        let currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
+        if(Base.isEmptyObject(currentUser)){  //直接跳转去登录
+            var code = LCApi.GetRequest()["code"];
+            var user = LCApi.GetRequest()["user"];
+            if (code) {
+                if (LCApi.GetRequest()["user_id"]) {
+                    LCApi.userOauthLogin(code, LCApi.GetRequest()["user_id"], function (user) {
+                        Base.setLocalStorageObject('CURRENT_USER', user);
+                    });
+                } else {
+                    LCApi.userOauthLogin(code, "", function (user) {
+                        Base.setLocalStorageObject('CURRENT_USER', user);
+                    });
+                }
+            } else if (user) {
+                LCApi.userQrcodeLogin(user, function (user) {
+                    Base.setLocalStorageObject('CURRENT_USER', user);
+                });
+            } else {
+                return;
+            }
+        }
     }
     /**
      * 属性改变的时候触发

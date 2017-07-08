@@ -7,6 +7,7 @@
 
 'use strict';
 import Base from "./Base";
+import LCApi from "./LCApi";
 import APIPath from "../config/APIPath";
 import RoutPath from "../config/RoutPath";
 import navigate from '../router/navigate';
@@ -23,6 +24,11 @@ Object.defineProperties((window || global), {
     Base: {
         get() {
             return Base;
+        }
+    },
+    LCApi: {
+        get() {
+            return LCApi;
         }
     },
     APIPath: {
