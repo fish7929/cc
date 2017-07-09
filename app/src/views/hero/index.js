@@ -77,11 +77,12 @@ class Hero extends React.Component {
         //获取本地的缓存
         let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
         let headUrl = user.user_pic || user.get('user_pic');
+        let name = user.user_nick || user.get('user_nick');
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
                 <HeroDetail ref='my-hero' questions={localQuestion.questions} id={user.id} 
-                headUrl={headUrl} />
+                headUrl={headUrl} name={name} />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>

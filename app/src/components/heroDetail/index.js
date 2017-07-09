@@ -38,6 +38,7 @@ class HeroDetail extends React.Component {
             isDrawImg: this.props.isDrawImg || false,
             top: this.props.top || ZERO,
             headUrl: this.props.headUrl || '',
+            name: this.props.name || '',
             image: ""
         });
     }
@@ -48,7 +49,7 @@ class HeroDetail extends React.Component {
         return (<div className='hero-detail'>
             <img src={this.state.image} style={{ width: "100%", height: "100%" }} />
             <div className='hero-qrcode-img'>
-                <QRcode text={'/share/login.html?user=' + this.state.id} width={180} height={180} />
+                <QRcode text={'/share/#/?user=' + this.state.id} width={180} height={180} />
             </div>
         </div>);
     }
@@ -56,7 +57,7 @@ class HeroDetail extends React.Component {
      * 渲染界面
      */
     renderCommonHeroSection() {
-        let { classname, top, isDrawImg, questions, id, headUrl } = this.state;
+        let { classname, top, isDrawImg, questions, id, headUrl, name } = this.state;
         let noMarginTop = top ? ' no-margin-top' : ' ';
         // let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
         let _width =  ClientWidth < 321 ? 180 * 0.43 : 180 * 0.5;
@@ -72,14 +73,14 @@ class HeroDetail extends React.Component {
                         </div>
                         {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
                         <div className='hero-qrcode'>
-                            <QRcode text={'/share/login.html?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                            <QRcode text={'/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                         </div>
                         <span className='hero-qrcode-hint'>长按图片识别二维码</span>
                     </div>
                     <div className='hero-detail-right'>
                         <div className='hero-card'></div>
                         <div className='hero-detail-text no-wrap'>
-                            微信ID人称<br />
+                            {name}人称<br />
                             <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
                         </div>
                         <div className='hero-detail-text no-wrap'>
@@ -98,7 +99,7 @@ class HeroDetail extends React.Component {
      * 渲染TOP1界面
      */
     renderTop1HeroSection() {
-        let { questions, id, headUrl } = this.state;
+        let { questions, id, headUrl, name } = this.state;
         let _width = 117.5;
         let q2 = questions[1];
         let q3 = questions[2];
@@ -117,7 +118,7 @@ class HeroDetail extends React.Component {
                     <div className='tops-hero-right-bottom'>
                         <div className='top1-hero-detail'>
                             <div className='hero-detail-text no-wrap'>
-                                微信ID人称<br />
+                                {name}人称<br />
                                 <span className='no-wrap' alt={q1} title={q1}>{q1}</span>
                             </div>
                             <div className='hero-detail-text no-wrap'>
@@ -131,7 +132,7 @@ class HeroDetail extends React.Component {
                         </div>
                         <div className='top1-hero-qrcode'>
                             <div className='hero1-qrcode'>
-                                <QRcode text={'/share/login.html?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                                <QRcode text={'/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                             </div>
                             <span className='hero1-qrcode-hint'>长按图片识别二维码</span>
                         </div>
@@ -182,7 +183,8 @@ class HeroDetail extends React.Component {
             isDrawImg: nextProps.isDrawImg || false,
             classname: nextProps.classname || '',
             id: nextProps.id || '',
-            headUrl: nextProps.headUrl || ''
+            headUrl: nextProps.headUrl || '',
+            name: nextProps.name || ''
         });
     }
     /**
@@ -204,7 +206,8 @@ HeroDetail.propTypes = {
     top: React.PropTypes.number,
     classname: React.PropTypes.string,
     qrid: React.PropTypes.string,
-    id: React.PropTypes.string
+    id: React.PropTypes.string,
+    name: React.PropTypes.string
 };
 /**
  * 验证props
@@ -217,7 +220,8 @@ HeroDetail.defaultProps = {
     questions: ['', '', ''],
     classname: '',
     headUrl: '',
-    qrid: 'qrcode'
+    qrid: 'qrcode',
+    name: ''
 };
 
 export default HeroDetail;

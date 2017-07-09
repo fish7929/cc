@@ -78,8 +78,9 @@ class Home extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
+        let param = Base.getParameter('user');
         if (!this.currentUser) {  //直接跳转去登录
-            Base.wxLogin();
+            Base.wxLogin(param);
         }else{
             this.setState({user: this.currentUser});
         }

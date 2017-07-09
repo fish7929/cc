@@ -43,16 +43,20 @@ class Question extends React.Component {
      */
     gotoNextHandler(val) {
         this.setState({isShowMask: true});
+        let opt = {};
+        opt.user_id = this.currentUser.id;
+        opt.column_name = "q" + (this.type - 1);
+        opt.column_val = val;
+        lc_api.updateUserInfo(opt, () => {console.log('123');}, () => {console.log('456');});
         let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
         if(localQuestion && localQuestion.hasOwnProperty('questions')){
             localQuestion.questions.push(val);
             Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }else{
             let arr = [];
-            let obj = {};
             arr.push(val);
-            obj.questions = arr;
-            Base.setLocalStorageObject('USER_SELECT_QUESTION', obj);
+            localQuestion.questions = arr;
+            Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }
         setTimeout(() => {
             if(this.type != THREE){

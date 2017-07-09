@@ -388,7 +388,8 @@ module.exports = {
         if(!user && process.env.NODE_ENV == 'development'){  //本地测试的时候
             user = {
                 id: '595f31f0ac502e7589fbb3a1',
-                user_pic: '/assets/images/head-01.png'
+                user_pic: '/assets/images/head-01.png',
+                user_nick: '张三'
             }
         }
         return user;
@@ -397,8 +398,9 @@ module.exports = {
      * 微信跳转URL
      * @param {string} url 返回的URL
      */
-    wxLogin(){
-        let _url = Base.myEncodeURIComponent('http://www.6itec.com/share/login.html');
+    wxLogin(userId=''){
+        let metaUrl = userId ? 'http://www.6itec.com/share/login.html?user='+userId : 'http://www.6itec.com/share/login.html';
+        let _url = Base.myEncodeURIComponent(metaUrl);
         location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri="+ _url +"&response_type=code&scope=snsapi_login&state=" + Date.now() + "#wechat_redirect";
     },
     /**
