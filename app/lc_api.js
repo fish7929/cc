@@ -10,6 +10,7 @@ AV.init({
 
 //根据code 用leanengin nodejs 后台接口去获取微信用户
 lc_api.getWXLogin = function (code, cb_ok, cb_err) {
+  //alert("getWXLogin");
   AV.Cloud.run('wxLogin', {
     code: code
   }).then(function (data) {
@@ -123,14 +124,16 @@ lc_api.GetRequest = function () {
 
 //根据code获取用户对象
 lc_api.userOauthLogin = function (code, user_id, cb_ok) {
+  //alert("userOauthLogin");
   lc_api.getWXLogin(code, function (data) {
-    document.getElementById("contentDiv").innerHTML = "微信用户信息：" + JSON.stringify(data);
+    //alert(data);
+    //document.getElementById("contentDiv").innerHTML = "微信用户信息：" + JSON.stringify(data);
     lc_api.getUserStatus(data, function (user) {//进行登录或注册
       if (user_id) {//存在user_id为扫码注册登录完成 
         //去关注
         lc_api.userQrcodeLogin(user_id, cb_ok);
       } else {
-        alert("注册完成并登录成功：" + AV.User.current().get("user_nick"));
+        ///alert("注册完成并登录成功：" + AV.User.current().get("user_nick"));
         cb_ok&&cb_ok()
         // window.open("http://www.6itec.com/share/demo/demo.html", "_self");
       }

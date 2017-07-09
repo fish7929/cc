@@ -13,7 +13,9 @@
             var code = lc_api.GetRequest()["code"]; 
             var user = lc_api.GetRequest()["user"]; 
             if (code) { 
+                alert("code"+code);
                 if(lc_api.GetRequest()["user_id"]){
+                           alert("code-user_id"+code);
                     lc_api.userOauthLogin(code, lc_api.GetRequest()["user_id"], function(){
                         alert("userOauthLogin 1")
                         var d = Date.now()
@@ -22,15 +24,17 @@
                         // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                     }); 
                 }  else{
+                        alert("code-no"+code);
                     lc_api.userOauthLogin(code, "", function(){
                         alert("userOauthLogin 2")
-                        var d = Date.now()
-                        window.localStorage.setItem("loginStamp", d)
+                        //var d = Date.now()
+                        //window.localStorage.setItem("loginStamp", d)
                         location.href="http://www.6itec.com/share/#/chatHistory";  //首页
                         // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                     });
                 }
             } else if(user){
+                  alert("user"+user);
                 lc_api.userQrcodeLogin(user, function(){
                     alert("userQrcodeLogin 1")
                     var d = Date.now()
