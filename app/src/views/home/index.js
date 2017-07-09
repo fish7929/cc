@@ -25,7 +25,7 @@ class Home extends React.Component {
      */
     constructor(props) {
         super(props);
-        this.currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
+        this.currentUser = AV.User.current(); //获取当前用户
         this.state = this.getInitState();
     }
     /**
@@ -84,8 +84,8 @@ class Home extends React.Component {
             AppModal.hide();
         }
 
-        this.currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
-        if (Base.isEmptyObject(this.currentUser)) {  //直接跳转去登录
+        this.currentUser = AV.User.current(); //获取当前用户
+        if (!this.currentUser) {  //直接跳转去登录
             Base.wxLogin();
         }else{
             this.setState({user: this.currentUser});

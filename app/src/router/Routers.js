@@ -29,11 +29,6 @@ let Question = (location, cb) => {
         cb(null, require('../views/question').default);
     }, 'question');
 };
-let Login = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../views/login').default);
-    }, 'login');
-};
 let Hero = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../views/hero').default);
@@ -67,7 +62,6 @@ const Routers = React.createClass({
             <Router history={this.props.history}>
                 <Route path={RoutPath.ROUTER_HOME} component={App} >
                     <IndexRoute getComponent={Home}/>
-                    <Route path={RoutPath.ROUTER_LOGIN}  getComponent={Login} />
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
                     <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />

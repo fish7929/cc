@@ -150,7 +150,11 @@ var release = {
                 warnings: false
             }
         }),
-        new CopyWebpackPlugin( [{from: './av-min.js', to: './av-min.js'}]),     //npm run test 的时候拷贝 test测试数据
+        new CopyWebpackPlugin( [
+            {from: './av-min.js', to: './av-min.js'},
+            {from: './lc_api.js', to: './lc_api.js'},
+            {from: './login.html', to: './login.html'}
+            ]),     //npm run test 的时候拷贝 test测试数据
         new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
             template: './template.html',    //由于不能删掉，对多余的加载JS文件，只能另外再添加一个template.html

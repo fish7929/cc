@@ -7,7 +7,6 @@
 
 'use strict';
 import Base from "./Base";
-import lc_api from "./lc_api";
 import APIPath from "../config/APIPath";
 import RoutPath from "../config/RoutPath";
 import navigate from '../router/navigate';

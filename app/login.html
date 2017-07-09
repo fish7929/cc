@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>微信登录成功页面</title>
-    <script src="av-min.js"></script>
-    <script src="login.js"></script>
+    <title>守望先锋</title>
+    <script src="./av-min.js"></script>
+    <script src="./lc_api.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
     <script> 
@@ -18,14 +18,16 @@
                         alert("userOauthLogin 1")
                         var d = Date.now()
                         window.localStorage.setItem("loginStamp", d)
-                        window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                        location.href="http://www.6itec.com/share/#/";  //首页
+                        // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                     }); 
                 }  else{
                     lc_api.userOauthLogin(code, "", function(){
                         alert("userOauthLogin 2")
                         var d = Date.now()
                         window.localStorage.setItem("loginStamp", d)
-                        window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                        location.href="http://www.6itec.com/share/#/chatHistory";  //首页
+                        // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                     });
                 }
             } else if(user){
@@ -33,7 +35,8 @@
                     alert("userQrcodeLogin 1")
                     var d = Date.now()
                     window.localStorage.setItem("loginStamp", d)
-                    window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
+                    location.href="http://www.6itec.com/share/#/";  //首页
+                    // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                 }); 
             }else{
                 return;
@@ -43,12 +46,6 @@
 </head>
 
 <body>
-    <div>
-        <div id="contentDiv"></div>
-    </div>
-    <div id="codeDiv">
-        <img src="my.png">
-    </div>
 </body>
 
 </html>
