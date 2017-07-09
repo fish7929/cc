@@ -197,7 +197,7 @@ module.exports = {
      * @param {需要获取对象的键值} key 
      */
     getLocalStorageValue(prototype, key) {
-        var obj = utils.getLocalStorageObject(prototype);
+        var obj = Base.getLocalStorageObject(prototype);
         if (obj[key]) {
             return obj[key];
         }
@@ -210,9 +210,9 @@ module.exports = {
      * @param {需要保存对象的值} value 
      */
     addLocalStorageObject(prototype, key, value) {
-        var obj = utils.getLocalStorageObject(prototype);
+        var obj = Base.getLocalStorageObject(prototype);
         obj[key] = value;
-        utils.setLocalStorageObject(prototype, obj);
+        Base.setLocalStorageObject(prototype, obj);
     },
     /**
      * 根据键值删除已经存在的localstorage对象值
@@ -220,11 +220,11 @@ module.exports = {
      * @param {需要保存对象的键值} key 
      */
     delLocalStorageObject(prototype, key) {
-        var obj = utils.getLocalStorageObject(prototype);
+        var obj = Base.getLocalStorageObject(prototype);
         if (obj[key]) {
             delete obj[key];
         }
-        utils.setLocalStorageObject(prototype, obj);
+        Base.setLocalStorageObject(prototype, obj);
     },
     /**
      * 判断对象是否为空
@@ -379,5 +379,13 @@ module.exports = {
         context.font = "40px 宋体 bolder";
         context.fillStyle = "#fff";
         context.fillText(text, p.x, p.y)
+    },
+    /**
+     * 微信跳转URL
+     * @param {string} url 返回的URL
+     */
+    wxLogin(){
+        let _url = Base.myEncodeURIComponent('http://www.6itec.com/#/login');
+        location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri="+ _url +"&response_type=code&scope=snsapi_login&state=" + Date.now() + "#wechat_redirect";
     }
 }

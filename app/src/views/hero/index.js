@@ -72,10 +72,12 @@ class Hero extends React.Component {
     getComponent() {
         let { type } = this.state;
         //isDrawImg={true} 
+        //获取本地的缓存
+        let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail ref='my-hero' />
+                <HeroDetail ref='my-hero' questions={localQuestion.questions} />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
@@ -150,6 +152,8 @@ class Hero extends React.Component {
             isShow: false,
             type: ZERO
         });
+        //清除缓存
+        window.localStorage.removeItem('USER_SELECT_QUESTION');
     }
 
 }

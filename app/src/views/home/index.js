@@ -25,6 +25,7 @@ class Home extends React.Component {
      */
     constructor(props) {
         super(props);
+        this.currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
         this.state = this.getInitState();
     }
     /**
@@ -33,6 +34,7 @@ class Home extends React.Component {
     getInitState(state) {
         state = state || {};
         return Object.assign(state, {
+            user: this.currentUser
         });
     }
     /**
@@ -49,8 +51,9 @@ class Home extends React.Component {
      * 渲染界面
      */
     render() {
+        let { user } = this.state;
         return (
-            <Page id='home-page-container'>
+            Base.isEmptyObject(user) ? <div></div> : <Page id='home-page-container'>
                 <div className="home-title"></div>
                 <div className="home-logo"></div>
                 <div className='common-button-wrapper'>
@@ -81,27 +84,11 @@ class Home extends React.Component {
             AppModal.hide();
         }
 
-        let currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
-        if(Base.isEmptyObject(currentUser)){  //直接跳转去登录
-            var code = LCApi.GetRequest()["code"];
-            var user = LCApi.GetRequest()["user"];
-            if (code) {
-                if (LCApi.GetRequest()["user_id"]) {
-                    LCApi.userOauthLogin(code, LCApi.GetRequest()["user_id"], function (user) {
-                        Base.setLocalStorageObject('CURRENT_USER', user);
-                    });
-                } else {
-                    LCApi.userOauthLogin(code, "", function (user) {
-                        Base.setLocalStorageObject('CURRENT_USER', user);
-                    });
-                }
-            } else if (user) {
-                LCApi.userQrcodeLogin(user, function (user) {
-                    Base.setLocalStorageObject('CURRENT_USER', user);
-                });
-            } else {
-                return;
-            }
+        this.currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
+        if (Base.isEmptyObject(this.currentUser)) {  //直接跳转去登录
+            Base.wxLogin();
+        }else{
+            this.setState({user: this.currentUser});
         }
     }
     /**

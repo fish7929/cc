@@ -130,7 +130,9 @@ lc_api.userOauthLogin = function (code, user_id, cb_ok) {
         //去关注
         lc_api.userQrcodeLogin(user_id, cb_ok);
       } else {
-        cb_ok && cb_ok(user)
+        alert("注册完成并登录成功：" + AV.User.current().get("user_nick"));
+        cb_ok&&cb_ok()
+        // window.open("http://www.6itec.com/share/demo/demo.html", "_self");
       }
     }, function (error) {
       alert(error.message);
@@ -167,12 +169,12 @@ lc_api.userQrcodeLogin = function (user_id, cb_ok) {
         if (checkFriend(current.id) == true) {
           //去到系统页面
           alert("去系统页面");
-          cb_ok && cb_ok(current)
+          cb_ok && cb_ok()
         } else {
           //进行关注
           lc_api.setFriend(user_id, current, function (obj) {
             alert("去系统页面");
-            cb_ok && cb_ok(current)
+            cb_ok && cb_ok()
           }, function (error) {
             alert(error);
           });
@@ -181,7 +183,7 @@ lc_api.userQrcodeLogin = function (user_id, cb_ok) {
         //进行关注
         lc_api.setFriend(user_id, current, function (obj) {
           alert("去系统页面");
-          cb_ok && cb_ok(current)
+          cb_ok && cb_ok()
         }, function (error) {
           alert(error);
         });

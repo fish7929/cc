@@ -53,9 +53,16 @@ class QuestionComponent extends React.Component {
                 </div>
                 <div className="common-border-image question-list-wrapper">
                     {data.map((item, index) => {
-                        let selected = item == current ? 'question-selected' : '';
+                        let selected = ''
+                        if(type == 1){
+                           selected =  item.question == current ? 'question-selected' : '';
+                        }else{
+                            selected =  item == current ? 'question-selected' : '';
+                        }
+                        let display = type == 1 ? item.display : item;
+                        let content = type == 1 ? item.question : item;
                         return <span key={type + ' ' + index} className={'question-item ' + selected}
-                            onTouchTap={(e) => this.changeStateHandler(e, item)}>{item}</span>
+                            onTouchTap={(e) => this.changeStateHandler(e, content)}>{display}</span>
                     })}
                 </div>
             </div>

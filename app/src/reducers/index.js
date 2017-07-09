@@ -7,6 +7,5 @@
 
 'use strict';
 import homeData from '../views/home/reducer';
-import loginData from '../views/login/reducer';
 import questionData from '../views/question/reducer';
-export {homeData, loginData, questionData};
+export {homeData, questionData};

@@ -41,6 +41,17 @@ class Question extends React.Component {
      */
     gotoNextHandler(val) {
         this.setState({isShowMask: true});
+        let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
+        if(localQuestion && localQuestion.hasOwnProperty('questions')){
+            localQuestion.questions.push(val);
+            Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
+        }else{
+            let arr = [];
+            let obj = {};
+            arr.push(val);
+            obj.questions = arr;
+            Base.setLocalStorageObject('USER_SELECT_QUESTION', obj);
+        }
         setTimeout(() => {
             if(this.type != THREE){
                 navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );

@@ -32,6 +32,7 @@ class HeroDetail extends React.Component {
         state = state || {};
         return Object.assign(state, {
             type: this.props.type || FIRST,
+            questions: this.props.questions || ['', '', ''],
             classname: this.props.classname || '',
             isDrawImg: this.props.isDrawImg || false,
             top: this.props.top || ZERO,
@@ -53,13 +54,13 @@ class HeroDetail extends React.Component {
      * 渲染界面
      */
     renderCommonHeroSection() {
-        let { classname, top, isDrawImg } = this.state;
+        let { classname, top, isDrawImg, questions } = this.state;
         let noMarginTop = top ? ' no-margin-top' : ' ';
         // let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
         let _width = 180 * 0.5;
-        let q2 = '一言不合就飙车';
-        let q3 = '带你装逼，带你飞';
-        let q1 = '没心没肺的的孙悟空';
+        let q2 = questions[1];
+        let q3 = questions[2];
+        let q1 = questions[0];
         return (
             isDrawImg ? this.renderHeroImgSection() :
                 <div className={'hero-detail hero-detail-bg ' + classname}>
@@ -95,10 +96,11 @@ class HeroDetail extends React.Component {
      * 渲染TOP1界面
      */
     renderTop1HeroSection() {
+        let { questions } = this.state;
         let _width = 117.5;
-        let q2 = '一言不合就飙车';
-        let q3 = '带你装逼，带你飞';
-        let q1 = '没心没肺的的孙悟空';
+        let q2 = questions[1];
+        let q3 = questions[2];
+        let q1 = questions[0];
         return (
             <div className='top1-hero-detail-wrapper'>
                 <div className='top1-hero-detail-left'>
@@ -183,6 +185,7 @@ class HeroDetail extends React.Component {
      * 组件渲染完成调用
      */
     componentWillUnmount() {
+        
     }
 
 }
@@ -192,6 +195,7 @@ class HeroDetail extends React.Component {
 HeroDetail.propTypes = {
     type: React.PropTypes.number,
     isDrawImg: React.PropTypes.bool,
+    questions: React.PropTypes.array,
     top: React.PropTypes.number,
     classname: React.PropTypes.string,
     qrid: React.PropTypes.string,
@@ -203,6 +207,7 @@ HeroDetail.defaultProps = {
     type: FIRST,
     isDrawImg: false,
     top: ZERO,
+    questions: ['', '', ''],
     classname: '',
     qrid: 'qrcode'
 };
