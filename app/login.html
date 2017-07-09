@@ -22,8 +22,8 @@
                     }); 
                 }  else{ 
                     lc_api.userOauthLogin(code, "", function(){ 
-                        //var d = Date.now()
-                        //window.localStorage.setItem("loginStamp", d)
+                        var d = Date.now()
+                        window.localStorage.setItem("loginStamp", d)
                         location.href="http://www.6itec.com/share/#/chatHistory";  //首页
                         // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
                     });
