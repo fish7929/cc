@@ -387,5 +387,24 @@ module.exports = {
     wxLogin(){
         let _url = Base.myEncodeURIComponent('http://www.6itec.com/share/#/login');
         location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri="+ _url +"&response_type=code&scope=snsapi_login&state=" + Date.now() + "#wechat_redirect";
+    },
+    /**
+     * 根据链接获取对应的参数
+     * @param param
+     * @returns {string}
+     */
+    getParameter : function(param){
+        let url = location.href;
+        var iLen = param.length;
+        var iStart = url.indexOf(param);
+        if (iStart == -1) {
+            return "";
+        }
+        iStart += iLen + 1;
+        var iEnd = url.indexOf("&", iStart);
+        if (iEnd == -1) {
+            return url.substring(iStart);
+        }
+        return url.substring(iStart, iEnd);
     }
 }

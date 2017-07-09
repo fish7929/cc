@@ -363,4 +363,4 @@ lc_api.initWXShare = function () {
     alert(error.message);
   })
 }
-module.exports = lc_api;
+window.lc_api = lc_api;

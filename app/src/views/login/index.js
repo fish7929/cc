@@ -17,25 +17,24 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        var code = LCApi.GetRequest()["code"];
-        var user = LCApi.GetRequest()["user"];
-        alert(code + "    ----1");
+        var code = Base.getParameter("code");
+        var user = Base.getParameter("user");
         if (code) {
-            if (LCApi.GetRequest()["user_id"]) {
-                LCApi.userOauthLogin(code, LCApi.GetRequest()["user_id"], function () {
+            if (lc_api.GetRequest()["user_id"]) {
+                lc_api.userOauthLogin(code, lc_api.GetRequest()["user_id"], function () {
                     alert("userOauthLogin 1");
                     Base.setLocalStorageObject('CURRENT_USER', {id: '123456', name: 'test'});
                     navigate.push(RoutPath.ROUTER_HOME);
                 });
             } else {
-                LCApi.userOauthLogin(code, "", function () {
+                lc_api.userOauthLogin(code, "", function () {
                     alert("userOauthLogin 2");
                     Base.setLocalStorageObject('CURRENT_USER', {id: '123456', name: 'test'});
                     navigate.push(RoutPath.ROUTER_CHAT_HISTORY);
                 });
             }
         } else if (user) {
-            LCApi.userQrcodeLogin(user, function () {
+            lc_api.userQrcodeLogin(user, function () {
                 alert("userQrcodeLogin 1");
                 Base.setLocalStorageObject('CURRENT_USER', {id: '123456', name: 'test'});
                 navigate.push(RoutPath.ROUTER_HOME);
