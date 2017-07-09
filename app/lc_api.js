@@ -344,7 +344,7 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
 
 /** 修改用户的问题属性
  * user_id,用户id
- * column_name，问题字段（q0,q1,q2），用户英雄执照地址（card_url）,消息总数（msg_count，接口自动累计加1前台可不传column_val值，写明字段值就行），上屏（on_screnn,新加入英雄：根据两个东西来排列，已经上屏状态，和点击上屏按钮的时间。上屏状态越小越快上屏，同一状态，点击上屏按钮时间越早，越快上屏。上屏状态：0 从来没上过屏幕  1    屏幕循环标记 2 上屏循环标记。上屏后状态变化：状态0 -〉 状态 2 -〉状态 1 -〉状态 2）
+ * column_name，问题字段（q0,q1,q2），用户英雄执照地址（card_url）,消息总数（msg_count，接口自动累计加1前台可不传column_val值，写明字段值就行），上屏（on_screen,新加入英雄：根据两个东西来排列，已经上屏状态，和点击上屏按钮的时间。上屏状态越小越快上屏，同一状态，点击上屏按钮时间越早，越快上屏。上屏状态：0 从来没上过屏幕  1    屏幕循环标记 2 上屏循环标记。上屏后状态变化：状态0 -〉 状态 2 -〉状态 1 -〉状态 2）
  * column_val，字段值请自行保证输入类型
  */
 lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
@@ -356,7 +356,7 @@ lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
     cb_err("user_id不能为空!");
     return;
   }
-
+e
   AV.Cloud.run('updateUserInfo', {
     "user_id": user_id,
     "column_name": column_name,
@@ -406,6 +406,22 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
   });
 }
 
+/** 单聊，根据好友id和当前用户id查询私聊会话数据,只有一条数据
+    friends_uid,好友用户id
+**/
+lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
+    if (!AV.User.current()) {
+        cb_err("未登录用户!")
+        return;
+    }
+    var UserArray = [friends_uid, AV.User.current().id]
+    var query = new AV.Query("_Conversation");
+    query.containsAll("m", UserArray);
+    query.first({
+        success: cb_ok,
+        error: cb_err
+    });
+};
 
 lc_api.initWXShare = function () {
   alert("AV.Cloud.run('wxShare'")
