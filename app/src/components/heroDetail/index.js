@@ -182,6 +182,7 @@ class HeroDetail extends React.Component {
             top: nextProps.top || ZERO,
             isDrawImg: nextProps.isDrawImg || false,
             classname: nextProps.classname || '',
+            questions: nextProps.questions || [],
             id: nextProps.id || '',
             headUrl: nextProps.headUrl || '',
             name: nextProps.name || ''

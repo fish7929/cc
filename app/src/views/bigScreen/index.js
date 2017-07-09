@@ -9,15 +9,11 @@
 
 // require core module
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 //require submodule
 import Page from '../../components/page';
 
 import { ZERO, FIRST, SECOND, THREE } from '../../constants';
-import { fetchData } from './reducer/action';
 import HeroDetail from '../../components/heroDetail';
 import "./index.scss";
 
@@ -29,9 +25,11 @@ class BigScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newHero: [1, 2, 3, 4, 5, 6],
-            topHero: [11, 12, 13, 14, 15]
+            newHero: [],
+            topHero: []
         };
+
+        this.timer = null;
     }
     /**
      * 获取渲染的内容
@@ -40,7 +38,9 @@ class BigScreen extends React.Component {
         let { newHero } = this.state;
         return (
             <div className="new-hero-content">
-                {newHero.map((item, index) => <HeroDetail type={FIRST} key={item + ' ' + index} qrid={'qrcod-new-hero-' + index} classname='new-hero-item' />)}
+                {newHero.map((item, index) => <HeroDetail type={FIRST} key={item.id + '-new-' + index} 
+                qrid={'qrcod-new-hero-' + index} classname='new-hero-item'  
+                name={item.name} questions={item.questions} headUrl={item.headUrl}/>)}
             </div>
         );
     }
@@ -55,8 +55,9 @@ class BigScreen extends React.Component {
                     let _type = index == 0 ? SECOND : FIRST;
                     let _class = index <= 2 ? (index == 0 ? '' : 'top-hero-item top-hero-' + (index + 1))
                         : 'top-hero-item';
-                    return (<HeroDetail type={_type} key={item + ' ' + index}
-                        qrid={'qrcod-top-hero-' + index} classname={_class} top={index + 1} />)
+                    return (<HeroDetail type={_type} key={item.id + '-top-' + index}
+                        qrid={'qrcod-top-hero-' + index} classname={_class} top={index + 1} 
+                        name={item.name} questions={item.questions} headUrl={item.headUrl}/>)
                 })}
             </div>
         );
@@ -87,10 +88,14 @@ class BigScreen extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
+        //查询数据
         this.getInitData();
         // if (!this.props.isFetching) {
         //     AppModal.hide();
         // }
+        //几秒钟轮训查询
+        this.clearTimer();
+        this.timer = setInterval(() => this.getInitData(), 20 * 1000);
     }
     /**
      * 属性改变的时候触发
@@ -109,29 +114,60 @@ class BigScreen extends React.Component {
      */
     getInitData() {
         // this.props.fetchData();
+        let opt1 = {
+            pageSize: 0,
+            pageNumber: 6,
+            orderby: 'createdAt',
+            isdesc: true
+        };
+        lc_api.getUser(opt1, (list) => {
+            let _newHero = list.map((item, index) => {
+                let obj = { 
+                    id: item.id,
+                    questions: [item.get('q0') || '', item.get('q1') || '', item.get('q2') || ''],
+                    name: item.get('user_nick') || '',
+                    headUrl: item.get('user_pic') || ''
+                };
+                return obj;
+            });
+            this.setState({ newHero: _newHero });
+        }, (error) => {
+            console.log(error, '查询新上屏英雄失败');
+        });
+        let opt2 = {
+            pageSize: 0,
+            pageNumber: 5,
+            orderby: 'msg_count',
+            isdesc: true
+        };
+        lc_api.getUser(opt2, (list) => {
+            let _topHero = list.map((item, index) => {
+                let obj = { 
+                    id: item.id,
+                    questions: [item.get('q0') || '', item.get('q1') || '', item.get('q2') || ''],
+                    name: item.get('user_nick') || '',
+                    headUrl: item.get('user_pic') || ''
+                };
+                return obj;
+            });
+            this.setState({ topHero: _topHero });
+        }, (error) => {
+            console.log(error, '查询排行榜失败');
+        });
     }
     /**
      * 组件渲染完成调用
      */
     componentWillUnmount() {
-        this.setState({
-            newHero: [1, 2, 3, 4, 5, 6],
-            topHero: [11, 12, 13, 14, 15, 16]
-        });
+        this.clearTimer();
     }
 
+    clearTimer() {
+        if(this.timer){
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+    }
 }
 
-
-let mapStateToProps = state => {
-    return ({
-        isFetching: state.questionData.isFetching,
-        remoteData: state.questionData.remoteData
-    });
-}
-
-let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchData }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BigScreen);
+export default BigScreen;
