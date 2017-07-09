@@ -34,7 +34,7 @@ lc_api.getUserStatus = function (wxUser, cb_ok, cb_err) {
     if (results.length > 0) {
       //用户存在则登陆绑定 第三方登录：用户登录默认密码为：www.6itec.com第三方登录（的MD5加密文:6fda947a37f30dd0）
       AV.User.logIn(wxUser.unionid, '6fda947a37f30dd0').then(function (loginedUser) {
-        cb_ok(loginedUser);
+        cb_ok(loginedUser, 2);  //有用户
       }, function (error) {
         cb_err(error.message);
       });
@@ -48,7 +48,7 @@ lc_api.getUserStatus = function (wxUser, cb_ok, cb_err) {
       user.set("sex", wxUser.sex);//1-男
       user.signUp().then(function (loginedUser) {
         AV.User.logIn(wxUser.unionid, '6fda947a37f30dd0').then(function (user) {
-          cb_ok(user);
+          cb_ok(user, 1); //没用户
         }, function (error) {
           cb_err(error);
         });
@@ -122,6 +122,100 @@ lc_api.GetRequest = function () {
   return theRequest;
 }
 
+/// add by fish yu 2017-7-9
+/**
+ * 用户登录
+ * @param {string} code 微信code
+ * @param {string} user_id 用户id
+ * @param {function} cb_ok 成功回调 code 码 1  直接登录到首页， 2 登录到聊天页面
+ * @param {function} cb_error 失败回调  code 码， 1 获取微信用户信息失败， 2 用户登录失败 3, 关注失败
+ */
+lc_api.login = function (code, user_id, cb_ok, cb_error) {
+  lc_api.getWXLogin(code, function (wxUser) {
+    lc_api.getUserStatus(code, function (user, status) {  //status 1 表示 没用户， 2 表示有用户
+      if (user_id) {  //哟用户id的情况。
+        lc_api.addFriends(user_id, function(){
+          if(status == 1){  //新注册用户
+            cb_ok && cb_ok(1);
+          }else if(status == 2){  //老用户
+            cb_ok && cb_ok(2);
+          }
+        }, function (params) {
+          cb_error && cb_error(3);
+        });
+      } else {
+        cb_ok && cb_ok(1);
+      }
+    }, function (error) {
+      //用户登录失败
+      console.log(error.message);
+      cb_error && cb_error(2);
+    });
+  }, function (error) {
+    //获取微信用户信息失败。
+    console.log(error.message);
+    cb_error && cb_error(1);
+  });
+}
+
+/**
+ * 添加好友,肯定是登录成功之后才会去添加好友，所以默认都是登录的
+ * @param {string} user_id 用户id
+ * @param {function} cb_ok 成功回调 code 码 1  直接登录到首页， 2 登录到聊天页面
+ * @param {function} cb_error 失败回调  code 码， 1 获取微信用户信息失败， 2 用户登录失败
+ */
+lc_api.addFriends = function (user_id, cb_ok, cb_error) {
+  if (!user_id) return;
+  var userFriendList = [];
+  var checkFriend = function (uid) {
+    var b = false;
+    for (var i = 0; i < userFriendList.length; i++) {
+      if (uid == userFriendList[i].get("friend").id) {
+        b = true;
+        break;
+      }
+    }
+    return b;
+  }
+  var current = AV.User.current();
+  var query = new AV.Query('friend');
+  query.equalTo('user_id', user_id);
+  query.limit(1000);
+  query.find().then(function (results) {//查找出二维码用户的所有好友 
+    if (results.length > 0) {
+      userFriendList = results;
+      if (checkFriend(current.id) == true) {   //是好友的
+        cb_ok && cb_ok()
+      } else {  //不是好友的
+        //进行关注
+        lc_api.setFriend(user_id, current, function (obj) {
+          cb_ok && cb_ok()
+        }, function (error) {
+          //关注失败错误信息
+          console.log(error.message);
+          cb_error && cb_error();
+        });
+      }
+    } else {//如果二维码用户没有好友
+      //进行关注
+      lc_api.setFriend(user_id, current, function (obj) {
+        cb_ok && cb_ok()
+      }, function (error) {
+        //关注失败错误信息
+        console.log(error.message);
+        cb_error && cb_error();
+      });
+    }
+  }, function (error) {
+    //查询用户好友失败
+    console.log(error.message);
+    cb_error && cb_error();
+  });
+}
+
+/*************fishYu add  end*******************/
+
+
 //根据code获取用户对象
 lc_api.userOauthLogin = function (code, user_id, cb_ok) {
   //alert("userOauthLogin");
@@ -134,7 +228,7 @@ lc_api.userOauthLogin = function (code, user_id, cb_ok) {
         lc_api.userQrcodeLogin(user_id, cb_ok);
       } else {
         ///alert("注册完成并登录成功：" + AV.User.current().get("user_nick"));
-        cb_ok&&cb_ok()
+        cb_ok && cb_ok()
         // window.open("http://www.6itec.com/share/demo/demo.html", "_self");
       }
     }, function (error) {
@@ -264,7 +358,7 @@ lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
   }
 
   AV.Cloud.run('updateUserInfo', {
-    "userid": user_id,
+    "user_id": user_id,
     "column_name": column_name,
     "column_val": column_val
   }).then(function (data) {
@@ -329,7 +423,7 @@ lc_api.initWXShare = function () {
       wx.ready(function () {
         //朋友圈
         wx.onMenuShareTimeline({
-          title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
+          title: "", // 分享标题
           link: location.href, // 分享链接
           imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
           success: function () {
@@ -343,7 +437,7 @@ lc_api.initWXShare = function () {
         //朋友
         wx.onMenuShareAppMessage({
           title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
-          desc: "sdfdsf撒旦法第三方的", // 分享描述
+          desc: "快来生成属于你的英雄执照吧", // 分享描述
           link: location.href, // 分享链接
           imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link

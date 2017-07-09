@@ -3,37 +3,31 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>守望先锋</title>
+    <title>英雄执照</title>
     <script src="./av-min.js"></script>
     <script src="./lc_api.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
     <script> 
          $(document).ready(function () {
-            var code = lc_api.GetRequest()["code"]; 
-            var user = lc_api.GetRequest()["user"]; 
+            var code = lc_api.GetRequest()["code"] || ''; 
+            var user = lc_api.GetRequest()["user"] || ''; 
             if (code) {  
-                if(lc_api.GetRequest()["user_id"]){ 
-                    lc_api.userOauthLogin(code, lc_api.GetRequest()["user_id"], function(){ 
-                        var d = Date.now()
-                        window.localStorage.setItem("loginStamp", d)
-                        location.href="http://www.6itec.com/share/#/";  //首页
-                        // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
-                    }); 
-                }  else{ 
-                    lc_api.userOauthLogin(code, "", function(){ 
-                        var d = Date.now()
-                        window.localStorage.setItem("loginStamp", d)
-                        location.href="http://www.6itec.com/share/#/chatHistory";  //首页
-                        // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
-                    });
-                } 
-                lc_api.userQrcodeLogin(user, function(){ 
-                    var d = Date.now()
-                    window.localStorage.setItem("loginStamp", d)
-                    location.href="http://www.6itec.com/share/#/";  //首页
-                    // window.open("http://www.6itec.com/share/demo/demo.html?bust="+d, "_self");
-                }); 
+                lc_api.login(code, user, function(status){
+                    if(status == 1){  //直接跳转到首页
+                        location.href = 'http://www.6itec.com/share/#/';
+                    }else if(status == 2){   //跳转到聊天页面
+                        location.href = 'http://www.6itec.com/share/#/chatHistory';
+                    }
+                }, function(errStatus){ // 1 获取微信用户信息失败， 2 用户登录失败 3, 关注失败
+                    if(errStatus == 1){  //获取微信用户信息失败，
+                        console.log('获取微信用户信息失败');
+                    }else if(errStatus == 2){   //用户登录失败
+                        console.log('用户登录失败');
+                    }else if(errStatus == 3){   //关注失败
+                        console.log('关注失败');
+                    }
+                });
             }else{
                 return;
             }

@@ -47,7 +47,7 @@ class Question extends React.Component {
         opt.user_id = this.currentUser.id;
         opt.column_name = "q" + (this.type - 1);
         opt.column_val = val;
-        lc_api.updateUserInfo(opt, () => {console.log('123');}, () => {console.log('456');});
+        
         let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
         if(localQuestion && localQuestion.hasOwnProperty('questions')){
             localQuestion.questions[this.type - 1] = val;
@@ -58,14 +58,19 @@ class Question extends React.Component {
             localQuestion.questions = arr;
             Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }
-        setTimeout(() => {
-            if(this.type != THREE){
-                navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
-            }else{
-                console.log('生存英雄执照');
-                navigate.push(RoutPath.ROUTER_HERO);
-            }
-        }, 1000);
+        lc_api.updateUserInfo(opt, () => {
+            setTimeout(() => {
+                if(this.type != THREE){
+                    navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
+                }else{
+                    console.log('生存英雄执照');
+                    navigate.push(RoutPath.ROUTER_HERO);
+                }
+            }, 500);
+        }, () => {
+            AppModal.toast('保存问题失败');
+        });
+        
     }
     /**
      * 获取渲染的内容

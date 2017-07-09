@@ -36,6 +36,7 @@ class Hero extends React.Component {
             isShow: false,
             type: ZERO
         };
+        this.canClick = true;  //可以点击
     }
     /**
      * 返回按钮点击处理事件
@@ -53,6 +54,19 @@ class Hero extends React.Component {
                 break;
             case SECOND:
                 console.log('上屏');
+                if(!this.canClick) return;
+                this.canClick = false;
+                let opt = {};
+                opt.user_id = this.currentUser.id;
+                opt.column_name = "on_screen";
+                opt.column_val = this.currentUser.get("on_screen") ? this.currentUser.get("on_screen") + 1 : 0;
+                lc_api.updateUserInfo(opt, () => {
+                    AppModel.toast("上屏成功");
+                    this.canClick = true;
+                }, () => {
+                    AppModel.toast("上屏失败");
+                    this.canClick = true;
+                });
                 break;
             case THREE:
                 navigate.push(RoutPath.ROUTER_CHAT_HISTORY);
