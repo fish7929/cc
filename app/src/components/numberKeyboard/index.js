@@ -37,7 +37,7 @@ class NumberKeyboard extends React.Component {
      * @param {string} value 按钮点击返回的值 
      */
     onKeyPressHandler(e, value) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.props.onKeyPress && this.props.onKeyPress(value);
     }

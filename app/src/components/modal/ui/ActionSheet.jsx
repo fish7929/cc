@@ -27,7 +27,7 @@ class ActionSheet extends React.Component {
      * 隐藏
      */
     hide(e) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({
             classname: 'slideOutToBottom'
@@ -41,7 +41,7 @@ class ActionSheet extends React.Component {
      * @param {number} index 对应sheet的下表， 从0开始， 取消不算
      */
     onSheepClickHandler(e, index) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({
             classname: 'slideOutToBottom'

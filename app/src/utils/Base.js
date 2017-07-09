@@ -385,7 +385,7 @@ module.exports = {
      * @param {string} url 返回的URL
      */
     wxLogin(){
-        let _url = Base.myEncodeURIComponent('http://www.6itec.com/#/login');
+        let _url = Base.myEncodeURIComponent('http://www.6itec.com/share/#/login');
         location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri="+ _url +"&response_type=code&scope=snsapi_login&state=" + Date.now() + "#wechat_redirect";
     }
 }

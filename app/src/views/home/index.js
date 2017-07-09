@@ -42,7 +42,7 @@ class Home extends React.Component {
      * @param {事件} e 
      */
     makeHeroWorkPermitHandler(e) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         //测试跳转到问题列表
         navigate.push(RoutPath.ROUTER_QUESTION + '/1');

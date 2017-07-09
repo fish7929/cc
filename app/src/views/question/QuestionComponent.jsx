@@ -37,7 +37,7 @@ class QuestionComponent extends React.Component {
      * @param {string} val 需要存储的值
      */
     changeStateHandler(e, val) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({current : val});
         this.props.callback && this.props.callback(val);

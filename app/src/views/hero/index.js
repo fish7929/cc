@@ -41,7 +41,7 @@ class Hero extends React.Component {
      * @param {number} type 表示按钮类型
      */
     heroOperationHandler(e, type) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({ type });
         switch (type) {
@@ -62,7 +62,7 @@ class Hero extends React.Component {
      * @param {object} e 返回事件 
      */
     hideShareLayerHandler(e){
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({isShow: false});
     }

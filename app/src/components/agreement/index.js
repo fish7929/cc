@@ -33,7 +33,7 @@ class Agreement extends React.Component {
      * @param {事件} e 
      */
     backHandler(e){
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         this.setState({
             classname: 'slideOutToBottom'

@@ -26,7 +26,7 @@ class Dialog extends React.Component {
      * 确定按钮点击处理事件
      */
     buttonClickHandler(e, callBack) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         callBack && callBack();
         AppModal.hide();

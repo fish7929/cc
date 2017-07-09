@@ -84,7 +84,7 @@ class Picker extends React.Component {
   }
 
   handleTouchStart(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (this.props.data.list.length <= 1) {
       return;
     }
@@ -93,7 +93,7 @@ class Picker extends React.Component {
   }
 
   handleTouchEnd(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (this.props.data.list.length <= 1) {
       return;
     }
@@ -132,7 +132,7 @@ class Picker extends React.Component {
   }
 
   handleTouchMove(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (this.props.data.list.length <= 1) {
       return;
     }
@@ -188,7 +188,7 @@ class Picker extends React.Component {
   }
 
   handleWrapperStart(e) {
-    e.preventDefault();
+    // e.preventDefault();
   }
   isPC() {
     var userAgentInfo = navigator.userAgent;

@@ -26,7 +26,7 @@ class NoFoundPage extends React.Component {
      * @param {事件} e 
      */
     backHandler(e){
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         //返回处理逻辑
         console.log('back');

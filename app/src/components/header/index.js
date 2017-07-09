@@ -13,7 +13,7 @@ class Header extends React.Component {
      * @param {object} e 事件对象 
      */
     onBackHandler(e) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         if(this.props.onBackClick){
             this.props.onBackClick();
