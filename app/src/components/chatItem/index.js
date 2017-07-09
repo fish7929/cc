@@ -9,12 +9,14 @@ class ChatItem extends React.Component{
     }
 
     render(){
+        let {data} = this.props
+        let user = AV.User.current()
         return(
             <div className="chat-item">
-                <div className="chat-item-div">
+                <div className={(data.from == user.id ? "active": "") + " chat-item-div"}>
                     <div className="header-div"><img src={HeadIcon}/></div>
                     <div className="content">
-                        最近的一条聊天记录最近的一条聊天记录最近的一条聊天记录最近的一条聊天记录最近的一条聊天记录最近的一条聊天记录最近的一条聊天记录
+                        {data.text}
                     </div>
                     <div className="clear"></div>
                 </div>
@@ -24,7 +26,7 @@ class ChatItem extends React.Component{
 }
 
 ChatItem.PropTypes = {
-    
+    data: PropTypes.object.isRequired
 }
 
 export default ChatItem

@@ -56,10 +56,6 @@ class ChatHistory extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
-        // this.getInitData();
-        // if (!this.props.isFetching) {
-        //     AppModal.hide();
-        // }
     }
     /**
      * 属性改变的时候触发

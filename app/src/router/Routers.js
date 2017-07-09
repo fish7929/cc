@@ -65,7 +65,7 @@ const Routers = React.createClass({
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
                     <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
-                    <Route path={RoutPath.ROUTER_CHAT_VIEW} getComponent={ChatView} />
+                    <Route path={RoutPath.ROUTER_CHAT_VIEW + "/:fid"} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_BIG_SCREEN} getComponent={BigScreen} />
                     <Route path={RoutPath.ROUTER_COMMON} getComponent={NotFoundPage} />
                 </Route>
