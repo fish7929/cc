@@ -15,29 +15,32 @@ import { connect } from 'react-redux';
 import Page from '../../components/page';
 import ChatItem from '../../components/chatItem'
 
+import ChatRoom from './chatRoom'
+
+import { appendMessage, clearMessage } from './reducer/action'
+
 import "./index.scss";
 
 class ChatView extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context)
+
+        this.state = {
+            msg: ""
+        }
     }
 
     render() {
+        let {msg} = this.state
+        let { messageList } = this.props
         return (
             <Page id='chat-view'>
-                <div className="chat-view-list">
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
-                    <ChatItem />
+                <div className="chat-view-list" ref="chatList">
+                    { messageList.map((message, index) => <ChatItem key={index} data={message} />) }
                 </div>
                 <div className="input-div">
-                    <input type="text" placeholder="请输入聊天内容" />
-                    <button>发送</button>
+                    <input type="text" placeholder="请输入聊天内容" value={msg} onChange={(e)=>this.onInputChange(e.target.value, "msg")} />
+                    <button onClick={()=>this.sendMsg()}>发送</button>
                 </div>
             </Page>
         );
@@ -56,38 +59,55 @@ class ChatView extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
-        // this.getInitData();
-        // if (!this.props.isFetching) {
-        //     AppModal.hide();
-        // }
-    }
-    /**
-     * 属性改变的时候触发
-     * @param {object} nextProps props
-     */
-    componentWillReceiveProps(nextProps) {
-        if (!nextProps.isFetching) {
-            AppModal.hide();
-        }
+        let fid = this.props.params.fid
+        let user = AV.User.current()
+        if(!fid || !user) return
+        lc_api.getSingleConversation(fid, (data)=>{
+            this.chatRoom = new ChatRoom({roomId: data.id, userId: user.id, showMsg: (message)=>this.showMsg(message)})
+            this.chatRoom.connect()
+        })
     }
 
+    onInputChange(value, type){
+        let state = {}
+        state[type] = value
+        this.setState(state)
+    }
+
+    showMsg(message, isBefore){
+        this.props.appendMessage(message)
+    }
+
+    sendMsg(){
+        this.chatRoom && this.chatRoom.sendMsg(this.state.msg).then(message=>{
+            this.props.appendMessage(message)
+            this.setState({msg: ""})
+        }, message=>message && AppModal.toast(message))
+    }
+
+    componentDidUpdate(){
+        this.refs.chatList.scrollTop = this.refs.chatList.scrollHeight
+    }
     /**
      * 组件渲染完成调用
      */
     componentWillUnmount() {
+        this.props.clearMessage()
     }
+
+
 
 }
 
 
 let mapStateToProps = state => {
     return ({
-        isFetching: state.homeData.isFetching
+        messageList: state.chatData.messageList
     });
 }
 
 let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({  }, dispatch)
+    return bindActionCreators({ appendMessage, clearMessage }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatView);

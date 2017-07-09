@@ -17,6 +17,7 @@
   "author": "fishYu",
   "license": "ISC",
   "dependencies": {
+    "leancloud-realtime": "^3.5.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },

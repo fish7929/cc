@@ -12,6 +12,8 @@
         display: flex;
         align-items: center;
         border-bottom: calc-rem(2) solid #1b7a9c;
+        background: url(../../../assets/images/right.png) no-repeat center right;
+        background-size: calc-rem(26) calc-rem(46);
     }
 
     .header-div{
@@ -32,7 +34,7 @@
     }
 
     .content{
-        width: calc(100% - #{calc-rem(130)});
+        width: calc(100% - #{calc-rem(140)});
         padding: 0 calc-rem(20);
 
         .name-txt{

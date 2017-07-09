@@ -8,4 +8,5 @@
 'use strict';
 import homeData from '../views/home/reducer';
 import questionData from '../views/question/reducer';
-export {homeData, questionData};
+import chatData from '../views/chat/reducer'
+export {homeData, questionData, chatData};
