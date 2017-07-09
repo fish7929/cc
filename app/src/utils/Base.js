@@ -381,6 +381,19 @@ module.exports = {
         context.fillText(text, p.x, p.y)
     },
     /**
+     * 获取当前登录用户
+     */
+    getCurrentUser(){
+        let user = AV.User.current() || null;
+        if(!user && process.env.NODE_ENV == 'development'){  //本地测试的时候
+            user = {
+                id: '595f31f0ac502e7589fbb3a1',
+                user_pic: '/assets/images/head-01.png'
+            }
+        }
+        return user;
+    },
+    /**
      * 微信跳转URL
      * @param {string} url 返回的URL
      */

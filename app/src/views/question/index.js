@@ -28,7 +28,9 @@ class Question extends React.Component {
         super(props);
         let type = this.props.params && this.props.params.type;
         this.type = parseInt(type);
+        this.currentUser = Base.getCurrentUser(); //获取当前用户
         this.state = {
+            user: this.currentUser,
             Q0: this.props.remoteData.Q0 || [],
             Q1: this.props.remoteData.Q1 || [],
             Q2: this.props.remoteData.Q2 || [],
@@ -90,10 +92,10 @@ class Question extends React.Component {
      */
     render() {
         return (
-            <Page id='question-page-container'>
+            this.state.user ? <Page id='question-page-container'>
                 {this.state.isShowMask ? <div className='question-mask'></div> : null}
                 {this.getComponent()}
-            </Page>
+            </Page> : null
         );
     }
     /**
@@ -107,6 +109,11 @@ class Question extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
+        if (!this.currentUser) {  //直接跳转去登录
+            Base.wxLogin();
+        }else{
+            this.setState({user: this.currentUser});
+        }
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);

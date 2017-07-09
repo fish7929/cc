@@ -25,8 +25,10 @@ class Home extends React.Component {
      */
     constructor(props) {
         super(props);
-        this.currentUser = AV.User.current(); //获取当前用户
+        this.currentUser = Base.getCurrentUser(); //获取当前用户
+        // let objectId = '595f31f0ac502e7589fbb3a1';
         this.state = this.getInitState();
+
     }
     /**
      * 初始化的状态
@@ -76,6 +78,11 @@ class Home extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
+        if (!this.currentUser) {  //直接跳转去登录
+            Base.wxLogin();
+        }else{
+            this.setState({user: this.currentUser});
+        }
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
@@ -83,13 +90,7 @@ class Home extends React.Component {
         if (!this.props.isFetching) {
             AppModal.hide();
         }
-
-        this.currentUser = AV.User.current(); //获取当前用户
-        if (!this.currentUser) {  //直接跳转去登录
-            Base.wxLogin();
-        }else{
-            this.setState({user: this.currentUser});
-        }
+        
     }
     /**
      * 属性改变的时候触发

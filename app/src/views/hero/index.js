@@ -30,7 +30,9 @@ class Hero extends React.Component {
         super(props);
         let type = this.props.params && this.props.params.type;
         this.type = parseInt(type);
+        this.currentUser = Base.getCurrentUser(); //获取当前用户
         this.state = {
+            user: this.currentUser,
             isShow: false,
             type: ZERO
         };
@@ -70,14 +72,16 @@ class Hero extends React.Component {
      * 获取渲染的内容
      */
     getComponent() {
-        let { type } = this.state;
+        let { type, user } = this.state;
         //isDrawImg={true} 
         //获取本地的缓存
         let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
+        let headUrl = user.user_pic || user.get('user_pic');
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail ref='my-hero' questions={localQuestion.questions} />
+                <HeroDetail ref='my-hero' questions={localQuestion.questions} id={user.id} 
+                headUrl={headUrl} />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
@@ -100,11 +104,11 @@ class Hero extends React.Component {
      */
     render() {
         return (
-            <Page id='hero-page-container'>
+            this.state.user ? <Page id='hero-page-container'>
                 {this.state.isShow ? <div className='hero-share'
                     onTouchTap={(e) => this.hideShareLayerHandler(e)}></div> : null}
                 {this.getComponent()}
-            </Page>
+            </Page> : null
         );
     }
     /**
@@ -118,6 +122,11 @@ class Hero extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
+        if (!this.currentUser) {  //直接跳转去登录
+            Base.wxLogin();
+        }else{
+            this.setState({user: this.currentUser});
+        }
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
@@ -152,8 +161,6 @@ class Hero extends React.Component {
             isShow: false,
             type: ZERO
         });
-        //清除缓存
-        window.localStorage.removeItem('USER_SELECT_QUESTION');
     }
 
 }
