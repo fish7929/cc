@@ -149,6 +149,8 @@ class Hero extends React.Component {
         // if (!this.props.isFetching) {
         //     AppModal.hide();
         // }
+        //初始化分享
+        lc_api.initWXShare();
     }
     /**
      * 属性改变的时候触发

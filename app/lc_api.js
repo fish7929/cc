@@ -165,7 +165,10 @@ lc_api.login = function (code, user_id, cb_ok, cb_error) {
  * @param {function} cb_error 失败回调  code 码， 1 获取微信用户信息失败， 2 用户登录失败
  */
 lc_api.addFriends = function (user_id, cb_ok, cb_error) {
-  if (!user_id) return;
+  if (!user_id) {
+    cb_error();
+    return;
+  }
   var userFriendList = [];
   var checkFriend = function (uid) {
     var b = false;
@@ -352,11 +355,10 @@ lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
     column_name = options.column_name || "",
     column_val = options.column_val || "";
 
-  if (user_id.length == 0) {
+  if (!user_id) {
     cb_err("user_id不能为空!");
     return;
   }
-e
   AV.Cloud.run('updateUserInfo', {
     "user_id": user_id,
     "column_name": column_name,
@@ -424,9 +426,10 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
 };
 
 lc_api.initWXShare = function () {
-  alert("AV.Cloud.run('wxShare'")
+  var user = AV.User.current();
+  var _title = (user.get('user_nick') || '') + '人称：'+ (user.get('q0') || '') 
+    + '。我将用' +(user.get('q1') || '') +'的方式拯救世界。最后，我想说一句'+(user.get('q2') || '') 
   AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
-    alert(obj.data.appid)
     try {
       wx.config({
         debug: false,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -439,30 +442,30 @@ lc_api.initWXShare = function () {
       wx.ready(function () {
         //朋友圈
         wx.onMenuShareTimeline({
-          title: "", // 分享标题
-          link: location.href, // 分享链接
+          title: _title, // 分享标题
+          link: 'http://www.6itec.com/share/#/', // 分享链接
           imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
           success: function () {
-            alert("node api朋友圈分享成功");
+            console.log("node api朋友圈分享成功");
           },
           cancel: function () {
-            alert('onMenuShareTimeline失败')
+            console.log('onMenuShareTimeline失败')
           }
         });
 
         //朋友
         wx.onMenuShareAppMessage({
-          title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
+          title: _title, // 分享标题
           desc: "快来生成属于你的英雄执照吧", // 分享描述
-          link: location.href, // 分享链接
+          link: 'http://www.6itec.com/share/#/', // 分享链接
           imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
           dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
           success: function () {
-            alert("node api朋友分享成功");
+            console.log("node api朋友分享成功");
           },
           cancel: function () {
-            alert('onMenuShareAppMessage失败')
+            console.log('onMenuShareAppMessage失败')
           }
         });
       });
@@ -470,10 +473,10 @@ lc_api.initWXShare = function () {
         alert(obj.data.signature + "wx error:" + JSON.stringify(error));
       });
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }, function (error) {
-    alert(error.message);
+    console.log(error.message);
   })
 }
 window.lc_api = lc_api;
