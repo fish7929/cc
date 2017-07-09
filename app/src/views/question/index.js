@@ -50,11 +50,11 @@ class Question extends React.Component {
         lc_api.updateUserInfo(opt, () => {console.log('123');}, () => {console.log('456');});
         let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
         if(localQuestion && localQuestion.hasOwnProperty('questions')){
-            localQuestion.questions.push(val);
+            localQuestion.questions[this.type - 1] = val;
             Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }else{
             let arr = [];
-            arr.push(val);
+            arr[this.type - 1] = val;
             localQuestion.questions = arr;
             Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }

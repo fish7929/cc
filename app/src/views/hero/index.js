@@ -162,6 +162,7 @@ class Hero extends React.Component {
             isShow: false,
             type: ZERO
         });
+        window.localStorage.removeItem('USER_SELECT_QUESTION');
     }
 
 }
