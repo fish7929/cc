@@ -28,9 +28,12 @@ class Hero extends React.Component {
      */
     constructor(props) {
         super(props);
-        let type = this.props.params && this.props.params.type;
-        this.type = parseInt(type);
+        this.id = this.props.params && this.props.params.id;
+
         this.currentUser = Base.getCurrentUser(); //获取当前用户
+        if(!this.id && this.currentUser){
+            this.id = this.currentUser.id;
+        }
         this.state = {
             user: this.currentUser,
             isShow: false,
@@ -89,13 +92,16 @@ class Hero extends React.Component {
         let { type, user } = this.state;
         //isDrawImg={true} 
         //获取本地的缓存
-        let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
+        // let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
+        // let question = localQuestion.questions;
+        console.log(user, 899999);
+        let question = [user.get('q0') || '', user.get('q1') || '', user.get('q2') || ''];
         let headUrl = user.user_pic || user.get('user_pic');
         let name = user.user_nick || user.get('user_nick');
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail ref='my-hero' questions={localQuestion.questions} id={user.id} 
+                <HeroDetail ref='my-hero' questions={question} id={user.id} 
                 headUrl={headUrl} name={name} />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
@@ -169,6 +175,14 @@ class Hero extends React.Component {
      */
     getInitData() {
         // this.props.fetchData();
+        lc_api.getUserById(this.id, (data) => {
+            console.log(data);
+            if(data){
+                this.setState({user: data});
+            }
+        }, (error) => {
+            console.log('获取信息失败');
+        });
     }
     /**
      * 组件渲染完成调用

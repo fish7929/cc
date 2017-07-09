@@ -43,30 +43,23 @@ class HeroDetail extends React.Component {
         });
     }
     /**
-     * 渲染英雄图片
-     */
-    renderHeroImgSection() {
-        return (<div className='hero-detail'>
-            <img src={this.state.image} style={{ width: "100%", height: "100%" }} />
-            <div className='hero-qrcode-img'>
-                <QRcode text={'/share/#/?user=' + this.state.id} width={180} height={180} />
-            </div>
-        </div>);
-    }
-    /**
      * 渲染界面
      */
     renderCommonHeroSection() {
         let { classname, top, isDrawImg, questions, id, headUrl, name } = this.state;
         let noMarginTop = top ? ' no-margin-top' : ' ';
         // let _width = ClientWidth > 375 ? ClientWidth * 0.244 : ClientWidth * 0.264;
-        let _width =  ClientWidth < 321 ? 180 * 0.43 : 180 * 0.5;
+        let temp = classname ? 130 : 180;
+        let _width =  ClientWidth < 321 ? temp * 0.43 : temp * 0.5;
         let q2 = questions[1];
         let q3 = questions[2];
         let q1 = questions[0];
+        let _class = classname ? 'hero-detail-bg ' + classname : 'hero-detail hero-detail-bg ';
+        _class = this.state.image ? _class + ' hero-detail-no-bg' : _class;
         return (
-            isDrawImg ? this.renderHeroImgSection() :
-                <div className={'hero-detail hero-detail-bg ' + classname}>
+                <div id={"common-hero-detail-"+this.props.qrid} className={_class}>
+                    {this.state.image ? <img src={this.state.image} 
+                    className="hero-detail-img-data" /> : <div>
                     <div className='hero-detail-left'>
                         <div className={'hero-head ' + noMarginTop}>
                             <img src={headUrl} />
@@ -92,8 +85,10 @@ class HeroDetail extends React.Component {
                             <span className='no-wrap' alt={q3} title={q3}>{q3}</span>
                         </div>
                     </div>
+                    </div>}
                 </div>
         );
+        // 
     }
     /**
      * 渲染TOP1界面
@@ -104,8 +99,11 @@ class HeroDetail extends React.Component {
         let q2 = questions[1];
         let q3 = questions[2];
         let q1 = questions[0];
+        let _class = this.state.image ? ' top1-hero-detail-no-content' : '';
         return (
-            <div className='top1-hero-detail-wrapper'>
+            <div id={"top1-hero-detail-"+this.props.qrid} className={'top1-hero-detail-wrapper' + _class}>
+                {this.state.image ? <img src={this.state.image} 
+                    className="hero-detail-img-data" /> : <div>
                 <div className='top1-hero-detail-left'>
                     <div className='top1-hero-head'>
                         <img src={headUrl} />
@@ -138,8 +136,11 @@ class HeroDetail extends React.Component {
                         </div>
                     </div>
                 </div>
+                </div>}
             </div>
         );
+
+        // 
     }
     /**
      * 渲染界面
@@ -154,22 +155,31 @@ class HeroDetail extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
-        if (this.state.isDrawImg) {  //如果需要绘制图片的情况
-            let canvas = document.getElementsByTagName("canvas")[0]
-            //动态设置
-            let opt = {
-                headImg: "/assets/images/head-01.png",
-                username: "没心没肺的的孙悟空",
-                q1: "一言不合就飙车",
-                q2: "带你装逼，带你飞",
-                qrCode: canvas.toDataURL("image/png")
-            }
-            Base.getPersonalCardImage(opt).then(data => {
-                this.setState({
-                    image: data
-                })
-            })
-        }
+        let { type } = this.state;
+        let domId = type == FIRST ? "common-hero-detail-" : "top1-hero-detail-";
+        Base.html2canvas(domId + this.props.qrid, (data) => {
+            this.setState({
+                isDrawImg: true,
+                image: data
+            });
+        });
+        
+        // if (this.state.isDrawImg) {  //如果需要绘制图片的情况
+        //     let canvas = document.getElementsByTagName("canvas")[0]
+        //     //动态设置
+        //     let opt = {
+        //         headImg: "/assets/images/head-01.png",
+        //         username: "没心没肺的的孙悟空",
+        //         q1: "一言不合就飙车",
+        //         q2: "带你装逼，带你飞",
+        //         qrCode: canvas.toDataURL("image/png")
+        //     }
+        //     Base.getPersonalCardImage(opt).then(data => {
+        //         this.setState({
+        //             image: data
+        //         })
+        //     })
+        // }
 
     }
     /**

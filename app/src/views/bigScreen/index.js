@@ -39,7 +39,7 @@ class BigScreen extends React.Component {
         return (
             <div className="new-hero-content">
                 {newHero.map((item, index) => <HeroDetail type={FIRST} key={item.id + '-new-' + index} 
-                qrid={'qrcod-new-hero-' + index} classname='new-hero-item'  
+                qrid={'qrcod-new-hero-' + item.id + '-' + index} classname='another-hero-detail new-hero-item'  id={item.id}
                 name={item.name} questions={item.questions} headUrl={item.headUrl}/>)}
             </div>
         );
@@ -53,10 +53,10 @@ class BigScreen extends React.Component {
             <div className="top-hero-content">
                 {topHero.map((item, index) => {
                     let _type = index == 0 ? SECOND : FIRST;
-                    let _class = index <= 2 ? (index == 0 ? '' : 'top-hero-item top-hero-' + (index + 1))
-                        : 'top-hero-item';
-                    return (<HeroDetail type={_type} key={item.id + '-top-' + index}
-                        qrid={'qrcod-top-hero-' + index} classname={_class} top={index + 1} 
+                    let _class = index <= 2 ? (index == 0 ? '' : 'another-hero-detail top-hero-item top-hero-' + (index + 1))
+                        : 'top-hero-item another-hero-detail';
+                    return (<HeroDetail type={_type} key={item.id + '-top-' + index} id={item.id}
+                        qrid={'qrcod-top-hero-' + item.id + '-' + index} classname={_class} top={index + 1} 
                         name={item.name} questions={item.questions} headUrl={item.headUrl}/>)
                 })}
             </div>

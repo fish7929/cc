@@ -57,13 +57,14 @@ let NotFoundPage = (location, cb) => {
 };
 
 const Routers = React.createClass({
-    render(){
+    render() {
         return (
             <Router history={this.props.history}>
                 <Route path={RoutPath.ROUTER_HOME} component={App} >
-                    <IndexRoute getComponent={Home}/>
-                    <Route path={RoutPath.ROUTER_QUESTION + '/:type'}  getComponent={Question} />
-                    <Route path={RoutPath.ROUTER_HERO}  getComponent={Hero} />
+                    <IndexRoute getComponent={Home} />
+                    <Route path={RoutPath.ROUTER_QUESTION + '/:type'} getComponent={Question} />
+                    <Route path={RoutPath.ROUTER_HERO + '/:id'} getComponent={Hero} />
+                    <Route path={RoutPath.ROUTER_HERO} getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
                     <Route path={RoutPath.ROUTER_CHAT_VIEW} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_BIG_SCREEN} getComponent={BigScreen} />

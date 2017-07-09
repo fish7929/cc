@@ -421,5 +421,10 @@ module.exports = {
             return url.substring(iStart);
         }
         return url.substring(iStart, iEnd);
+    },
+    html2canvas(id, callback){
+        html2canvas(document.querySelector("#"+id)).then(function(canvas) {
+            callback && callback(canvas.toDataURL("image/png"));
+        });
     }
 }

@@ -84,6 +84,90 @@
         }
     }
 }
+
+/*******以下是通用的 *******/
+.another-hero-detail{
+    position: relative;
+    height: calc-rem(557);
+    width: calc-rem(506);
+    display: inline-block;
+    .hero-detail-left{
+        display: inline-block;
+        width: calc-rem(190);
+        height: 100%;
+        vertical-align: top;
+        padding: 0 calc-rem(20);
+        .hero-head{
+            width: calc-rem(150);
+            height: calc-rem(150);
+            display: inline-block;
+            border-radius: 100%; 
+            padding: calc-rem(20);
+            margin: 0 auto;
+            margin-top: calc-rem(50);
+            background: url($headBgIcon) center no-repeat; 
+            background-size: cover; 
+            box-sizing: border-box;
+            img{
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                border: calc-rem(4) solid #575959;
+                display: inline-block;
+                border-radius: 100%; 
+            }
+        }
+        
+        .hero-qrcode{
+            margin: 0 auto;
+            margin-top: calc-rem(32); 
+            width: calc-rem(145);
+            height: calc-rem(145);
+            background: $whiteColor;
+            padding: calc-rem(7.5);
+            box-sizing: border-box;
+        }
+        .hero-qrcode-hint{
+            display: block;
+            margin-top: calc-rem(10); 
+            font-size: calc-rem(16);
+            color: $whiteColor;
+            font-style: italic;
+        }
+    }
+    .hero-detail-right{
+        display: inline-block;
+        width: -webkit-calc(100% - #{calc-rem(190)});
+        width: calc(100% - #{calc-rem(190)});
+        box-sizing: border-box;
+        height: 100%;
+        padding-right: calc-rem(56);
+        .hero-card{
+            width: 100%;
+            height: calc-rem(80);
+            background: url($heroCardIcon) left center no-repeat; 
+            background-size: contain; 
+        }
+        .hero-detail-text{
+            width: 100%;
+            height: calc-rem(70);
+            background: url($commonBorderIcon) left bottom no-repeat; 
+            background-size: contain; 
+            font-size: calc-rem(22);
+            line-height: calc-rem(35);
+            color: #08abd2;
+            font-style: italic;
+            margin-top: calc-rem(20); 
+            span{
+                font-size: calc-rem(26);
+                color: $whiteColor;
+            }
+        }
+    }
+}
+
+
+
 .hero-detail-bg{
     background: url($heroDetailIcon) center no-repeat;
     background-size: contain; 
@@ -113,7 +197,7 @@
     margin: 0 auto;
     width: calc-rem(184);
     height: calc-rem(134);
-    background: url($top2Icon) center no-repeat;
+    background: url($top2Icon) left center no-repeat;
     background-size: contain; 
 }
 
@@ -121,7 +205,7 @@
     margin: 0 auto;
     width: calc-rem(184);
     height: calc-rem(134);
-    background: url($top3Icon) center no-repeat;
+    background: url($top3Icon) left center no-repeat;
     background-size: contain; 
 }
 
@@ -129,7 +213,7 @@
     margin: 0 auto;
     width: calc-rem(184);
     height: calc-rem(134);
-    background: url($top4Icon) center no-repeat;
+    background: url($top4Icon) left center no-repeat;
     background-size: contain; 
 }
 
@@ -137,11 +221,11 @@
     margin: 0 auto;
     width: calc-rem(184);
     height: calc-rem(134);
-    background: url($top5Icon) center no-repeat;
+    background: url($top5Icon) left center no-repeat;
     background-size: contain; 
 }
 .no-margin-top{
-    margin-top: 0 !important;
+    margin-top: calc-rem(-40) !important;
 }
 
 .hero-top+.hero-qrcode{
@@ -155,9 +239,8 @@
     background: url($top1BgIcon) center no-repeat;
     background-size: contain; 
     display: inline-block;
-    top: calc-rem(-56);
-    margin-bottom: calc-rem(-112);
-    margin-left: calc-rem(80);
+    top: calc-rem(56);
+    margin-right: calc-rem(84);
     .top1-hero-detail-left{
         position: relative;
         display: inline-block;
@@ -245,4 +328,19 @@
     }
 }
 
+.top1-hero-detail-no-content{
+    background: transparent !important;
+    top: calc-rem(-56) !important;
+}
+.hero-detail-no-bg{
+    background: transparent !important;
+}
+.hero-detail-img-data{
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
 

@@ -134,10 +134,10 @@ lc_api.login = function (code, user_id, cb_ok, cb_error) {
   lc_api.getWXLogin(code, function (wxUser) {
     lc_api.getUserStatus(code, function (user, status) {  //status 1 表示 没用户， 2 表示有用户
       if (user_id) {  //哟用户id的情况。
-        lc_api.addFriends(user_id, function(){
-          if(status == 1){  //新注册用户
+        lc_api.addFriends(user_id, function () {
+          if (status == 1) {  //新注册用户
             cb_ok && cb_ok(1);
-          }else if(status == 2){  //老用户
+          } else if (status == 2) {  //老用户
             cb_ok && cb_ok(2);
           }
         }, function (params) {
@@ -215,7 +215,19 @@ lc_api.addFriends = function (user_id, cb_ok, cb_error) {
     cb_error && cb_error();
   });
 }
-
+lc_api.getUserById = function (user_id, cb_ok, cb_error) {
+  var query = new AV.Query('_User');
+  query.equalTo('objectId', user_id);
+  query.first().then(function (data) {
+    if (data) {
+      cb_ok(data);
+    } else {
+      cb_ok(null);
+    }
+  }, function (error) {
+    cb_err(error);
+  });
+}
 /*************fishYu add  end*******************/
 
 
@@ -412,23 +424,23 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
     friends_uid,好友用户id
 **/
 lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
-    if (!AV.User.current()) {
-        cb_err("未登录用户!")
-        return;
-    }
-    var UserArray = [friends_uid, AV.User.current().id]
-    var query = new AV.Query("_Conversation");
-    query.containsAll("m", UserArray);
-    query.first({
-        success: cb_ok,
-        error: cb_err
-    });
+  if (!AV.User.current()) {
+    cb_err("未登录用户!")
+    return;
+  }
+  var UserArray = [friends_uid, AV.User.current().id]
+  var query = new AV.Query("_Conversation");
+  query.containsAll("m", UserArray);
+  query.first({
+    success: cb_ok,
+    error: cb_err
+  });
 };
 
 lc_api.initWXShare = function () {
   var user = AV.User.current();
-  var _title = (user.get('user_nick') || '') + '人称：'+ (user.get('q0') || '') 
-    + '。我将用' +(user.get('q1') || '') +'的方式拯救世界。最后，我想说一句'+(user.get('q2') || '') 
+  var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
+    + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '')
   AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
     try {
       wx.config({

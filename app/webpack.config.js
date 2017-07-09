@@ -153,7 +153,8 @@ var release = {
         new CopyWebpackPlugin( [
             {from: './av-min.js', to: './av-min.js'},
             {from: './lc_api.js', to: './lc_api.js'},
-            {from: './login.html', to: './login.html'}
+            {from: './login.html', to: './login.html'},
+            {from: './html2canvas.min.js', to: './html2canvas.min.js'}
             ]),     //npm run test 的时候拷贝 test测试数据
         new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
