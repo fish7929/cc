@@ -91,6 +91,9 @@ AV.Cloud.define("updateUserInfo", function (request, response) {
         results.increment('msg_count', 1);//累计加一
       } else {
         results.set(column_name, column_val);
+        if(column_name=="on_screen"){
+          results.set("on_screen_date", new Date());
+        }
       }
       results.save().then(function (todo) {
         response.success(todo);

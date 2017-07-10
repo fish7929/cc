@@ -405,10 +405,14 @@ lc_api.updateFriendLastMsg = function (uid, friend_id, msg, cb_ok, cb_err) {
  * column_val，字段值请自行保证输入类型
  */
 lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
-  var user_id = options.user_id || "",
-    column_name = options.column_name || "",
-    column_val = options.column_val || "";
+   var user_id = options.user_id || "", 
+  column_name = options.column_name || "";
 
+  if( options.column_name=="msg_count"||options.column_name=="on_screen"){
+      column_name = options.column_name || 0;
+  }else{
+      column_val = options.column_val || "";
+  }
   if (!user_id) {
     cb_err("user_id不能为空!");
     return;
@@ -427,7 +431,7 @@ lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
 /** 查询用户表
  *  pageSize 第几页
  *  pageNumber,每页显示条数
- *  orderby 排序字段，默认createdAt（新加入英雄排序查询）, msg_count-对话总数（可以用于英雄风云榜排序查询）
+ *  orderby 排序字段，默认createdAt（新加入英雄排序查询）, msg_count-对话总数（可以用于英雄风云榜排序查询）,on_screen-用于上屏会有2个排序上屏大小，和时间
  *  isdesc 是否降序，true/false
  * **/
 lc_api.getUser = function (options, cb_ok, cb_err) {
@@ -444,15 +448,24 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
   }
 
   var query = new AV.Query("_User");
+  if(orderby=="on_screen"){
+    query.greaterThan("on_screen",0);
+  }
   query.skip(skip);
   query.limit(limit);
   //排序
   if (orderby.length > 0) {
-    if (isdesc) {
-      query.descending(orderby);
-    } else {
-      query.ascending(orderby);
+    if(orderby=="on_screen"){
+        query.descending('on_screen');
+        query.descending('createdAt');
+    }else{
+      if (isdesc) {
+        query.descending(orderby);
+      } else {
+        query.ascending(orderby);
+      }
     }
+    
   }
 
   query.find().then(function (results) {
