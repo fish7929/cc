@@ -16,6 +16,7 @@
     height: 100%;
 }
 .home-title{
+    position: relative;
     width: 100%;
     height: calc-rem(213);
     background: url($titleIcon) center no-repeat;
@@ -73,10 +74,10 @@
     z-index: 1;
     background: url($shan1Icon) center no-repeat;
     background-size: cover;
-    width: 7.34375%;
-    height: 1.3888888888888888%;
-    left: 41.71875%;
-    top: 2.5%;
+    width: 8%;
+    height: 8%;
+    left: 41%;
+    top: 17%;
     -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
     animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
 }
@@ -87,13 +88,21 @@
     background: url($shan2Icon) center no-repeat;
     background-size: cover;
     width: 10%;
-    height: 2.976190476190476%;
-    left: 55.625%;
-    top: 6.15079365079365%;
+    height: 17%;
+    left: 57%;
+    top: 46%;
     -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
     animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
 }
-
+// @media screen and (min-width: 319px) and (max-width: 413px) {
+//     .home-title-shan2{
+//         top: 7.2%;
+//     }
+//     .home-title-shan1{
+//         top: 2.6%;
+//         left: 41%;
+//     }
+// }
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
