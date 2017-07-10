@@ -129,7 +129,7 @@ let ChatRoom = function(opt){
         })
     }
 
-    this.sendMsg = (msg) => {
+    this.sendMsg = (msg, params) => {
         return new Promise((resolve, reject) => {
             // 不让发送空字符
             if (!String(msg).replace(/^\s+/, '').replace(/\s+$/, '')) {
@@ -137,7 +137,9 @@ let ChatRoom = function(opt){
                 return
             }
             // 向这个房间发送消息，这段代码是兼容多终端格式的，包括 iOS、Android、Window Phone
-            room.send(new LRealtime.TextMessage(msg)).then(function(message) {
+            let textMessage = new LRealtime.TextMessage(msg)
+            textMessage.setAttributes(params)
+            room.send(textMessage).then(function(message) {
                 // 发送成功之后的回调
                 resolve && resolve(message)
             });
@@ -164,7 +166,7 @@ function getLog(callback) {
     if (l) {
       msgTime = data[0].timestamp;
     }
-    for (var i = l - 1; i >= 0; i--) {
+    for (var i = 0 ; i < l; i++) {
       showMsg&&showMsg(data[i], true);
     }
     if (callback) {

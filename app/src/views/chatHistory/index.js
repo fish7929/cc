@@ -11,34 +11,48 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { hashHistory } from 'react-router'
+
 //require submodule
 import Page from '../../components/page';
 import ChatHistoryItem from '../../components/chatHistoryItem'
+import ScrollList from '../../components/scrollList'
+
+import { getMyFriendList, getFriendTotal } from './reducer/action'
 
 import "./index.scss";
 
 class ChatHistory extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            page: 0,
+            pageNumber: 10
+        }
+    }
+
+    onLoadData(page){
+        let opt = {
+            user_id: AV.User.current().id,
+            pageSize: page,
+            pageNumber: this.state.pageNumber,
+        }
+        this.props.getMyFriendList(opt).then(()=>this.setState({page}))
     }
 
     render() {
+        let { list, total } = this.props, pageTotal
+        if(total>0){
+            pageTotal = Math.ceil(total / this.state.pageNumber)
+        }else{
+            pageTotal = 1
+        }
         return (
             <Page id='chat-history'>
-                <div className="chat-history-list">
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                    <ChatHistoryItem />
-                </div>
+                <ScrollList className="chat-history-list" currentPage={this.state.page} pageTotal={pageTotal} onScroll={page=>this.onLoadData(page)}>
+                    {list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>hashHistory.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)}
+                </ScrollList>
             </Page>
         );
     }
@@ -56,15 +70,17 @@ class ChatHistory extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
+        this.setState({
+            page: 0,
+        })
+        this.onLoadData(0)
+        this.props.getFriendTotal({user_id: AV.User.current().id})
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.isFetching) {
-            AppModal.hide();
-        }
     }
 
     /**
@@ -78,12 +94,12 @@ class ChatHistory extends React.Component {
 
 let mapStateToProps = state => {
     return ({
-        isFetching: state.homeData.isFetching
+        list: state.chatHistoryData.friendList
     });
 }
 
 let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({  }, dispatch)
+    return bindActionCreators({ getMyFriendList, getFriendTotal }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatHistory);
