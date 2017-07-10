@@ -56,8 +56,16 @@ class Home extends React.Component {
         let { user } = this.state;
         return (
             Base.isEmptyObject(user) ? <div></div> : <Page id='home-page-container'>
-                <div className="home-title"></div>
-                <div className="home-logo"></div>
+                <div className="home-title">
+                    <div className="home-title-shan1 animated  infinite"></div>
+                    <div className="home-title-shan2 animated  infinite"></div>
+                </div>
+                <div className="home-logo">
+                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
+                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
+                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
+                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
+                </div>
                 <div className='common-button-wrapper'>
                     <span className='button-left-border'></span>
                     <span className="home-page-button btn-active"

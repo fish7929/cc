@@ -22,6 +22,7 @@
     background-size: contain;
 }
 .home-logo{
+    position: relative;
     margin: 0 auto;
     margin-top: calc-rem(43);
     width: calc-rem(722);
@@ -40,3 +41,135 @@
     background: url($homeButtonIcon) no-repeat center;
     background-size: contain; 
 }
+
+.home-logo-yuan{
+    position: absolute;
+    z-index: 1;
+    background: url($yuanIcon) center no-repeat;
+    background-size: cover;
+    width: calc-rem(70); 
+    height: calc-rem(70);
+    border-radius: 100%; 
+    &:nth-child(1){
+       top: calc-rem(85);
+       left: calc-rem(20);     
+    }
+    &:nth-child(2){
+       top: calc-rem(85);
+       right: calc-rem(15);     
+    }
+    &:nth-child(3){
+       bottom: calc-rem(65);
+       left: calc-rem(20);     
+    }
+    &:nth-child(4){
+       bottom: calc-rem(65);
+       right: calc-rem(15);     
+    }
+}
+
+.home-title-shan1{
+    position: absolute;
+    z-index: 1;
+    background: url($shan1Icon) center no-repeat;
+    background-size: cover;
+    width: 7.34375%;
+    height: 1.3888888888888888%;
+    left: 41.71875%;
+    top: 2.5%;
+    -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+    animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+}
+
+.home-title-shan2{
+    position: absolute;
+    z-index: 1;
+    background: url($shan2Icon) center no-repeat;
+    background-size: cover;
+    width: 10%;
+    height: 2.976190476190476%;
+    left: 55.625%;
+    top: 6.15079365079365%;
+    -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+    animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes flash {
+  from, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  from, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+@-webkit-keyframes directWhirlIn{
+  0%{-webkit-transform:rotateZ(0deg);transform:rotateZ(0deg);}
+  50%{-webkit-transform:rotateZ(180deg);transform:rotateZ(180deg);}
+  100%{-webkit-transform:rotateZ(360deg);transform:rotateZ(360deg);}
+}
+@keyframes directWhirlIn{
+  0%{-webkit-transform:rotateZ(0deg);transform:rotateZ(0deg);}
+  50%{-webkit-transform:rotateZ(180deg);transform:rotateZ(180deg);}
+  100%{-webkit-transform:rotateZ(360deg);transform:rotateZ(360deg);}
+}
+/*顺时针旋转*/
+.directWhirlIn{-webkit-animation-name:directWhirlIn; animation-name:directWhirlIn;-webkit-animation-timing-function:linear; animation-timing-function:linear;}
+@-webkit-keyframes inverseWhirlIn{
+  0%{-webkit-transform:rotateZ(360deg);transform:rotateZ(360deg);}
+  100%{-webkit-transform:rotateZ(0deg);transform:rotateZ(0deg);}
+}
+@keyframes inverseWhirlIn{
+  0%{-webkit-transform:rotateZ(360deg);transform:rotateZ(360deg);}
+  100%{-webkit-transform:rotateZ(0deg);transform:rotateZ(0deg);}
+}
+/*逆时针旋转*/
+.inverseWhirlIn{-webkit-animation-name:inverseWhirlIn; animation-name:inverseWhirlIn; -webkit-animation-timing-function:linear; animation-timing-function:linear;}
