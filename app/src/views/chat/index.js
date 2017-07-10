@@ -63,7 +63,7 @@ class ChatView extends React.Component {
         let user = AV.User.current()
         if(!fid || !user) return
         lc_api.getSingleConversation(fid, (data)=>{
-            this.chatRoom = new ChatRoom({roomId: data.id, userId: user.id, showMsg: (message)=>this.showMsg(message)})
+            this.chatRoom = new ChatRoom({roomId: "59639cf1fe88c26968cedb1e", userId: user.id, showMsg: (message)=>this.showMsg(message)})
             this.chatRoom.connect()
         })
     }
@@ -79,7 +79,13 @@ class ChatView extends React.Component {
     }
 
     sendMsg(){
-        this.chatRoom && this.chatRoom.sendMsg(this.state.msg).then(message=>{
+        let user = AV.User.current()
+        let param = {
+            user_id: user.id,
+            user_pic: user.get("user_pic")
+        }
+        console.log(param)
+        this.chatRoom && this.chatRoom.sendMsg(this.state.msg, param).then(message=>{
             this.props.appendMessage(message)
             this.setState({msg: ""})
         }, message=>message && AppModal.toast(message))

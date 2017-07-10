@@ -11,10 +11,12 @@ class ChatItem extends React.Component{
     render(){
         let {data} = this.props
         let user = AV.User.current()
+        let p = data.getAttributes()
+        let userIcon = p ? p.user_pic : ""
         return(
             <div className="chat-item">
                 <div className={(data.from == user.id ? "active": "") + " chat-item-div"}>
-                    <div className="header-div"><img src={HeadIcon}/></div>
+                    <div className="header-div"><img src={userIcon}/></div>
                     <div className="content">
                         {data.text}
                     </div>

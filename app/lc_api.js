@@ -349,12 +349,11 @@ lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
         query.ascending(orderby);
       }
     }
-
     query.find().then(function (results) {
       cb_ok(results);
     }, function (error) {
       cb_err(error);
-    });
+    }); 
   }
   /** 根据用户id查询用户好友 总数
    *  user_id 用户id 
