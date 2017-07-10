@@ -8,7 +8,7 @@
 'use strict';
 
 // require core module
-import bgImg from '../../assets/images/canvasBg.png';
+// import bgImg from '../../assets/images/canvasBg.png';
 module.exports = {
     /**
      * 判断是否是函数
@@ -302,7 +302,7 @@ module.exports = {
             let context = canvas.getContext("2d")
             context.fillStyle = "rgba(255,255,255,0)"
             context.fillRect(0, 0, 692, 761);
-            this.drawImage(context, bgImg, {x:0, y:0}).then(c => {
+            this.drawImage(context, 'http://www.6itec.com/share/assets/images/canvasBg.png', {x:0, y:0}).then(c => {
                 if(!opt) resolve&&resolve(canvas.toDataURL("image/png"))
                 if(opt.username){
                     this.drawText(c, opt.username + "号称", {x:280, y:260}, "#00e4fc" , "30px 宋体")
@@ -367,7 +367,7 @@ module.exports = {
             if(context == null) reject && reject()
 
             let image = new Image()
-            image.crossOrigin = "Anonymous"
+            // image.crossOrigin = "Anonymous"
             image.onload = ()=> {
                 context.drawImage(image, p.x, p.y, image.width, image.height)
                 resolve&&resolve(context)
@@ -375,6 +375,7 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
+            image.crossOrigin = "anonymous";
             image.src = url
         })
     },
