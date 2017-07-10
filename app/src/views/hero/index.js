@@ -50,6 +50,7 @@ class Hero extends React.Component {
         // e.preventDefault();
         e.stopPropagation();
         this.setState({ type });
+        let {user} = this.state;
         switch (type) {
             case FIRST:
                 this.setState({isShow: true});
@@ -60,14 +61,24 @@ class Hero extends React.Component {
                 if(!this.canClick) return;
                 this.canClick = false;
                 let opt = {};
-                opt.user_id = this.currentUser.id;
+                opt.user_id = user.id;
                 opt.column_name = "on_screen";
-                opt.column_val = this.currentUser.get("on_screen") ? this.currentUser.get("on_screen") + 1 : 0;
+                let oldScreen = user.get("on_screen");
+                if(oldScreen == undefined){
+                    oldScreen = 0;
+                }else if(oldScreen == 0){
+                    oldScreen = 2;
+                }else if(oldScreen == 2){
+                    oldScreen = 1;
+                }else if(oldScreen == 1){
+                    oldScreen = 2;
+                }
+                opt.column_val = oldScreen;
                 lc_api.updateUserInfo(opt, () => {
-                    AppModel.toast("上屏成功");
+                    AppModal.toast("上屏成功");
                     this.canClick = true;
                 }, () => {
-                    AppModel.toast("上屏失败");
+                    AppModal.toast("上屏失败");
                     this.canClick = true;
                 });
                 break;
@@ -81,7 +92,6 @@ class Hero extends React.Component {
      * @param {object} e 返回事件 
      */
     hideShareLayerHandler(e){
-        // e.preventDefault();
         e.stopPropagation();
         this.setState({isShow: false});
     }
@@ -90,19 +100,15 @@ class Hero extends React.Component {
      */
     getComponent() {
         let { type, user } = this.state;
-        //isDrawImg={true} 
-        //获取本地的缓存
-        // let localQuestion = Base.getLocalStorageObject('USER_SELECT_QUESTION');
-        // let question = localQuestion.questions;
-        console.log(user, 899999);
-        let question = [user.get('q0') || '', user.get('q1') || '', user.get('q2') || ''];
-        let headUrl = user.user_pic || user.get('user_pic');
-        let name = user.user_nick || user.get('user_nick');
+        let question = [user.get('q0'), user.get('q1'), user.get('q2')];
+        let headUrl = user.get('user_pic') || '';
+        let name = user.get('user_nick') || '';
+        console.log(question, 89999);
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                <HeroDetail ref='my-hero' questions={question} id={user.id} 
-                headUrl={headUrl} name={name} />
+                {user.get('q0') ? <HeroDetail ref='my-hero' questions={question} id={user.id} 
+                headUrl={headUrl} name={name} isDrawImg={true}  /> : null}
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
@@ -145,27 +151,20 @@ class Hero extends React.Component {
     componentDidMount() {
         if (!this.currentUser) {  //直接跳转去登录
             Base.wxLogin();
-        }else{
-            this.setState({user: this.currentUser});
+            return;
         }
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
         this.getInitData();
-        // if (!this.props.isFetching) {
-        //     AppModal.hide();
-        // }
         //初始化分享
-        lc_api.initWXShare();
+        lc_api.initWXShare(this.currentUser.id);
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        // if (!nextProps.isFetching) {
-        //     AppModal.hide();
-        // }
         this.setState({
             type: ZERO
         });
@@ -174,7 +173,6 @@ class Hero extends React.Component {
      * 获取网络初始化数据，
      */
     getInitData() {
-        // this.props.fetchData();
         lc_api.getUserById(this.id, (data) => {
             console.log(data);
             if(data){

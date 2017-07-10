@@ -78,7 +78,7 @@ class BigScreen extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '守望先锋';
+        var title = '英雄执照';
         return title;
     }
     /**
@@ -95,7 +95,7 @@ class BigScreen extends React.Component {
         // }
         //几秒钟轮训查询
         this.clearTimer();
-        this.timer = setInterval(() => this.getInitData(), 20 * 1000);
+        this.timer = setInterval(() => this.getInitData(), 10 * 1000);
     }
     /**
      * 属性改变的时候触发
