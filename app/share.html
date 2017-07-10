@@ -6,7 +6,7 @@
     <title>nyh demo page</title>
     <script src="av-min.js"></script>
     <script src="login.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.0.js"></script> 
+    <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
     window.onload = function () {
@@ -16,7 +16,10 @@
         function wxShare() {
             //alert(encodeURIComponent(location.href.split('#')[0]));
             alert(location.href)
-            AV.Cloud.run('wxShare', { url:location.href }).then(function (obj) {
+           $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
+            to_url: location.href
+        }, function (objs) {
+            obj =JSON.parse(objs);
                     debugger;
                     document.getElementById("info").innerHTML = JSON.stringify(obj.data);
                     try{
@@ -64,9 +67,7 @@
                     } catch (e) {
                         alert(e.message);
                     }
-                }, function (error) {
-                    alert(error.message);
-            });
+         });
         }
     </script>
 </head>
