@@ -172,9 +172,10 @@ class HeroDetail extends React.Component {
             //动态设置
             let opt = {
                 headImg: headUrl,
-                username: q1,
-                q1: q2,
-                q2: q3,
+                username: name,
+                q1: q1,
+                q2: q2,
+                q3: q3,
                 qrCode: canvas.toDataURL("image/png")
             }
             Base.getPersonalCardImage(opt).then(data => {
