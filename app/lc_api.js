@@ -457,7 +457,7 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
   if (orderby.length > 0) {
     if(orderby=="on_screen"){
         query.descending('on_screen');
-        query.descending('createdAt');
+        query.descending('on_screen_date');
     }else{
       if (isdesc) {
         query.descending(orderby);
