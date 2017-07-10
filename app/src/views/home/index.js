@@ -97,14 +97,22 @@ class Home extends React.Component {
         if (!this.currentUser) {  //直接跳转去登录
             Base.wxLogin(param);
         } else {
-            lc_api.getUserById(this.currentUser.id, (data) => {
-                console.log(data);
-                if (data) {
-                    this.setState({ user: data });
-                }
-            }, (error) => {
-                console.log('获取信息失败');
-            });
+            if(param){
+                lc_api.addFriends(param, () => {
+                    navigate.push(RoutPath.ROUTER_CHAT_HISTORY);  //好友列表页
+                }, () => {
+                    console.log('加好友失败');
+                });
+            }else{
+                lc_api.getUserById(this.currentUser.id, (data) => {
+                    console.log(data);
+                    if (data) {
+                        this.setState({ user: data });
+                    }
+                }, (error) => {
+                    console.log('获取信息失败');
+                });
+            }
         }
         //动态设置页面标题
         var title = this.getTitle();
