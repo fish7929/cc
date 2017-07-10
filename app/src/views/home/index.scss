@@ -94,15 +94,10 @@
     -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
     animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
 }
-// @media screen and (min-width: 319px) and (max-width: 413px) {
-//     .home-title-shan2{
-//         top: 7.2%;
-//     }
-//     .home-title-shan1{
-//         top: 2.6%;
-//         left: 41%;
-//     }
-// }
+.shan-shuo{
+    -webkit-animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+    animation: fadeIn 1s 1.5s 1 both,flash 0.4s 2.5s infinite forwards;
+}
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

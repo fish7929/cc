@@ -67,10 +67,10 @@ class Home extends React.Component {
                     <div className="home-logo-yuan animated directWhirlIn infinite"></div>
                 </div>
                 <div className='common-button-wrapper'>
-                    <span className='button-left-border'></span>
+                    <span className='button-left-border shan-shuo'></span>
                     <span className="home-page-button btn-active"
                         onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}></span>
-                    <span className='button-right-border'></span>
+                    <span className='button-right-border shan-shuo'></span>
                 </div>
             </Page>
         );
