@@ -2,13 +2,12 @@ var AV = require('leanengine');
 var requestClient = require('request');
 
 var jsSHA = require('jssha');
-var sha1 = require("sha1");
-
+var sha1 = require("sha1"); 
 /**
  * 一个简单的云代码方法
  */
 AV.Cloud.define('hello', function (request) {
-  return 'Hello world!';
+  return  md5.hex_md5("sdfadfds色弱热无无若"+"兰亭细黑");;
 });
 
 AV.Cloud.define('test', function (request, response) {

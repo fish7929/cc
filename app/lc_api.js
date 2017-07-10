@@ -438,6 +438,7 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
   });
 };
 
+//微信分享
 lc_api.initWXShare = function () {
   var user = AV.User.current();
   var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
@@ -492,4 +493,5 @@ lc_api.initWXShare = function () {
     console.log(error.message);
   })
 }
+
 window.lc_api = lc_api;
