@@ -133,7 +133,7 @@ lc_api.GetRequest = function () {
  */
 lc_api.login = function (code, user_id, cb_ok, cb_error) {
   lc_api.getWXLogin(code, function (wxUser) {
-    lc_api.getUserStatus(code, function (user, status) {  //status 1 表示 没用户， 2 表示有用户
+    lc_api.getUserStatus(wxUser, function (user, status) {  //status 1 表示 没用户， 2 表示有用户
       if (user_id) {  //哟用户id的情况。
         lc_api.addFriends(user_id, function () {
           if (status == 1) {  //新注册用户
