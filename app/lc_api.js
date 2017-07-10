@@ -432,17 +432,18 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
   var query = new AV.Query("_Conversation");
   query.containsAll("m", UserArray);
   query.first().then(function (results) {
-     cb_ok(results);
+    cb_ok(results);
   }, function (error) {
-     cb_err(error);
+    cb_err(error);
   });
 };
 
 lc_api.initWXShare = function () {
   var user = AV.User.current();
   var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
-    + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '')
+    + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '');
   AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
+
     try {
       wx.config({
         debug: false,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -453,37 +454,44 @@ lc_api.initWXShare = function () {
         jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
       wx.ready(function () {
-        //朋友圈
-        wx.onMenuShareTimeline({
-          title: _title, // 分享标题
-          link: 'http://www.6itec.com/share/#/', // 分享链接
-          imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
-          success: function () {
-            console.log("node api朋友圈分享成功");
-          },
-          cancel: function () {
-            console.log('onMenuShareTimeline失败')
-          }
-        });
+        //为了查询用户有去q0-q2
+        lc_api.getUserById(user.id, function (res) {
+          _title = (res.get('user_nick') || '') + '人称：' + (res.get('q0') || '')
+            + '。我将用' + (res.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (res.get('q2') || '');
 
-        //朋友
-        wx.onMenuShareAppMessage({
-          title: _title, // 分享标题
-          desc: "快来生成属于你的英雄执照吧", // 分享描述
-          link: 'http://www.6itec.com/share/#/', // 分享链接
-          imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
-          type: 'link', // 分享类型,music、video或link，不填默认为link
-          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-          success: function () {
-            console.log("node api朋友分享成功");
-          },
-          cancel: function () {
-            console.log('onMenuShareAppMessage失败')
-          }
-        });
+          //朋友圈
+          wx.onMenuShareTimeline({
+            title: _title, // 分享标题
+            link: 'http://www.6itec.com/share/#/', // 分享链接
+            imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
+            success: function () {
+              console.log("node api朋友圈分享成功");
+            },
+            cancel: function () {
+              console.log('onMenuShareTimeline失败')
+            }
+          });
+
+          //朋友
+          wx.onMenuShareAppMessage({
+            title: _title, // 分享标题
+            desc: "快来生成属于你的英雄执照吧", // 分享描述
+            link: 'http://www.6itec.com/share/#/', // 分享链接
+            imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+              console.log("node api朋友分享成功");
+            },
+            cancel: function () {
+              console.log('onMenuShareAppMessage失败')
+            }
+          });
+        }, function (error) { console.log(err) });
       });
       wx.error(function (error) {
-        alert(obj.data.signature + "wx error:" + JSON.stringify(error));
+        // alert(obj.data.signature + "wx error:" + JSON.stringify(error));
+        console.log(obj.data.signature + "wx error:" + JSON.stringify(error));
       });
     } catch (e) {
       console.log(e.message);

@@ -78,7 +78,7 @@ class BigScreen extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '守望先锋';
+        var title = '英雄执照';
         return title;
     }
     /**

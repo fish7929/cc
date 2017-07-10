@@ -102,7 +102,7 @@ class Hero extends React.Component {
             <div className="hero-page-content">
                 <div className='hero-title'></div>
                 <HeroDetail ref='my-hero' questions={question} id={user.id} 
-                headUrl={headUrl} name={name} />
+                headUrl={headUrl} name={name} isDrawImg={true}  />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
