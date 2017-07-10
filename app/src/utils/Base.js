@@ -292,7 +292,6 @@ module.exports = {
      *      username: string,
      *      q1:string
      *      q2:string
-     *      
      * }
      */
     getPersonalCardImage(opt) {
@@ -306,25 +305,27 @@ module.exports = {
             let bgImg = '/assets/images/canvasBg.png'
             this.drawImage(context, bgImg, {x:0, y:0}).then(c => {
                 if(!opt) resolve&&resolve(canvas.toDataURL("image/png"))
-
                 if(opt.username){
-                    this.drawText(c, opt.username, {x:280, y:320})
+                    this.drawText(c, opt.username + "号称", {x:280, y:260}, "#00e4fc" , "30px 宋体")
                 }
                 if(opt.q1){
-                    this.drawText(c, opt.q1, {x:380, y:410})
+                    this.drawText(c, opt.q1, {x:280, y:320})
                 }
                 if(opt.q2){
+                    this.drawText(c, opt.q1, {x:380, y:410})
+                }
+                if(opt.q3){
                     this.drawText(c, opt.q2, {x:280, y:590})
                 }
                 if(opt.headImg){
-                        this.drawHead(c, opt.headImg, {x:0, y:0}).then((c) => {
-                            if(opt.qrCode){
-                                this.drawImage(c, opt.qrCode, {x:60, y:456}).then(c => {
-                                    resolve&&resolve(canvas.toDataURL("image/png"))
-                                })
-                            }else{
+                    this.drawHead(c, opt.headImg, {x:0, y:0}).then((c) => {
+                        if(opt.qrCode){
+                            this.drawImage(c, opt.qrCode, {x:60, y:456}).then(c => {
                                 resolve&&resolve(canvas.toDataURL("image/png"))
-                            }
+                            })
+                        }else{
+                            resolve&&resolve(canvas.toDataURL("image/png"))
+                        }
                     }, reject)
                 }else{
                     resolve&&resolve(canvas.toDataURL("image/png"))
@@ -341,9 +342,9 @@ module.exports = {
             if(ctx == null) reject && reject()
 
             let image = new Image()
-            image.width = "124px"
-            image.height = "124px"         
-            image.src = url
+            image.width = 124
+            image.height = 124 
+            image.crossOrigin = "Anonymous"
             image.onload = ()=> {
                 ctx.save(); // 保存当前ctx的状态
                 ctx.arc(image.width / 2 + 86, image.height / 2 + 250, image.width / 2, 0, Math.PI * 2, false); //画出圆
@@ -355,6 +356,7 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
+            image.src = url
         })
         
     },
@@ -364,7 +366,7 @@ module.exports = {
             if(context == null) reject && reject()
 
             let image = new Image()
-            image.src = url
+            image.crossOrigin = "Anonymous"
             image.onload = ()=> {
                 context.drawImage(image, p.x, p.y, image.width, image.height)
                 resolve&&resolve(context)
@@ -372,12 +374,13 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
+            image.src = url
         })
     },
 
-    drawText(context, text, p){
-        context.font = "40px 宋体 bolder";
-        context.fillStyle = "#fff";
+    drawText(context, text, p, color, font){
+        context.font = font || "40px 宋体 bolder";
+        context.fillStyle = color || "#fff";
         context.fillText(text, p.x, p.y)
     },
     /**
