@@ -32,7 +32,7 @@ class HeroDetail extends React.Component {
         state = state || {};
         return Object.assign(state, {
             type: this.props.type || FIRST,
-            questions: this.props.questions || ['', '', ''],
+            questions: this.props.questions,
             classname: this.props.classname || '',
             id: this.props.id || '',
             isDrawImg: this.props.isDrawImg || false,
@@ -46,8 +46,8 @@ class HeroDetail extends React.Component {
         let { image, id } = this.state;
         return (
             <div className="hero-detail">
-                <img src={image} style={{ width: "100%", height: "100%" }} />
-                {image ? null : <div className='hero-qrcode'>
+                <img src={image} className='hero-detail-img-data' />
+                {image ? null : <div className='hero-qrcode hero-qrcode-img'>
                     <QRcode text={'/share/#/?user=' + id} width={180} height={180} qrid={this.props.qrid} />
                 </div>}
             </div>
@@ -65,11 +65,8 @@ class HeroDetail extends React.Component {
         let q3 = questions[2];
         let q1 = questions[0];
         let _class = classname ? 'hero-detail-bg ' + classname : 'hero-detail hero-detail-bg ';
-        // _class = this.state.image ? _class + ' hero-detail-no-bg' : _class;
         return (
             isDrawImg ? this.renderImageDataSection() : <div id={"common-hero-detail-" + this.props.qrid} className={_class}>
-                {/*{isDrawImg ? <img src={this.state.image}
-                    className="hero-detail-img-data" /> : <div>*/}
                 <div className='hero-detail-left'>
                     <div className={'hero-head ' + noMarginTop}>
                         <img src={headUrl} />
@@ -98,7 +95,6 @@ class HeroDetail extends React.Component {
 
             </div>
         );
-        // </div>}
     }
     /**
      * 渲染TOP1界面
@@ -166,7 +162,7 @@ class HeroDetail extends React.Component {
         let q2 = questions[1];
         let q3 = questions[2];
         let q1 = questions[0];
-
+        console.log(questions, 88888);
         if (this.state.isDrawImg) {  //如果需要绘制图片的情况
             let canvas = document.getElementsByTagName("canvas")[0]
             //动态设置
@@ -232,7 +228,6 @@ HeroDetail.defaultProps = {
     isDrawImg: false,
     top: ZERO,
     id: '',
-    questions: ['', '', ''],
     classname: '',
     headUrl: '',
     qrid: 'qrcode',

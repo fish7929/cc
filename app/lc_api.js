@@ -438,10 +438,12 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
   });
 };
 
-lc_api.initWXShare = function () {
+lc_api.initWXShare = function (id) {
   var user = AV.User.current();
   var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
     + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '');
+  var link = 'http://www.6itec.com/share/#/';
+  if (id) link = link + "?user=" + id;
   AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
 
     try {
@@ -458,11 +460,12 @@ lc_api.initWXShare = function () {
         lc_api.getUserById(user.id, function (res) {
           _title = (res.get('user_nick') || '') + '人称：' + (res.get('q0') || '')
             + '。我将用' + (res.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (res.get('q2') || '');
+          console.log(_title, res, 9999);
 
           //朋友圈
           wx.onMenuShareTimeline({
             title: _title, // 分享标题
-            link: 'http://www.6itec.com/share/#/', // 分享链接
+            link: link, // 分享链接
             imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
             success: function () {
               console.log("node api朋友圈分享成功");
@@ -476,7 +479,7 @@ lc_api.initWXShare = function () {
           wx.onMenuShareAppMessage({
             title: _title, // 分享标题
             desc: "快来生成属于你的英雄执照吧", // 分享描述
-            link: 'http://www.6itec.com/share/#/', // 分享链接
+            link: link, // 分享链接
             imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
             type: 'link', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
