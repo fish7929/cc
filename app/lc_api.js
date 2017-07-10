@@ -60,7 +60,6 @@ lc_api.getUserStatus = function (wxUser, cb_ok, cb_err) {
     cb_err(error);
   });
 }
-
 /** 好友操作接口
 表-friend：
 user_id string 用户id
@@ -82,6 +81,7 @@ lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
   var obj = new f();
   obj.set('user_id', user_id);
   obj.set('friend', current);
+  obj.set('friend_id', current.id);
   obj.save().then(function (todo) {
     //根据user_id查询该用户对象
     var query = new AV.Query('_User');
@@ -92,6 +92,7 @@ lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
         var obj2 = new f();
         obj2.set('user_id', current.id);
         obj2.set('friend', data);
+        obj2.set('friend_id', data.id);
         obj2.save().then(function (todo) {
           cb_ok();
         }, function (error) {
@@ -327,7 +328,7 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
     isdesc = options.isdesc,
     pageSize = options.pageSize || 0,
     pageNumber = options.pageNumber || 6,
-    userid = options.userid;
+    userid = options.user_id;
 
   var skip = 0;
   var limit = pageNumber;
@@ -337,7 +338,7 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
     skip = pageSize * pageNumber;
   }
   var query = new AV.Query("friend");
-  query.equalTo("user_id", userid);
+  query.equalTo("user_id", user_id);
   query.include("friend");
   query.skip(skip);
   query.limit(limit);
@@ -354,6 +355,48 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
     cb_ok(results);
   }, function (error) {
     cb_err(error);
+  });
+}
+/** 根据用户id查询用户好友 总数
+ *  user_id 用户id 
+ * **/
+lc_api.getCountFriend = function (options, cb_ok, cb_err) {
+ 
+  var user_id = options.user_id||"";
+  if (user_id.length==0) {
+    cb_err("请先登录!");
+    return;
+  }
+  var query = new AV.Query("friend");
+  query.equalTo("user_id", user_id);
+  query.count().then(function (results) {
+    cb_ok(results);
+  }, function (error) {
+    cb_err(error);
+  });
+}
+/**修改好友之间单聊对话最后一条记录
+ * uid,用户主 
+ * friend_id ， 好友id
+ * msg，消息内容
+ */
+lc_api.updateFriendLastMsg = function (uid, friend_id,msg,cb_ok,cb_err) {
+  var query = new AV.Query('friend');
+  query.equalTo('user_id', uid);
+  query.equalTo('friend_id', friend_id);
+  query.first().then(function (data) {
+    if (data) {
+      data.set("last_msg",msg);
+      data.save().then(function (todo) {
+          cb_ok(todo);
+        }, function (error) {
+          cb_err(error.message);
+        });
+    } else {
+      cb_err("查询好友失败!");
+    }
+  }, function (error) {
+    cb_err(error.message);
   });
 }
 
