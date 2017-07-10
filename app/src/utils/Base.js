@@ -8,7 +8,7 @@
 'use strict';
 
 // require core module
-
+import bgImg from '../../assets/images/canvasBg.png';
 module.exports = {
     /**
      * 判断是否是函数
@@ -302,7 +302,6 @@ module.exports = {
             let context = canvas.getContext("2d")
             context.fillStyle = "rgba(255,255,255,0)"
             context.fillRect(0, 0, 692, 761);
-            let bgImg = '/assets/images/canvasBg.png'
             this.drawImage(context, bgImg, {x:0, y:0}).then(c => {
                 if(!opt) resolve&&resolve(canvas.toDataURL("image/png"))
                 if(opt.username){
