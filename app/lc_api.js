@@ -431,9 +431,10 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
   var UserArray = [friends_uid, AV.User.current().id]
   var query = new AV.Query("_Conversation");
   query.containsAll("m", UserArray);
-  query.first({
-    success: cb_ok,
-    error: cb_err
+  query.first().then(function (results) {
+     cb_ok(results);
+  }, function (error) {
+     cb_err(error);
   });
 };
 
