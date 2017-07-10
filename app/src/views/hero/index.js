@@ -73,11 +73,14 @@ class Hero extends React.Component {
                 }else if(oldScreen == 1){
                     oldScreen = 2;
                 }
+                console.log(oldScreen, 77777);
                 opt.column_val = oldScreen;
-                lc_api.updateUserInfo(opt, () => {
+                lc_api.updateUserInfo(opt, (data) => {
+                    console.log(data, 88888);
                     AppModal.toast("上屏成功");
                     this.canClick = true;
-                }, () => {
+                }, (err) => {
+                    console.log(err);
                     AppModal.toast("上屏失败");
                     this.canClick = true;
                 });
@@ -158,7 +161,7 @@ class Hero extends React.Component {
         Base.setTitle(title);
         this.getInitData();
         //初始化分享
-        lc_api.initWXShare(this.currentUser.id);
+        lc_api.initWXShare(this.id);
     }
     /**
      * 属性改变的时候触发

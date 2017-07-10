@@ -311,10 +311,10 @@ module.exports = {
                     this.drawText(c, opt.q1, {x:280, y:320})
                 }
                 if(opt.q2){
-                    this.drawText(c, opt.q1, {x:380, y:410})
+                    this.drawText(c, opt.q2, {x:380, y:410})
                 }
                 if(opt.q3){
-                    this.drawText(c, opt.q2, {x:280, y:590})
+                    this.drawText(c, opt.q3, {x:280, y:590})
                 }
                 if(opt.headImg){
                     this.drawHead(c, opt.headImg, {x:0, y:0}).then((c) => {

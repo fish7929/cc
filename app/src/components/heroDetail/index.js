@@ -73,7 +73,7 @@ class HeroDetail extends React.Component {
                     </div>
                     {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
                     <div className='hero-qrcode'>
-                        <QRcode text={'/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                        <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                     </div>
                     <span className='hero-qrcode-hint'>扫描图片识别二维码</span>
                 </div>
@@ -159,10 +159,9 @@ class HeroDetail extends React.Component {
      */
     componentDidMount() {
         let { questions, id, headUrl, name } = this.state;
+        let q1 = questions[0];
         let q2 = questions[1];
         let q3 = questions[2];
-        let q1 = questions[0];
-        console.log(questions, 88888);
         if (this.state.isDrawImg) {  //如果需要绘制图片的情况
             let canvas = document.getElementsByTagName("canvas")[0]
             //动态设置

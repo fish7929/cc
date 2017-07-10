@@ -36,7 +36,7 @@ class Home extends React.Component {
     getInitState(state) {
         state = state || {};
         return Object.assign(state, {
-            user: this.currentUser
+            user: null
         });
     }
     /**
@@ -47,7 +47,13 @@ class Home extends React.Component {
         // e.preventDefault();
         e.stopPropagation();
         //测试跳转到问题列表
-        navigate.push(RoutPath.ROUTER_QUESTION + '/1');
+        let { user } = this.state;
+        if (user && user.get("q0") && user.get("q2")) {
+            navigate.push(RoutPath.ROUTER_HERO);
+        } else {
+            navigate.push(RoutPath.ROUTER_QUESTION + '/1');
+        }
+
     }
     /**
      * 渲染界面
@@ -55,7 +61,7 @@ class Home extends React.Component {
     render() {
         let { user } = this.state;
         return (
-            Base.isEmptyObject(user) ? <div></div> : <Page id='home-page-container'>
+            <Page id='home-page-container'>
                 <div className="home-title">
                     <div className="home-title-shan1 animated  infinite"></div>
                     <div className="home-title-shan2 animated  infinite"></div>
@@ -66,12 +72,13 @@ class Home extends React.Component {
                     <div className="home-logo-yuan animated directWhirlIn infinite"></div>
                     <div className="home-logo-yuan animated directWhirlIn infinite"></div>
                 </div>
+                {user ? 
                 <div className='common-button-wrapper'>
                     <span className='button-left-border shan-shuo'></span>
                     <span className="home-page-button btn-active"
                         onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}></span>
                     <span className='button-right-border shan-shuo'></span>
-                </div>
+                </div>: null}
             </Page>
         );
     }
@@ -89,8 +96,15 @@ class Home extends React.Component {
         let param = Base.getParameter('user');
         if (!this.currentUser) {  //直接跳转去登录
             Base.wxLogin(param);
-        }else{
-            this.setState({user: this.currentUser});
+        } else {
+            lc_api.getUserById(this.currentUser.id, (data) => {
+                console.log(data);
+                if (data) {
+                    this.setState({ user: data });
+                }
+            }, (error) => {
+                console.log('获取信息失败');
+            });
         }
         //动态设置页面标题
         var title = this.getTitle();
