@@ -343,7 +343,7 @@ module.exports = {
             let image = new Image()
             image.width = 124
             image.height = 124 
-            image.crossOrigin = "Anonymous"
+            
             image.onload = ()=> {
                 ctx.save(); // 保存当前ctx的状态
                 ctx.arc(image.width / 2 + 86, image.height / 2 + 250, image.width / 2, 0, Math.PI * 2, false); //画出圆
@@ -355,7 +355,9 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
-            image.src = url
+            // image.crossOrigin = "Anonymous";
+            image.crossOrigin = "anonymous";
+            image.src = url;
         })
         
     },
