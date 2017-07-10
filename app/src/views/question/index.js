@@ -59,14 +59,12 @@ class Question extends React.Component {
             Base.setLocalStorageObject('USER_SELECT_QUESTION', localQuestion);
         }
         lc_api.updateUserInfo(opt, () => {
-            setTimeout(() => {
-                if(this.type != THREE){
-                    navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
-                }else{
-                    console.log('生存英雄执照');
-                    navigate.push(RoutPath.ROUTER_HERO);
-                }
-            }, 500);
+            if(this.type != THREE){
+                navigate.push(RoutPath.ROUTER_QUESTION + '/' + (this.type + 1) );
+            }else{
+                console.log('生存英雄执照');
+                navigate.push(RoutPath.ROUTER_HERO);
+            }
         }, () => {
             AppModal.toast('保存问题失败');
         });
