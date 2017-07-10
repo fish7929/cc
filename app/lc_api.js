@@ -107,7 +107,6 @@ lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
   }, function (error) {
     cb_err(error);
   });
-}
 
 //获取url的参数
 lc_api.GetRequest = function () {
@@ -328,7 +327,7 @@ lc_api.getFriend = function (options, cb_ok, cb_err) {
     isdesc = options.isdesc,
     pageSize = options.pageSize || 0,
     pageNumber = options.pageNumber || 6,
-    userid = options.user_id;
+    user_id = options.user_id;
 
   var skip = 0;
   var limit = pageNumber;
