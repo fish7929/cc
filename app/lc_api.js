@@ -457,8 +457,8 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
   //排序
   if (orderby.length > 0) {
     if(orderby=="on_screen"){
-        query.descending('on_screen');
-        query.descending('on_screen_date');
+       query.descending('on_screen_date');
+       // query.descending('on_screen'); 
     }else{
       if (isdesc) {
         query.descending(orderby);
