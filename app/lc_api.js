@@ -406,10 +406,11 @@ lc_api.updateFriendLastMsg = function (uid, friend_id, msg, cb_ok, cb_err) {
  */
 lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
    var user_id = options.user_id || "", 
-  column_name = options.column_name || "";
+  column_name = options.column_name || "",
+  column_val = options.column_val || "";
 
   if( options.column_name=="msg_count"||options.column_name=="on_screen"){
-      column_name = options.column_name || 0;
+      column_val = options.column_val || 0;
   }else{
       column_val = options.column_val || "";
   }
