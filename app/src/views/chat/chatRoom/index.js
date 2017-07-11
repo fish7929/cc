@@ -6,6 +6,7 @@ const showLog = (msg)=> {
 }
 
 let ChatRoom = function(opt){
+    console.log(opt)
     // 请将 AppId 改为你自己的 AppId，否则无法本地测试
     let appId = 'NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz';
     let appKey = 'wqmHFKHKc8YoGi3PTIQ5zd8k';
@@ -16,6 +17,7 @@ let ChatRoom = function(opt){
     // 每个客户端自定义的 id
     var clientId = opt.userId;
     var showMsg = opt.showMsg;
+    var members = opt.members;
     var realtime;
     var client;
     var messageIterator;
@@ -79,9 +81,7 @@ let ChatRoom = function(opt){
                 showLog('不存在这个 conversation，创建一个。');
                 return client.createConversation({
                     name: 'LeanCloud-Conversation',
-                    members: [
-                        // 默认包含当前用户
-                    ],
+                    members: members,// 默认包含当前用户
                     // 创建暂态的聊天室（暂态聊天室支持无限人员聊天，但是不支持存储历史）
                     // transient: true,
                     // 默认的数据，可以放 conversation 属性等

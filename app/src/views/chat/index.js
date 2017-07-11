@@ -63,7 +63,14 @@ class ChatView extends React.Component {
         let user = AV.User.current()
         if(!fid || !user) return
         lc_api.getSingleConversation(fid, (data)=>{
-            this.chatRoom = new ChatRoom({roomId: "59639cf1fe88c26968cedb1e", userId: user.id, showMsg: (message)=>this.showMsg(message)})
+            console.log(data, "999999")
+            let roomId = data ? data.id : "11111111";
+            this.chatRoom = new ChatRoom({
+                roomId: roomId,
+                userId: user.id, 
+                members: [fid], 
+                showMsg: (message)=>this.showMsg(message)
+            })
             this.chatRoom.connect()
         })
     }
