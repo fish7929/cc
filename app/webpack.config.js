@@ -54,8 +54,8 @@ var common = {
     },
     output: {
         path: path.join(__dirname, './dist'),    //编译完的项目增加到该目录下
-        filename: isProd() ? './js/[name].[chunkhash:8].js' : './js/[name].js',
-        chunkFilename: isProd() ? './js/[name].chunk.[chunkhash:8].js' : './js/[name].chunk.js',
+        filename: isProd() ? './js/[name].[chunkhash:8].js?rd='+urlArgs : './js/[name].js',
+        chunkFilename: isProd() ? './js/[name].chunk.[chunkhash:8].js?rd='+urlArgs  : './js/[name].chunk.js',
         publicPath: isProd() ? '' : '/dist/'
     },
     resolve: {
@@ -89,7 +89,7 @@ var common = {
 		}),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: isProd() ? './js/vendor.[chunkhash:8].js' : './js/vendor.js'
+            filename: isProd() ? './js/vendor.[chunkhash:8].js?rd='+urlArgs  : './js/vendor.js'
         }),
         new webpack.NoErrorsPlugin()
     ]
@@ -139,8 +139,9 @@ var release = {
         ],
     },
     plugins: [
+        new WebpackMd5Hash(),
         // new ExtractTextPlugin( "./css/style.css?rel="+urlArgs ),     //导出CSS
-        new ExtractTextPlugin("./css/[name].[chunkhash:8].css"),     //导出CSS
+        new ExtractTextPlugin("./css/[name].[chunkhash:8].css?rd="+urlArgs ),     //导出CSS
         new webpack.optimize.UglifyJsPlugin({       //做JS压缩
             minimize: true,
             output: {
@@ -155,7 +156,6 @@ var release = {
             {from: './lc_api.js', to: './lc_api.js'},
             {from: './login.html', to: './login.html'}
             ]),     //npm run test 的时候拷贝 test测试数据
-        new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
             template: './template.html',    //由于不能删掉，对多余的加载JS文件，只能另外再添加一个template.html
             filename: 'index.html',
