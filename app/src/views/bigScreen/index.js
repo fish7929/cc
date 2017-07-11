@@ -117,7 +117,7 @@ class BigScreen extends React.Component {
         let opt1 = {
             pageSize: 0,
             pageNumber: 6,
-            orderby: 'createdAt',
+            orderby: 'on_screen',
             isdesc: true
         };
         lc_api.getUser(opt1, (list) => {
