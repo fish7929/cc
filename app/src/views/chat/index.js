@@ -103,13 +103,15 @@ class ChatView extends React.Component {
 
     showAlertGZH(user_id){
         this.sendCount++
-        let isAttend = localStorage.getItem("isAttend") || 0
-
-        if(this.sendCount % 6 === 0 && isAttend == 0){
-            AppModal.confirm("为了更好的体验活动流程请您关注我们的微信公众号，关注完微信公众号您可任意畅聊", "关注微信公众号", ()=>{
-                lc_api.updateUserInfo({user_id: user_id, column_name: "isAttend", column_val:1})
-                localStorage.setItem("isAttend", 1)
-                location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3NDcwNjgzMg==&scene=123#wechat_redirect"
+        if(this.sendCount % 6 === 0){
+            lc_api.getUserById(user_id, function(data){
+                let isAttend = data.get("isAttend") || 0
+                if(isAttend == 0){
+                    AppModal.confirm("为了更好的体验活动流程请您关注我们的微信公众号，关注完微信公众号您可任意畅聊", "关注微信公众号", ()=>{
+                        lc_api.updateUserInfo({user_id: user_id, column_name: "isAttend", column_val:1})
+                        location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3NDcwNjgzMg==&scene=123#wechat_redirect"
+                    })
+                }
             })
         }
     }
