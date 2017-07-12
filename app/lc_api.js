@@ -377,7 +377,7 @@ lc_api.getCountFriend = function (options, cb_ok, cb_err) {
 /**修改好友之间单聊对话最后一条记录
  * uid,用户主 
  * friend_id ， 好友id
- * msg，消息内容
+ * msg，最后一条聊天消息内容
  */
 lc_api.updateFriendLastMsg = function (uid, friend_id, msg, cb_ok, cb_err) {
   var query = new AV.Query('friend');
@@ -450,7 +450,7 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
 
   var query = new AV.Query("_User");
   if(orderby=="on_screen"){
-    query.greaterThan("on_screen",0);
+    query.exists("on_screen",0);
   }
   query.skip(skip);
   query.limit(limit);
