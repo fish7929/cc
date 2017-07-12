@@ -62,6 +62,7 @@ const Routers = React.createClass({
             <Router history={this.props.history}>
                 <Route path={RoutPath.ROUTER_HOME} component={App} >
                     <IndexRoute getComponent={Home} />
+                    <Route path={RoutPath.ROUTER_HOME} getComponent={Home} />
                     <Route path={RoutPath.ROUTER_QUESTION + '/:type'} getComponent={Question} />
                     <Route path={RoutPath.ROUTER_HERO + '/:id'} getComponent={Hero} />
                     <Route path={RoutPath.ROUTER_HERO} getComponent={Hero} />

@@ -11,6 +11,7 @@ const ROOT_ROUTER = "";
 const RoutPath = {
     //home api 
     ROUTER_HOME: ROOT_ROUTER + '/',
+    ROUTER_HOME: ROOT_ROUTER + '/home',
     ROUTER_QUESTION: ROOT_ROUTER + '/question',
     ROUTER_HERO: ROOT_ROUTER + '/hero',
     ROUTER_COMMON: ROOT_ROUTER + '*',
