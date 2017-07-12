@@ -498,8 +498,8 @@ lc_api.initWXShare = function (id) {
   var user = AV.User.current();
   var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
     + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '');
-  var link = 'http://www.6itec.com/share/#/';
-  if(id) link =  'http://www.6itec.com/share/#/?user='+id;
+  var link = 'http://www.6itec.com/share/#/home';
+  // if(id) link =  'http://www.6itec.com/share/#/home?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
     to_url: location.href

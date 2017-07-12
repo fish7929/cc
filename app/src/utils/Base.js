@@ -355,8 +355,7 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
-            // image.crossOrigin = "Anonymous";
-            image.crossOrigin = "anonymous";
+            image.crossOrigin = "Anonymous";
             image.src = url;
         })
         
@@ -367,7 +366,6 @@ module.exports = {
             if(context == null) reject && reject()
 
             let image = new Image()
-            // image.crossOrigin = "Anonymous"
             image.onload = ()=> {
                 context.drawImage(image, p.x, p.y, image.width, image.height)
                 resolve&&resolve(context)
@@ -375,13 +373,13 @@ module.exports = {
             image.onerror = () => {
                 reject && reject()
             }
-            image.crossOrigin = "anonymous";
+            image.crossOrigin = "Anonymous";
             image.src = url
         })
     },
 
     drawText(context, text, p, color, font){
-        context.font = font || "40px 宋体 bolder";
+        context.font = font || "32px 宋体 bolder";
         context.fillStyle = color || "#fff";
         context.fillText(text, p.x, p.y)
     },
