@@ -108,6 +108,11 @@ class Home extends React.Component {
                     console.log(data);
                     if (data) {
                         this.setState({ user: data });
+                    }else{  //用户给删除了
+                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/currentUser');
+                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/serverURLs');
+                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/subscriptionId');
+                        Base.wxLogin(param);
                     }
                 }, (error) => {
                     console.log('获取信息失败');
