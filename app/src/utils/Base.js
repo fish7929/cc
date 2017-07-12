@@ -339,25 +339,29 @@ module.exports = {
     drawHead(ctx, url, p){
         return new Promise((resolve, reject) => {
             if(ctx == null) reject && reject()
-
-            let image = new Image()
-            image.width = 124
-            image.height = 124 
-            
-            image.onload = ()=> {
-                ctx.save(); // 保存当前ctx的状态
-                ctx.arc(image.width / 2 + 86, image.height / 2 + 250, image.width / 2, 0, Math.PI * 2, false); //画出圆
-                ctx.clip(); //裁剪上面的圆形
-                ctx.drawImage(image, 86, 250, image.width, image.height); // 在刚刚裁剪的园上画图
-                ctx.restore(); // 还原状态
-                resolve&&resolve(ctx)
-            }
-            image.onerror = () => {
+            try {
+                let image = new Image()
+                image.width = 124
+                image.height = 124 
+                
+                image.onload = ()=> {
+                    ctx.save(); // 保存当前ctx的状态
+                    ctx.arc(image.width / 2 + 86, image.height / 2 + 250, image.width / 2, 0, Math.PI * 2, false); //画出圆
+                    ctx.clip(); //裁剪上面的圆形
+                    ctx.drawImage(image, 86, 250, image.width, image.height); // 在刚刚裁剪的园上画图
+                    ctx.restore(); // 还原状态
+                    resolve&&resolve(ctx)
+                }
+                image.onerror = () => {
+                    reject && reject()
+                }
+                // image.crossOrigin = "Anonymous";
+                image.crossOrigin = "anonymous";
+                image.src = url;
+            } catch (error) {
+                console.log(error)
                 reject && reject()
             }
-            // image.crossOrigin = "Anonymous";
-            image.crossOrigin = "anonymous";
-            image.src = url;
         })
         
     },
