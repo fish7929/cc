@@ -16,7 +16,7 @@ class ChatHistoryItem extends React.Component{
                     <div className="header-div"><img src={data.get("friend").get("user_pic")}/></div>
                     <div className="content">
                         <div className="name-txt no-wrap">{data.get("friend").get("user_nick")}</div>
-                        <div className="desc-txt no-wrap">最近的一条聊天记录</div>
+                        <div className="desc-txt no-wrap">{data.get("last_msg") || ""}</div>
                     </div>
                 </div>
             </div>

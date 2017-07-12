@@ -90,9 +90,10 @@ class ChatView extends React.Component {
             user_id: user.id,
             user_pic: user.get("user_pic")
         }
-        console.log(param)
+
         this.chatRoom && this.chatRoom.sendMsg(this.state.msg, param).then(message=>{
             this.props.appendMessage(message)
+            lc_api.updateFriendLastMsg(param.user_id, this.props.params.fid, this.state.msg)
             this.setState({msg: ""})
         }, message=>message && AppModal.toast(message))
     }
