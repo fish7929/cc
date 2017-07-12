@@ -377,7 +377,7 @@ lc_api.getCountFriend = function (options, cb_ok, cb_err) {
 /**修改好友之间单聊对话最后一条记录
  * uid,用户主 
  * friend_id ， 好友id
- * msg，消息内容
+ * msg，最后一条聊天消息内容
  */
 lc_api.updateFriendLastMsg = function (uid, friend_id, msg, cb_ok, cb_err) {
   var query = new AV.Query('friend');
@@ -450,7 +450,7 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
 
   var query = new AV.Query("_User");
   if(orderby=="on_screen"){
-    query.greaterThan("on_screen",0);
+    query.exists("on_screen");
   }
   query.skip(skip);
   query.limit(limit);
@@ -498,8 +498,8 @@ lc_api.initWXShare = function (id) {
   var user = AV.User.current();
   var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
     + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '');
-  var link = 'http://www.6itec.com/share/#/';
-  if(id) link =  'http://www.6itec.com/share/#/?user='+id;
+  var link = 'http://www.6itec.com/share/#/home';
+  // if(id) link =  'http://www.6itec.com/share/#/home?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
     to_url: location.href

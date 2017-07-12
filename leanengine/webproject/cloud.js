@@ -87,7 +87,7 @@ AV.Cloud.define("updateUserInfo", function (request, response) {
   query.equalTo("objectId", user_id);
   query.first().then(function (results) {
     if (results) {
-      if (column_val == "") {
+      if (column_val === "") {
         results.increment('msg_count', 1);//累计加一
       } else {
         results.set(column_name, column_val);
