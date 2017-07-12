@@ -24,7 +24,7 @@ import "./index.scss";
 class ChatView extends React.Component {
     constructor(props, context) {
         super(props, context)
-
+        
         this.state = {
             msg: ""
         }
@@ -59,6 +59,7 @@ class ChatView extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
+        this.sendCount = 0
         let fid = this.props.params.fid
         let user = AV.User.current()
         if(!fid || !user) return
@@ -81,6 +82,7 @@ class ChatView extends React.Component {
     }
 
     showMsg(message, isBefore){
+        
         this.props.appendMessage(message)
     }
 
@@ -95,7 +97,21 @@ class ChatView extends React.Component {
             this.props.appendMessage(message)
             lc_api.updateFriendLastMsg(param.user_id, this.props.params.fid, this.state.msg)
             this.setState({msg: ""})
+            this.showAlertGZH(param.user_id)
         }, message=>message && AppModal.toast(message))
+    }
+
+    showAlertGZH(user_id){
+        this.sendCount++
+        let isAttend = localStorage.getItem("isAttend") || 0
+
+        if(this.sendCount % 6 === 0 && isAttend == 0){
+            AppModal.confirm("为了更好的体验活动流程请您关注我们的微信公众号，关注完微信公众号您可任意畅聊", "关注微信公众号", ()=>{
+                lc_api.updateUserInfo({user_id: user_id, column_name: "isAttend", column_val:1})
+                localStorage.setItem("isAttend", 1)
+                location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3NDcwNjgzMg==&scene=123#wechat_redirect"
+            })
+        }
     }
 
     componentDidUpdate(){
@@ -107,9 +123,6 @@ class ChatView extends React.Component {
     componentWillUnmount() {
         this.props.clearMessage()
     }
-
-
-
 }
 
 
