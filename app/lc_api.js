@@ -450,7 +450,7 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
 
   var query = new AV.Query("_User");
   if(orderby=="on_screen"){
-    query.exists("on_screen",0);
+    query.exists("on_screen");
   }
   query.skip(skip);
   query.limit(limit);
