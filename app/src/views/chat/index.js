@@ -36,7 +36,7 @@ class ChatView extends React.Component {
         return (
             <Page id='chat-view'>
                 <div className="chat-view-list" ref="chatList">
-                    { messageList.map((message, index) => <ChatItem key={index} data={message} />) }
+                    {/* { messageList.map((message, index) => <ChatItem key={index} data={message} />) } */}
                 </div>
                 <div className="input-div">
                     <input type="text" placeholder="请输入聊天内容" value={msg} onChange={(e)=>this.onInputChange(e.target.value, "msg")} />
@@ -61,18 +61,23 @@ class ChatView extends React.Component {
         Base.setTitle(title);
         this.sendCount = 0
         let fid = this.props.params.fid
-        let user = AV.User.current()
-        if(!fid || !user) return
-        lc_api.getSingleConversation(fid, (data)=>{
-            let roomId = data ? data.id : "11111111";
-            this.chatRoom = new ChatRoom({
-                roomId: roomId,
-                userId: user.id, 
-                members: [fid], 
-                showMsg: (message)=>this.showMsg(message)
-            })
-            this.chatRoom.connect()
+        if(!fid) return
+        lc_api.getIM(fid, data => {
+            console.log(data)
+            this.showMsg(data)
+        }, err => {
+            console.log(err)
         })
+        // lc_api.getSingleConversation(fid, (data)=>{
+        //     let roomId = data ? data.id : "11111111";
+        //     this.chatRoom = new ChatRoom({
+        //         roomId: roomId,
+        //         userId: user.id, 
+        //         members: [fid], 
+        //         showMsg: (message)=>this.showMsg(message)
+        //     })
+        //     this.chatRoom.connect()
+        // })
     }
 
     onInputChange(value, type){
@@ -81,24 +86,29 @@ class ChatView extends React.Component {
         this.setState(state)
     }
 
-    showMsg(message, isBefore){
-        
+    showMsg(message){
         this.props.appendMessage(message)
     }
 
     sendMsg(){
-        let user = AV.User.current()
-        let param = {
-            user_id: user.id,
-            user_pic: user.get("user_pic")
-        }
-
-        this.chatRoom && this.chatRoom.sendMsg(this.state.msg, param).then(message=>{
-            this.props.appendMessage(message)
-            lc_api.updateFriendLastMsg(param.user_id, this.props.params.fid, this.state.msg)
+        let fid = this.props.params.fid
+        if(!fid) return
+        lc_api.saveIM(fid, this.state.msg, data=>{
             this.setState({msg: ""})
-            this.showAlertGZH(param.user_id)
-        }, message=>message && AppModal.toast(message))
+            this.showMsg([data])
+            console.log(data)
+        })
+        // let user = AV.User.current()
+        // let param = {
+        //     user_id: user.id,
+        //     user_pic: user.get("user_pic")
+        // }
+        // this.chatRoom && this.chatRoom.sendMsg(this.state.msg, param).then(message=>{
+        //     this.props.appendMessage(message)
+        //     lc_api.updateFriendLastMsg(param.user_id, this.props.params.fid, this.state.msg)
+        //     this.setState({msg: ""})
+        //     this.showAlertGZH(param.user_id)
+        // }, message=>message && AppModal.toast(message))
     }
 
     showAlertGZH(user_id){
