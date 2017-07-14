@@ -550,7 +550,7 @@ lc_api.saveIM = function (friends_uid, msg, cb_ok, cb_err) {
 /** 获取 2个人之间的聊天内容
     friends_uid,好友用户id
  
- 返回的msg为聊天记录数据如下：
+ 返回的msg为聊天记录数据如下（根据user_id 和当前登录对象确认那个消息是你的消息）：
  msg=[{"user_id":"用户id","date":"2017-07-14 12:22:22","msg":"聊天内容最好限制下内容长度"},{"user_id":"用户id2","date":"2017-07-14 12:22:22","msg":"聊天内容2"}]
 **/
 lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
