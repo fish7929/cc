@@ -137,15 +137,15 @@ lc_api.login = function (code, user_id, cb_ok, cb_error) {
       if (user_id) {  //哟用户id的情况。
         lc_api.addFriends(user_id, function () {
           if (status == 1) {  //新注册用户
-            cb_ok && cb_ok(1);
+            cb_ok && cb_ok(1, user);
           } else if (status == 2) {  //老用户
-            cb_ok && cb_ok(2);
+            cb_ok && cb_ok(2, user);
           }
         }, function (params) {
           cb_error && cb_error(3);
         });
       } else {
-        cb_ok && cb_ok(1);
+        cb_ok && cb_ok(1, user);
       }
     }, function (error) {
       //用户登录失败

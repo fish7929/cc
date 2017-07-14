@@ -9,7 +9,7 @@
 
 // require core module
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -42,13 +42,33 @@ const reducer = combineReducers({
     routing: routerReducer
 });
 const enhancer = compose(middleware);
-let store = createStore(reducer,enhancer);
+let store = createStore(reducer, enhancer);
 const history = syncHistoryWithStore(hashHistory, store);
 navigate.install(history);
+//在所有状态之前请求数据.,把用户信息存储起来
+let user = Base.getParameter('user');
+let currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
+if (Base.isEmptyObject(currentUser)) {
+    Base.wxLogin(user);
+} else {
+    AppModal.loading();
+    lc_api.getUserById(currentUser.objectId, (data) => {
+        AppModal.hide();
+        if (data) {
+            Base.setLocalStorageObject('CURRENT_USER', data);
+            render(<Provider store={store}>
+                <div>
+                    <Routers history={history}></Routers>
+                </div>
+            </Provider>, document.getElementById("app"));
+        } else {  //用户给删除了
+            window.localStorage.removeItem('CURRENT_USER');
+            Base.wxLogin(user);
+        }
+    }, (error) => {
+        AppModal.toast('网络状况不好，请稍后重试');
+        console.log('获取信息失败');
+    });
+}
 
-render(<Provider store={store}>
-        <div>
-            <Routers history={history}></Routers>
-        </div>
-    </Provider>, document.getElementById("app"));
 

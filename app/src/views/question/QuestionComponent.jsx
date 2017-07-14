@@ -10,7 +10,7 @@
 // require core module
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import './index.scss'
 class QuestionComponent extends React.Component {
     /**
      *构造函数
@@ -48,7 +48,7 @@ class QuestionComponent extends React.Component {
     render() {
         let { data, current, title, type } = this.state;
         return (
-            <div className="question-page-content">
+            <div className="question-page-content" style={this.props.style}>
                 <div className={'question-hint question-hint-wrapper' + type}>
                 </div>
                 <div className="common-border-image question-list-wrapper">
@@ -100,6 +100,7 @@ QuestionComponent.propTypes = {
     title: React.PropTypes.string.isRequired,
     data: React.PropTypes.array.isRequired,
     callback: React.PropTypes.func.isRequired,
+    style: React.PropTypes.object.isRequired,
 };
 
 export default QuestionComponent;

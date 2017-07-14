@@ -9,14 +9,8 @@
 
 // require core module
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 //require submodule
-import Page from '../../components/page';
-import { ZERO, FIRST, SECOND, THREE } from '../../constants';
-import { fetchData } from './reducer/action';
 
 import "./index.scss";
 class Home extends React.Component {
@@ -25,19 +19,7 @@ class Home extends React.Component {
      */
     constructor(props) {
         super(props);
-        this.currentUser = Base.getCurrentUser(); //获取当前用户
-        // let objectId = '595f31f0ac502e7589fbb3a1';
-        this.state = this.getInitState();
 
-    }
-    /**
-     * 初始化的状态
-     */
-    getInitState(state) {
-        state = state || {};
-        return Object.assign(state, {
-            user: null
-        });
     }
     /**
      * 制作我的英雄上岗证
@@ -47,21 +29,14 @@ class Home extends React.Component {
         // e.preventDefault();
         e.stopPropagation();
         //测试跳转到问题列表
-        let { user } = this.state;
-        if (user && user.get("q0") && user.get("q2")) {
-            navigate.push(RoutPath.ROUTER_HERO);
-        } else {
-            navigate.push(RoutPath.ROUTER_QUESTION + '/1');
-        }
-
+        this.props.callback && this.props.callback();
     }
     /**
      * 渲染界面
      */
     render() {
-        let { user } = this.state;
         return (
-            <Page id='home-page-container'>
+            <div id='home-page-container' style={this.props.style}>
                 <div className="home-title">
                     <div className="home-title-shan1 animated  infinite"></div>
                     <div className="home-title-shan2 animated  infinite"></div>
@@ -72,77 +47,25 @@ class Home extends React.Component {
                     <div className="home-logo-yuan animated directWhirlIn infinite"></div>
                     <div className="home-logo-yuan animated directWhirlIn infinite"></div>
                 </div>
-                {user ? 
                 <div className='common-button-wrapper'>
                     <span className='button-left-border shan-shuo'></span>
                     <span className="home-page-button btn-active"
                         onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}></span>
                     <span className='button-right-border shan-shuo'></span>
-                </div>: null}
-            </Page>
+                </div>
+            </div>
         );
-    }
-    /**
-     * 获取标题内容
-     */
-    getTitle() {
-        var title = '英雄执照';
-        return title;
     }
     /**
      * 组件渲染完成调用
      */
     componentDidMount() {
-        let param = Base.getParameter('user');
-        if (!this.currentUser) {  //直接跳转去登录
-            Base.wxLogin(param);
-        } else {
-            if(param){
-                lc_api.addFriends(param, () => {
-                    navigate.push(RoutPath.ROUTER_CHAT_HISTORY);  //好友列表页
-                }, () => {
-                    console.log('加好友失败');
-                });
-            }else{
-                lc_api.getUserById(this.currentUser.id, (data) => {
-                    console.log(data);
-                    if (data) {
-                        this.setState({ user: data });
-                    }else{  //用户给删除了
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/currentUser');
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/serverURLs');
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/subscriptionId');
-                        Base.wxLogin(param);
-                    }
-                }, (error) => {
-                    console.log('获取信息失败');
-                });
-            }
-        }
-        //动态设置页面标题
-        var title = this.getTitle();
-        Base.setTitle(title);
-        this.getInitData();
-        if (!this.props.isFetching) {
-            AppModal.hide();
-        }
-        //初始化分享
-        lc_api.initWXShare();
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.isFetching) {
-            AppModal.hide();
-        }
-    }
-    /**
-     * 获取网络初始化数据，
-     */
-    getInitData() {
-
     }
     /**
      * 组件渲染完成调用
@@ -151,16 +74,12 @@ class Home extends React.Component {
     }
 
 }
+/**
+ * 验证props
+ */
+Home.propTypes = {
+    callback: React.PropTypes.func.isRequired,
+    style: React.PropTypes.object.isRequired
+};
 
-
-let mapStateToProps = state => {
-    return ({
-        isFetching: state.homeData.isFetching
-    });
-}
-
-let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchData }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

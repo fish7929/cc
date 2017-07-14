@@ -13,12 +13,12 @@
             var code = lc_api.GetRequest()["code"] || ''; 
             var user = lc_api.GetRequest()["user"] || ''; 
             if (code) {  
-                lc_api.login(code, user, function(status){
-                    if(status == 1){  //直接跳转到首页
-                        location.href = 'http://www.6itec.com/share/#/';
-                    }else if(status == 2){   //跳转到聊天页面
-                        location.href = 'http://www.6itec.com/share/#/chatHistory';
-                    }
+                lc_api.login(code, user, function(status, user){
+                    // if(status == 1){  //直接跳转到首页
+                    location.href = user ? 'http://www.6itec.com/share/#/home?user=' + user : 'http://www.6itec.com/share/#/home';
+                    // }else if(status == 2){   //跳转到聊天页面
+                    //     location.href = 'http://www.6itec.com/share/#/chatHistory';
+                    // }
                 }, function(errStatus){ // 1 获取微信用户信息失败， 2 用户登录失败 3, 关注失败
                     if(errStatus == 1){  //获取微信用户信息失败，
                         console.log('获取微信用户信息失败');

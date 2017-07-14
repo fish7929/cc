@@ -6,8 +6,8 @@
  */
 
 'use strict';
-import homeData from '../views/home/reducer';
-import questionData from '../views/question/reducer';
+// import homeData from '../views/home/reducer';
+// import questionData from '../views/question/reducer';
 import chatData from '../views/chat/reducer'
 import chatHistoryData from '../views/chatHistory/reducer'
-export {homeData, questionData, chatData, chatHistoryData};
+export {chatData, chatHistoryData};
