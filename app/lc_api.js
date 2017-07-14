@@ -570,7 +570,7 @@ lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
   query.first().then(function (results) {
     if(results){
       var query = new AV.Query("_User");
-      query.equalTo("objectId", friend_id);
+      query.equalTo("objectId", friends_uid);
       query.first().then(function (data) {
          if(data){
            cb_ok({im:results,"guest":data});
