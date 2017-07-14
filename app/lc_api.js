@@ -521,7 +521,13 @@ lc_api.saveIM = function (friends_uid, msg, cb_ok, cb_err) {
     if (results) {
       if (results.get("msg")) {
         var nmsg = results.get("msg");
-        nmsg.push(current_msg);
+        //如果超过100条数据，清理前面的数据
+        if(nmsg.length>100){
+          
+        }else{
+          nmsg.push(current_msg);
+        }
+        
         results.set("msg", nmsg);
       } else {
         results.set("msg", [current_msg]);
