@@ -405,14 +405,14 @@ lc_api.updateFriendLastMsg = function (uid, friend_id, msg, cb_ok, cb_err) {
  * column_val，字段值请自行保证输入类型
  */
 lc_api.updateUserInfo = function (options, cb_ok, cb_err) {
-   var user_id = options.user_id || "", 
-  column_name = options.column_name || "",
-  column_val = options.column_val || "";
+  var user_id = options.user_id || "",
+    column_name = options.column_name || "",
+    column_val = options.column_val || "";
 
-  if( options.column_name=="msg_count"||options.column_name=="on_screen"){
-      column_val = options.column_val || 0;
-  }else{
-      column_val = options.column_val || "";
+  if (options.column_name == "msg_count" || options.column_name == "on_screen") {
+    column_val = options.column_val || 0;
+  } else {
+    column_val = options.column_val || "";
   }
   if (!user_id) {
     cb_err("user_id不能为空!");
@@ -449,24 +449,24 @@ lc_api.getUser = function (options, cb_ok, cb_err) {
   }
 
   var query = new AV.Query("_User");
-  if(orderby=="on_screen"){
+  if (orderby == "on_screen") {
     query.exists("on_screen");
   }
   query.skip(skip);
   query.limit(limit);
   //排序
   if (orderby.length > 0) {
-    if(orderby=="on_screen"){
-       query.descending('on_screen_date');
-       // query.descending('on_screen'); 
-    }else{
+    if (orderby == "on_screen") {
+      query.descending('on_screen_date');
+      // query.descending('on_screen'); 
+    } else {
       if (isdesc) {
         query.descending(orderby);
       } else {
         query.ascending(orderby);
       }
     }
-    
+
   }
 
   query.find().then(function (results) {
@@ -486,6 +486,80 @@ lc_api.getSingleConversation = function (friends_uid, cb_ok, cb_err) {
   }
   var UserArray = [friends_uid, AV.User.current().id]
   var query = new AV.Query("_Conversation");
+  query.containsAll("m", UserArray);
+  query.first().then(function (results) {
+    cb_ok(results);
+  }, function (error) {
+    cb_err(error);
+  });
+};
+
+/** 新增聊天消息
+ * msg,聊天内容
+ * friends_uid,好友用户id 
+ * 说明：
+ *  聊天内容数据库字段，数组： [
+ *    {"user_id":"用户id","date":"2017-07-14 12:22:22","msg":"聊天内容最好限制下内容长度"}，
+ *    {"user_id":"用户id2","date":"2017-07-14 12:22:22","msg":"聊天内容2"}]
+ * 
+ *  加载方式：本人头像聊天消息在右边，2个用户显示的头像等信息，在进聊天室之前获取到
+**/
+lc_api.saveIM = function (friends_uid, msg, cb_ok, cb_err) {
+  if (!AV.User.current()) {
+    cb_err("未登录用户!")
+    return;
+  }
+  if (msg.length == "") {
+    cb_err("消息内容不能为空!")
+    return;
+  }
+  var UserArray = [friends_uid, AV.User.current().id]
+  var query = new AV.Query("im");
+  query.containsAll("m", UserArray);
+  query.first().then(function (results) {
+    var current_msg = { "user_id": AV.User.current().id, "date": new Date(), "msg": msg };
+    if (results) {
+      if (results.get("msg")) {
+        var nmsg = results.get("msg");
+        nmsg.push(current_msg);
+        results.set("msg", nmsg);
+      } else {
+        results.set("msg", [current_msg]);
+      }
+      results.save().then(function (data) {
+        cb_ok(data);
+      }, function (error) {
+        cb_err(error);
+      });
+    } else {//创建新的
+      var IM = AV.Object.extend('im');
+      var obj = new IM();
+      obj.set('m', UserArray);
+      obj.set('msg', [current_msg]);
+      obj.save().then(function (data) {
+        cb_ok(data);
+      }, function (error) {
+        cb_err(error);
+      });
+    }
+  }, function (error) {
+    cb_err(error);
+  });
+};
+
+/** 获取 2个人之间的聊天内容
+    friends_uid,好友用户id
+ 
+ 返回的msg为聊天记录数据如下：
+ msg=[{"user_id":"用户id","date":"2017-07-14 12:22:22","msg":"聊天内容最好限制下内容长度"},{"user_id":"用户id2","date":"2017-07-14 12:22:22","msg":"聊天内容2"}]
+**/
+lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
+  if (!AV.User.current()) {
+    cb_err("未登录用户!")
+    return;
+  }
+  var UserArray = [friends_uid, AV.User.current().id]
+  var query = new AV.Query("im");
   query.containsAll("m", UserArray);
   query.first().then(function (results) {
     cb_ok(results);
