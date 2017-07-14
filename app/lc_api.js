@@ -562,7 +562,21 @@ lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
   var query = new AV.Query("im");
   query.containsAll("m", UserArray);
   query.first().then(function (results) {
-    cb_ok(results);
+    if(results){
+      var query = new AV.Query("_User");
+      query.equalTo("objectId", friend_id);
+      query.first().then(function (data) {
+         if(data){
+           cb_ok({im:results,"guest":data});
+         }else{
+          cb_err("好友用户对象为空!");
+         }
+      }, function (error) {
+        cb_err(error);
+      });
+    }else{
+      cb_ok(null);
+    } 
   }, function (error) {
     cb_err(error);
   });
