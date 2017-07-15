@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>英雄执照</title>
-    <script src="./av-min.js"></script>
-    <script src="./lc_api.js"></script>
+    <script src="./av-min.js?td88"></script>
+    <script src="./lc_api.js?td88"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
     <script> 
          $(document).ready(function () {
             var code = lc_api.GetRequest()["code"] || ''; 
             var userId = lc_api.GetRequest()["user"] || ''; 
+            // alert(code+'<----->'+userId);
             if (code) {  
                 lc_api.login(code, userId, function(status){
                     // if(status == 1){  //直接跳转到首页

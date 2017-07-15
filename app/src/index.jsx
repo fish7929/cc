@@ -56,13 +56,13 @@ if (_url.indexOf('bigScreen') > -1) {
 } else {
     let user = Base.getParameter('user');
     let isLogin = Base.getParameter('isLogin');
-    let currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
-    if (Base.isEmptyObject(currentUser) && !isLogin) {
+    let current = AV.User.current();
+    if (!current) {
         Base.wxLogin(user);
     } else {
         AppModal.loading();
-        let current = Base.getCurrentUser();
-        lc_api.getUserById(current.id, (data) => {
+        let id = current ? current.id : '';
+        lc_api.getUserById(id, (data) => {
             AppModal.hide();
             if (data) {
                 Base.setLocalStorageObject('CURRENT_USER', data);
@@ -72,8 +72,13 @@ if (_url.indexOf('bigScreen') > -1) {
                     </div>
                 </Provider>, document.getElementById("app"));
             } else {  //用户给删除了
+                AppModal.toast('没有用户信息,重新登录获取');
+                AV.User.logOut();
                 window.localStorage.removeItem('CURRENT_USER');
-                Base.wxLogin(user);
+                setTimeout(() => {
+                    Base.wxLogin(user);
+                    return;
+                }, 500);
             }
         }, (error) => {
             AppModal.toast('网络状况不好，请稍后重试');

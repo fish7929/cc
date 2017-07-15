@@ -203,10 +203,11 @@ class HeroDetail extends React.Component {
             headUrl: nextProps.headUrl || '',
             name: nextProps.name || ''
         });
+        setTimeout(() =>{
+            this.drawHeroCard(nextProps.questions, nextProps.id, nextProps.headUrl, nextProps.name);
+        }, 0);
     }
     componentDidUpdate(prevProps, prevState) {
-        let { questions, id, headUrl, name } = this.state;
-        this.drawHeroCard(questions, id, headUrl, name);
 
     }
     /**

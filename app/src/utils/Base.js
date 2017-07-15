@@ -343,7 +343,7 @@ module.exports = {
                 let image = new Image()
                 image.width = 124
                 image.height = 124 
-                
+                console.log('try drawHead');
                 image.onload = ()=> {
                     ctx.save(); // 保存当前ctx的状态
                     ctx.arc(image.width / 2 + 86, image.height / 2 + 250, image.width / 2, 0, Math.PI * 2, false); //画出圆
@@ -407,7 +407,7 @@ module.exports = {
      * @param {string} url 返回的URL
      */
     wxLogin(userId=''){
-        let metaUrl = userId ? 'http://www.6itec.com/share/login.html?user='+userId : 'http://www.6itec.com/share/login.html';
+        let metaUrl = userId ? 'http://www.6itec.com/share/web.html?user='+userId : 'http://www.6itec.com/share/web.html';
         let _url = Base.myEncodeURIComponent(metaUrl);
         location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf82fb57ce47d0df6&redirect_uri="+ _url +"&response_type=code&scope=snsapi_login&state=" + Date.now() + "#wechat_redirect";
     },
