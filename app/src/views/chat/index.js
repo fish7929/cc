@@ -36,7 +36,7 @@ class ChatView extends React.Component {
         return (
             <Page id='chat-view'>
                 <div className="chat-view-list" ref="chatList">
-                    {/* { messageList.map((message, index) => <ChatItem key={index} data={message} />) } */}
+                     { messageList.map((message, index) => <ChatItem key={index} data={message} />) } 
                 </div>
                 <div className="input-div">
                     <input type="text" placeholder="请输入聊天内容" value={msg} onChange={(e)=>this.onInputChange(e.target.value, "msg")} />
@@ -63,8 +63,12 @@ class ChatView extends React.Component {
         let fid = this.props.params.fid
         if(!fid) return
         lc_api.getIM(fid, data => {
-            console.log(data)
-            this.showMsg(data)
+            this.friend = data.guest, this.user = Base.getCurrentUser()
+            let messages = data.im.get("msg").map(obj => ({
+                ...obj,
+                user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
+            }))
+            this.showMsg(messages)
         }, err => {
             console.log(err)
         })
@@ -86,17 +90,20 @@ class ChatView extends React.Component {
         this.setState(state)
     }
 
-    showMsg(message){
-        this.props.appendMessage(message)
+    showMsg(messages){
+        this.props.appendMessage(messages)
     }
 
     sendMsg(){
         let fid = this.props.params.fid
         if(!fid) return
         lc_api.saveIM(fid, this.state.msg, data=>{
+            let messages = data.get("msg").map(obj => ({
+                ...obj,
+                user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
+            }))
+            this.showMsg(messages)
             this.setState({msg: ""})
-            this.showMsg([data])
-            console.log(data)
         })
         // let user = AV.User.current()
         // let param = {
