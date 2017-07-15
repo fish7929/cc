@@ -22,7 +22,6 @@ export const getMyFriendList = opt => (dispatch, getState) => {
 
 export const getFriendTotal = (opt) => dispatch => {
     lc_api.getCountFriend(opt, data=>{
-        console.log(data)
         dispatch({
             type: ActionType.INIT_FRIEND_TOTAL,
             data: data

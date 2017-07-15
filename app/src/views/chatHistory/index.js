@@ -94,7 +94,8 @@ class ChatHistory extends React.Component {
 
 let mapStateToProps = state => {
     return ({
-        list: state.chatHistoryData.friendList
+        list: state.chatHistoryData.friendList,
+        total: state.chatHistoryData.total,
     });
 }
 
