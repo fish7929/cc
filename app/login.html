@@ -15,7 +15,7 @@
             if (code) {  
                 lc_api.login(code, user, function(status, user){
                     // if(status == 1){  //直接跳转到首页
-                    location.href = user ? 'http://www.6itec.com/share/#/home?user=' + user : 'http://www.6itec.com/share/#/home';
+                    location.href = user ? 'http://www.6itec.com/share/#/?user=' + user : 'http://www.6itec.com/share/#/home';
                     // }else if(status == 2){   //跳转到聊天页面
                     //     location.href = 'http://www.6itec.com/share/#/chatHistory';
                     // }

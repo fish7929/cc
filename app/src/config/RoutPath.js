@@ -11,14 +11,10 @@ const ROOT_ROUTER = "";
 const RoutPath = {
     //home api 
     ROUTER_HOME: ROOT_ROUTER + '/',
-    ROUTER_HOME: ROOT_ROUTER + '/home',
-    ROUTER_NEW_HOME: ROOT_ROUTER + '/newhome',
-    ROUTER_QUESTION: ROOT_ROUTER + '/question',
-    ROUTER_HERO: ROOT_ROUTER + '/hero',
-    ROUTER_COMMON: ROOT_ROUTER + '*',
     ROUTER_CHAT_HISTORY: ROOT_ROUTER + '/chatHistory',
     ROUTER_BIG_SCREEN: ROOT_ROUTER + '/bigScreen',
-    ROUTER_CHAT_VIEW: ROOT_ROUTER + '/chat'
+    ROUTER_CHAT_VIEW: ROOT_ROUTER + '/chat',
+    ROUTER_COMMON: ROOT_ROUTER + '*'
 };
 
 export default RoutPath;

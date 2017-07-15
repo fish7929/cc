@@ -6,13 +6,11 @@
  * @time 2017-03-13 12:00
  * @author fishYu
  **/
-#home-page-container{
+.home-page-container{
     background: url($homeBgIcon) top center no-repeat;
     background-size: cover; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: relative;
+    float: left;
     height: 100%;
 }
 .home-title{

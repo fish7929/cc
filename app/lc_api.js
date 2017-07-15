@@ -588,12 +588,11 @@ lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
   });
 };
 
-lc_api.initWXShare = function (id) {
-  var user = AV.User.current();
-  var _title = (user.get('user_nick') || '') + '人称：' + (user.get('q0') || '')
-    + '。我将用' + (user.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (user.get('q2') || '');
-  var link = 'http://www.6itec.com/share/#/home';
-  // if(id) link =  'http://www.6itec.com/share/#/home?user='+id;
+lc_api.initWXShare = function (user) {
+  var _title = (user.user_nick || '') + '人称：' + (user.q0 || '')
+    + '。我将用' + (user.q1 || '') + '的方式拯救世界。最后，我想说一句' + (user.q2 || '');
+  var link = 'http://www.6itec.com/share/#/';
+  // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
     to_url: location.href
@@ -609,12 +608,6 @@ lc_api.initWXShare = function (id) {
         jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
       wx.ready(function () {
-        //为了查询用户有去q0-q2
-        lc_api.getUserById(user.id, function (res) {
-          _title = (res.get('user_nick') || '') + '人称：' + (res.get('q0') || '')
-            + '。我将用' + (res.get('q1') || '') + '的方式拯救世界。最后，我想说一句' + (res.get('q2') || '');
-          console.log(_title, res, 9999);
-
           //朋友圈
           wx.onMenuShareTimeline({
             title: _title, // 分享标题

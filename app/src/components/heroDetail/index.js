@@ -47,9 +47,9 @@ class HeroDetail extends React.Component {
         return (
             <div className="hero-detail">
                 <img src={image} className='hero-detail-img-data' />
-                {image ? null : <div className='hero-qrcode hero-qrcode-img'>
-                    <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={180} height={180} qrid={this.props.qrid} />
-                </div>}
+                <div className='hero-qrcode hero-qrcode-img'>
+                    <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={180} height={180} qrid={this.props.qrid} />
+                </div>
             </div>
         )
     }
@@ -61,9 +61,9 @@ class HeroDetail extends React.Component {
         let noMarginTop = top ? ' no-margin-top' : ' ';
         let temp = classname ? 130 : 180;
         let _width = ClientWidth < 321 ? temp * 0.43 : temp * 0.5;
+        let q1 = questions[0];
         let q2 = questions[1];
         let q3 = questions[2];
-        let q1 = questions[0];
         let _class = classname ? 'hero-detail-bg ' + classname : 'hero-detail hero-detail-bg ';
         return (
             isDrawImg ? this.renderImageDataSection() : <div id={"common-hero-detail-" + this.props.qrid} className={_class}>
@@ -73,7 +73,7 @@ class HeroDetail extends React.Component {
                     </div>
                     {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
                     <div className='hero-qrcode'>
-                        <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                        <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                     </div>
                     <span className='hero-qrcode-hint'>扫描图片识别二维码</span>
                 </div>
@@ -101,10 +101,11 @@ class HeroDetail extends React.Component {
      */
     renderTop1HeroSection() {
         let { questions, id, headUrl, name } = this.state;
+        console.log(questions);
         let _width = 117.5;
+        let q1 = questions[0];
         let q2 = questions[1];
         let q3 = questions[2];
-        let q1 = questions[0];
         let _class = this.state.image ? ' top1-hero-detail-no-content' : '';
         return (
             <div id={"top1-hero-detail-" + this.props.qrid} className={'top1-hero-detail-wrapper' + _class}>
@@ -134,7 +135,7 @@ class HeroDetail extends React.Component {
                         </div>
                         <div className='top1-hero-qrcode'>
                             <div className='hero1-qrcode'>
-                                <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                                <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                             </div>
                             <span className='hero1-qrcode-hint'>扫描图片识别二维码</span>
                         </div>
@@ -159,11 +160,15 @@ class HeroDetail extends React.Component {
      */
     componentDidMount() {
         let { questions, id, headUrl, name } = this.state;
+        this.drawHeroCard(questions, id, headUrl, name);
+    }
+    drawHeroCard(questions, id, headUrl, name){
         let q1 = questions[0];
         let q2 = questions[1];
         let q3 = questions[2];
         if (this.state.isDrawImg) {  //如果需要绘制图片的情况
-            let canvas = document.getElementsByTagName("canvas")[0]
+            let canvas = document.getElementsByTagName("canvas")[0];
+            if(!canvas) return;
             //动态设置
             let opt = {
                 headImg: headUrl,
@@ -179,7 +184,6 @@ class HeroDetail extends React.Component {
                 })
             })
         }
-
     }
     /**
      * 属性改变的时候触发
@@ -196,6 +200,10 @@ class HeroDetail extends React.Component {
             headUrl: nextProps.headUrl || '',
             name: nextProps.name || ''
         });
+    }
+    componentDidUpdate() {
+        let { questions, id, headUrl, name } = this.state;
+        this.drawHeroCard(questions, id, headUrl, name);
     }
     /**
      * 组件渲染完成调用
