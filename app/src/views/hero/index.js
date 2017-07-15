@@ -9,15 +9,10 @@
 
 // require core module
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 //require submodule
-import Page from '../../components/page';
 
 import { ZERO, FIRST, SECOND, THREE } from '../../constants';
-import { fetchData } from './reducer/action';
 import HeroDetail from '../../components/heroDetail';
 import "./index.scss";
 
@@ -28,14 +23,8 @@ class Hero extends React.Component {
      */
     constructor(props) {
         super(props);
-        this.id = this.props.params && this.props.params.id;
-
-        this.currentUser = Base.getCurrentUser(); //获取当前用户
-        if(!this.id && this.currentUser){
-            this.id = this.currentUser.id;
-        }
         this.state = {
-            user: this.currentUser,
+            user: this.props.user,
             isShow: false,
             type: ZERO
         };
@@ -50,7 +39,6 @@ class Hero extends React.Component {
         // e.preventDefault();
         e.stopPropagation();
         this.setState({ type });
-        let {user} = this.state;
         switch (type) {
             case FIRST:
                 this.setState({isShow: true});
@@ -61,9 +49,9 @@ class Hero extends React.Component {
                 if(!this.canClick) return;
                 this.canClick = false;
                 let opt = {};
-                opt.user_id = user.id;
+                opt.user_id = this.state.user.objectId;
                 opt.column_name = "on_screen";
-                let oldScreen = user.get("on_screen");
+                let oldScreen = this.state.user.on_screen;
                 if(oldScreen == undefined){
                     oldScreen = 0;
                 }else if(oldScreen == 0){
@@ -103,15 +91,18 @@ class Hero extends React.Component {
      */
     getComponent() {
         let { type, user } = this.state;
-        let question = [user.get('q0'), user.get('q1'), user.get('q2')];
-        let headUrl = user.get('user_pic') || '';
-        let name = user.get('user_nick') || '';
-        console.log(question, 89999);
+        let q0 = user.q0 || '';
+        let q1 = user.q1 || '';
+        let q2 = user.q2 || '';
+        let headUrl = user.user_pic || '';
+        let id = user.objectId;
+        let name = user.user_nick || '';
+        let question = [q0, q1, q2];
         return (
             <div className="hero-page-content">
                 <div className='hero-title'></div>
-                {user.get('q0') ? <HeroDetail ref='my-hero' questions={question} id={user.id} 
-                headUrl={headUrl} name={name} isDrawImg={true}  /> : null}
+                <HeroDetail ref='my-hero' questions={question} id={id} 
+                headUrl={headUrl} name={name} isDrawImg={true}  />
                 <div className='hero-buttons-group'>
                     <div className='hero-button-wrapper'>
                         <span className='button-left-border'></span>
@@ -134,11 +125,11 @@ class Hero extends React.Component {
      */
     render() {
         return (
-            this.state.user ? <Page id='hero-page-container'>
+            <div className='hero-page-container' style={this.props.style}>
                 {this.state.isShow ? <div className='hero-share'
                     onTouchTap={(e) => this.hideShareLayerHandler(e)}></div> : null}
                 {this.getComponent()}
-            </Page> : null
+            </div> 
         );
     }
     /**
@@ -152,16 +143,6 @@ class Hero extends React.Component {
      * 组件渲染完成调用
      */
     componentDidMount() {
-        if (!this.currentUser) {  //直接跳转去登录
-            Base.wxLogin();
-            return;
-        }
-        //动态设置页面标题
-        var title = this.getTitle();
-        Base.setTitle(title);
-        this.getInitData();
-        //初始化分享
-        lc_api.initWXShare(this.id);
     }
     /**
      * 属性改变的时候触发
@@ -169,20 +150,8 @@ class Hero extends React.Component {
      */
     componentWillReceiveProps(nextProps) {
         this.setState({
+            user: nextProps.user,
             type: ZERO
-        });
-    }
-    /**
-     * 获取网络初始化数据，
-     */
-    getInitData() {
-        lc_api.getUserById(this.id, (data) => {
-            console.log(data);
-            if(data){
-                this.setState({user: data});
-            }
-        }, (error) => {
-            console.log('获取信息失败');
         });
     }
     /**
@@ -193,21 +162,17 @@ class Hero extends React.Component {
             isShow: false,
             type: ZERO
         });
-        window.localStorage.removeItem('USER_SELECT_QUESTION');
     }
 
 }
 
+/**
+ * 验证props
+ */
+Hero.propTypes = {
+    style: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired,
+};
 
-let mapStateToProps = state => {
-    return ({
-        isFetching: state.questionData.isFetching,
-        remoteData: state.questionData.remoteData
-    });
-}
 
-let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchData }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Hero);
+export default Hero;

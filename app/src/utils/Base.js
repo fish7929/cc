@@ -416,7 +416,7 @@ module.exports = {
      * @param param
      * @returns {string}
      */
-    getParameter : function(param){
+    getParameter(param){
         let url = location.href;
         var iLen = param.length;
         var iStart = url.indexOf(param);

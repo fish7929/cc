@@ -10,75 +10,108 @@
 // require core module
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 //require submodule
 import Page from '../../components/page';
-import { ZERO, FIRST, SECOND, THREE } from '../../constants';
-import { fetchData } from './reducer/action';
-
+import Question from '../question';
+import Logo from '../logo';
+import Hero from '../hero';
 import "./index.scss";
+import QuestionData from '../../config/QuestionData';
+const ClientWidth = document.body.clientWidth;   //移动端界面的宽度
 class Home extends React.Component {
     /**
      *构造函数
      */
     constructor(props) {
         super(props);
-        this.currentUser = Base.getCurrentUser(); //获取当前用户
-        // let objectId = '595f31f0ac502e7589fbb3a1';
-        this.state = this.getInitState();
-
-    }
-    /**
-     * 初始化的状态
-     */
-    getInitState(state) {
-        state = state || {};
-        return Object.assign(state, {
-            user: null
-        });
-    }
-    /**
-     * 制作我的英雄上岗证
-     * @param {事件} e 
-     */
-    makeHeroWorkPermitHandler(e) {
-        // e.preventDefault();
-        e.stopPropagation();
-        //测试跳转到问题列表
-        let { user } = this.state;
-        if (user && user.get("q0") && user.get("q2")) {
-            navigate.push(RoutPath.ROUTER_HERO);
-        } else {
-            navigate.push(RoutPath.ROUTER_QUESTION + '/1');
+        this.currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+        let otherId = Base.getParameter('user');
+        let _current = 0;
+        console.log(otherId, this.currentUser.objectId, 444, this.currentUser.q0, this.currentUser.q2);
+        if (this.currentUser.objectId === otherId && this.currentUser.q0 && this.currentUser.q2) {
+            console.log(1);
+            _current = 4;
+        } else if (this.currentUser.objectId != otherId && !this.currentUser.q0 && !this.currentUser.q2) {
+            console.log(2);
+            _current = 0;
+        } else if (this.currentUser.objectId != otherId && this.currentUser.q0 && this.currentUser.q2) {
+            //todo 去跳页
+            // navigate.push(RoutPath.ROUTER_CHAT_HISTORY);
+            // return;
+            _current = 0;
         }
+        this.state = {
+            current: _current,
+            isShowMask: false
+        };
 
+    }
+    /**
+     * 滑动tab
+     * @param {number} index 当前下标
+     * @param {number} time  过场动画时间
+     */
+    swiperHandler(index, time) {
+        this.setState({
+            current: index
+        });
+        setTimeout(() => {
+            let mySwipeWrapper = ReactDOM.findDOMNode(this.refs.mySwipeWrapper);
+            if (mySwipeWrapper) {
+                if(time){
+                    mySwipeWrapper.style.WebkitTransitionDuration = time;
+                    mySwipeWrapper.style.transitionDuration = time;
+                }else{
+                    mySwipeWrapper.style.WebkitTransitionDuration = '800ms';
+                    mySwipeWrapper.style.transitionDuration = '800ms';
+                }
+                mySwipeWrapper.style.transform = "translate(-" + (index * ClientWidth) + "px, 0) translateZ(0)";
+                mySwipeWrapper.style.WebkitTransform = "translate(-" + (index * ClientWidth) + "px, 0) translateZ(0)";
+                this.setState({isShowMask: false});
+            }
+        }, 0);
+    }
+    /**
+     * 返回按钮点击处理事件
+     * @param {string} val 返回事件 
+     * @param {number} type 返回事件 
+     */
+    gotoNextHandler(val, type) {
+        this.setState({isShowMask: true});
+        let opt = {};
+        let key = "q" + (type - 2);
+        opt.user_id = this.currentUser.objectId;
+        opt.column_name = key;
+        opt.column_val = val;
+        this.currentUser[key] = val;
+        Base.setLocalStorageObject('CURRENT_USER', this.currentUser);
+        lc_api.updateUserInfo(opt, () => {
+            this.swiperHandler(type);
+        }, () => {
+            AppModal.toast('保存问题失败');
+        });
     }
     /**
      * 渲染界面
      */
     render() {
-        let { user } = this.state;
+        let _style = { width: (5 * ClientWidth) + "px" };
+        let _itemStyle = { width: ClientWidth + "px" };
+        // let {user} = this.state;
         return (
             <Page id='home-page-container'>
-                <div className="home-title">
-                    <div className="home-title-shan1 animated  infinite"></div>
-                    <div className="home-title-shan2 animated  infinite"></div>
+                <div ref='mySwipeWrapper' className='h5-swipe-wrapper' style={_style}>
+                    {this.state.isShowMask ? <div className='question-mask'></div> : null}
+                    <Logo style={_itemStyle} callback={() => this.swiperHandler(1)} />
+                    <Question type={1} title='你登记想成为什么英雄 ？' style={_itemStyle} 
+                        data={QuestionData.Q0} callback={(val) => this.gotoNextHandler(val, 2)} />
+                    <Question type={2} title='选择你想要的英雄技能 ？' style={_itemStyle} 
+                        data={QuestionData.Q1} callback={(val) => this.gotoNextHandler(val, 3)} />
+                    <Question type={3} title='选择一句响亮的口号吧  !' style={_itemStyle} 
+                        data={QuestionData.Q2} callback={(val) => this.gotoNextHandler(val, 4)} />
+                    <Hero style={_itemStyle} user={this.currentUser} />
                 </div>
-                <div className="home-logo">
-                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
-                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
-                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
-                    <div className="home-logo-yuan animated directWhirlIn infinite"></div>
-                </div>
-                {user ? 
-                <div className='common-button-wrapper'>
-                    <span className='button-left-border shan-shuo'></span>
-                    <span className="home-page-button btn-active"
-                        onTouchTap={(e) => this.makeHeroWorkPermitHandler(e)}></span>
-                    <span className='button-right-border shan-shuo'></span>
-                </div>: null}
             </Page>
         );
     }
@@ -89,54 +122,29 @@ class Home extends React.Component {
         var title = '英雄执照';
         return title;
     }
+    componentWillMount() {
+        //初始化的时候显示
+        this.swiperHandler(this.state.current, '0ms');
+    }
     /**
      * 组件渲染完成调用
      */
     componentDidMount() {
-        let param = Base.getParameter('user');
-        if (!this.currentUser) {  //直接跳转去登录
-            Base.wxLogin(param);
-        } else {
-            if(param){
-                lc_api.addFriends(param, () => {
-                    navigate.push(RoutPath.ROUTER_CHAT_HISTORY);  //好友列表页
-                }, () => {
-                    console.log('加好友失败');
-                });
-            }else{
-                lc_api.getUserById(this.currentUser.id, (data) => {
-                    console.log(data);
-                    if (data) {
-                        this.setState({ user: data });
-                    }else{  //用户给删除了
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/currentUser');
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/serverURLs');
-                        window.localStorage.removeItem('AV/NWf9LqTFMyuK0RpycPsNSque-gzGzoHsz/subscriptionId');
-                        Base.wxLogin(param);
-                    }
-                }, (error) => {
-                    console.log('获取信息失败');
-                });
-            }
-        }
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
-        this.getInitData();
-        if (!this.props.isFetching) {
-            AppModal.hide();
-        }
         //初始化分享
-        lc_api.initWXShare();
+        lc_api.initWXShare(this.currentUser);
+    }
+    componentDidUpdate() {
+        //初始化分享
+        lc_api.initWXShare(this.currentUser);
     }
     /**
      * 属性改变的时候触发
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.isFetching) {
-            AppModal.hide();
-        }
     }
     /**
      * 获取网络初始化数据，
@@ -152,15 +160,4 @@ class Home extends React.Component {
 
 }
 
-
-let mapStateToProps = state => {
-    return ({
-        isFetching: state.homeData.isFetching
-    });
-}
-
-let mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchData }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
