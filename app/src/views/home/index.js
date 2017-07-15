@@ -27,20 +27,18 @@ class Home extends React.Component {
         super(props);
         this.currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
         let otherId = Base.getParameter('user');
-        let _current = 0;
-        console.log(otherId, this.currentUser.objectId, 444, this.currentUser.q0, this.currentUser.q2);
+        let _current = 4;
         if (this.currentUser.objectId === otherId && this.currentUser.q0 && this.currentUser.q2) {
-            console.log(1);
-            _current = 4;
-        } else if (this.currentUser.objectId != otherId && !this.currentUser.q0 && !this.currentUser.q2) {
-            console.log(2);
-            _current = 0;
-        } else if (this.currentUser.objectId != otherId && this.currentUser.q0 && this.currentUser.q2) {
+            _current = 4;  //执照页面
+            console.log(777);
+        } else if ( this.currentUser.objectId != otherId && !this.currentUser.q0 && !this.currentUser.q2) {
+            _current = 0;  //首页
+            console.log(999);
+        } else if (otherId && this.currentUser.objectId != otherId && this.currentUser.q0 && this.currentUser.q2) {
             //todo 去跳页
-            // navigate.push(RoutPath.ROUTER_CHAT_HISTORY);
-            // return;
-            _current = 0;
+            _current = 6;  //有用户id 并且 不是当前用户，有执照
         }
+        console.log(_current);
         this.state = {
             current: _current,
             isShowMask: false
@@ -133,6 +131,15 @@ class Home extends React.Component {
         //动态设置页面标题
         var title = this.getTitle();
         Base.setTitle(title);
+        if(this.state.current === 6){
+            let otherId = Base.getParameter('user');
+            if(otherId){
+                navigate.push(RoutPath.ROUTER_CHAT_VIEW + '/'+ otherId);
+                return;
+            }else{
+                this.setState({current: 0});
+            }
+        }
         //初始化分享
         lc_api.initWXShare(this.currentUser);
     }

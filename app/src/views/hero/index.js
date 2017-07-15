@@ -158,10 +158,6 @@ class Hero extends React.Component {
      * 组件渲染完成调用
      */
     componentWillUnmount() {
-        this.setState({
-            isShow: false,
-            type: ZERO
-        });
     }
 
 }

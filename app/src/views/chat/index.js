@@ -49,7 +49,7 @@ class ChatView extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '守望先锋';
+        var title = '英雄执照';
         return title;
     }
     /**
@@ -82,6 +82,10 @@ class ChatView extends React.Component {
         //     })
         //     this.chatRoom.connect()
         // })
+        
+        //初始化分享
+        let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+        lc_api.initWXShare(currentUser);
     }
 
     onInputChange(value, type){

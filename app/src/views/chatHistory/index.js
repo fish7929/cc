@@ -60,7 +60,7 @@ class ChatHistory extends React.Component {
      * 获取标题内容
      */
     getTitle() {
-        var title = '守望先锋';
+        var title = '英雄执照';
         return title;
     }
     /**
@@ -75,6 +75,9 @@ class ChatHistory extends React.Component {
         })
         this.onLoadData(0)
         this.props.getFriendTotal({user_id: AV.User.current().id})
+        //初始化分享
+        let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+        lc_api.initWXShare(currentUser);
     }
     /**
      * 属性改变的时候触发

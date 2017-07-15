@@ -24,6 +24,7 @@ class HeroDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.getInitState();
+        this.isMount = true;
     }
     /**
      * 初始化的状态
@@ -48,7 +49,7 @@ class HeroDetail extends React.Component {
             <div className="hero-detail">
                 <img src={image} className='hero-detail-img-data' />
                 <div className='hero-qrcode hero-qrcode-img'>
-                    <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={180} height={180} qrid={this.props.qrid} />
+                    <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={180} height={180} qrid={this.props.qrid} />
                 </div>
             </div>
         )
@@ -73,7 +74,7 @@ class HeroDetail extends React.Component {
                     </div>
                     {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
                     <div className='hero-qrcode'>
-                        <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                        <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                     </div>
                     <span className='hero-qrcode-hint'>扫描图片识别二维码</span>
                 </div>
@@ -135,7 +136,7 @@ class HeroDetail extends React.Component {
                         </div>
                         <div className='top1-hero-qrcode'>
                             <div className='hero1-qrcode'>
-                                <QRcode text={'http://www.6itec.com/share/#/?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                                <QRcode text={'http://www.6itec.com/share/#/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                             </div>
                             <span className='hero1-qrcode-hint'>扫描图片识别二维码</span>
                         </div>
@@ -162,13 +163,13 @@ class HeroDetail extends React.Component {
         let { questions, id, headUrl, name } = this.state;
         this.drawHeroCard(questions, id, headUrl, name);
     }
-    drawHeroCard(questions, id, headUrl, name){
+    drawHeroCard(questions, id, headUrl, name) {
         let q1 = questions[0];
         let q2 = questions[1];
         let q3 = questions[2];
         if (this.state.isDrawImg) {  //如果需要绘制图片的情况
             let canvas = document.getElementsByTagName("canvas")[0];
-            if(!canvas) return;
+            if (!canvas) return;
             //动态设置
             let opt = {
                 headImg: headUrl,
@@ -179,9 +180,11 @@ class HeroDetail extends React.Component {
                 qrCode: canvas.toDataURL("image/png")
             }
             Base.getPersonalCardImage(opt).then(data => {
-                this.setState({
-                    image: data
-                })
+                if (this.isMount) {
+                    this.setState({
+                        image: data
+                    });
+                }
             })
         }
     }
@@ -201,15 +204,16 @@ class HeroDetail extends React.Component {
             name: nextProps.name || ''
         });
     }
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         let { questions, id, headUrl, name } = this.state;
         this.drawHeroCard(questions, id, headUrl, name);
+
     }
     /**
      * 组件渲染完成调用
      */
     componentWillUnmount() {
-
+        this.isMount = false;
     }
 
 }

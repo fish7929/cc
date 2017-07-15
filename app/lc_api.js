@@ -73,7 +73,7 @@ friend pointer 好友对象
  * **/
 lc_api.setFriend = function (user_id, current, cb_ok, cb_err) {
   if (user_id == current.id) {
-    cb_ok("自己扫码自己登录");
+    cb_ok();
     return;
   }
   var f = AV.Object.extend('friend');
@@ -137,15 +137,15 @@ lc_api.login = function (code, user_id, cb_ok, cb_error) {
       if (user_id) {  //哟用户id的情况。
         lc_api.addFriends(user_id, function () {
           if (status == 1) {  //新注册用户
-            cb_ok && cb_ok(1, user);
+            cb_ok && cb_ok(1);
           } else if (status == 2) {  //老用户
-            cb_ok && cb_ok(2, user);
+            cb_ok && cb_ok(2);
           }
         }, function (params) {
           cb_error && cb_error(3);
         });
       } else {
-        cb_ok && cb_ok(1, user);
+        cb_ok && cb_ok(1);
       }
     }, function (error) {
       //用户登录失败
@@ -591,7 +591,7 @@ lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
 lc_api.initWXShare = function (user) {
   var _title = (user.user_nick || '') + '人称：' + (user.q0 || '')
     + '。我将用' + (user.q1 || '') + '的方式拯救世界。最后，我想说一句' + (user.q2 || '');
-  var link = 'http://www.6itec.com/share/#/';
+  var link = 'http://www.6itec.com/share/#/home?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
@@ -608,6 +608,13 @@ lc_api.initWXShare = function (user) {
         jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
       wx.ready(function () {
+          //在微信里面播放音乐
+          var heroAudio = document.getElementById('heroAudio');
+          if(heroAudio && heroAudio.paused){
+            heroAudio.load();
+            heroAudio.play();
+          }
+          
           //朋友圈
           wx.onMenuShareTimeline({
             title: _title, // 分享标题

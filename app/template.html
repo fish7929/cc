@@ -36,9 +36,23 @@
 <body>
 	<div id="app"></div>
 	<div id="app-modal"></div>
+	<audio src="http://www.6itec.com/share/assets/1.mp3" autoplay loop="loop" id="heroAudio"></audio>
 	<script type="text/javascript" src="./av-min.js"></script>
 	<script type="text/javascript" src="./lc_api.js"></script>
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script>
+        $(document).ready(function () {
+            var heroAudio = $('#heroAudio')[0];
+            if (heroAudio) {
+                heroAudio.addEventListener("loadstart", function () {
+                    if (heroAudio.paused) {
+                        heroAudio.load();
+                        heroAudio.play();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

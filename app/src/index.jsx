@@ -55,12 +55,14 @@ if (_url.indexOf('bigScreen') > -1) {
     </Provider>, document.getElementById("app"));
 } else {
     let user = Base.getParameter('user');
+    let isLogin = Base.getParameter('isLogin');
     let currentUser = Base.getLocalStorageObject('CURRENT_USER'); //获取当前用户
-    if (Base.isEmptyObject(currentUser)) {
+    if (Base.isEmptyObject(currentUser) && !isLogin) {
         Base.wxLogin(user);
     } else {
         AppModal.loading();
-        lc_api.getUserById(currentUser.objectId, (data) => {
+        let current = Base.getCurrentUser();
+        lc_api.getUserById(current.id, (data) => {
             AppModal.hide();
             if (data) {
                 Base.setLocalStorageObject('CURRENT_USER', data);

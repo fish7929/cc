@@ -11,11 +11,11 @@
     <script> 
          $(document).ready(function () {
             var code = lc_api.GetRequest()["code"] || ''; 
-            var user = lc_api.GetRequest()["user"] || ''; 
+            var userId = lc_api.GetRequest()["user"] || ''; 
             if (code) {  
-                lc_api.login(code, user, function(status, user){
+                lc_api.login(code, userId, function(status){
                     // if(status == 1){  //直接跳转到首页
-                    location.href = user ? 'http://www.6itec.com/share/#/?user=' + user : 'http://www.6itec.com/share/#/home';
+                    location.href = userId ? 'http://www.6itec.com/share/#/home?user=' + userId + '&isLogin=ok&rd=' + Date.now() : 'http://www.6itec.com/share/#/home?rd=' + Date.now();
                     // }else if(status == 2){   //跳转到聊天页面
                     //     location.href = 'http://www.6itec.com/share/#/chatHistory';
                     // }
