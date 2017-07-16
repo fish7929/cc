@@ -9,5 +9,15 @@
         overflow: auto;
         background: #001e55;
     }
+
+    .no-friends{
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: 30%;
+        line-height: calc-rem(48);
+        font-size: calc-rem(32);
+        color: #fff;
+    }
     
 }

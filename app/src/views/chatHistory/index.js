@@ -41,8 +41,18 @@ class ChatHistory extends React.Component {
         this.props.getMyFriendList(opt).then(()=>this.setState({page}))
     }
 
+    getComponent(){
+        let { list } = this.props, component = ""
+        if(list.length > 0){
+            component = list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>hashHistory.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)
+        }else{
+            component = <div className="no-friends">暂时没有人私信你哦<br />快炫耀一下让朋友们都看到吧</div>
+        }
+        return component
+    }
+
     render() {
-        let { list, total } = this.props, pageTotal
+        let { total } = this.props, pageTotal
         if(total>0){
             pageTotal = Math.ceil(total / this.state.pageNumber)
         }else{
@@ -51,7 +61,7 @@ class ChatHistory extends React.Component {
         return (
             <Page id='chat-history'>
                 <ScrollList className="chat-history-list" currentPage={this.state.page} pageTotal={pageTotal} onScroll={page=>this.onLoadData(page)}>
-                    {list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>hashHistory.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)}
+                    {this.getComponent()}
                 </ScrollList>
             </Page>
         );

@@ -353,14 +353,14 @@ module.exports = {
                     resolve&&resolve(ctx)
                 }
                 image.onerror = () => {
-                    reject && reject()
+                    resolve&&resolve(context)
                 }
                 // image.crossOrigin = "Anonymous";
                 image.crossOrigin = "anonymous";
                 image.src = url;
             } catch (error) {
                 console.log(error)
-                reject && reject()
+                resolve&&resolve(context)
             }
         })
         
@@ -376,7 +376,7 @@ module.exports = {
                 resolve&&resolve(context)
             }
             image.onerror = () => {
-                reject && reject()
+                resolve&&resolve(context)
             }
             image.crossOrigin = "Anonymous";
             image.src = url
