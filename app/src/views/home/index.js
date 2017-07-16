@@ -145,7 +145,7 @@ class Home extends React.Component {
     }
     componentDidUpdate() {
         //初始化分享
-        lc_api.initWXShare(this.currentUser);
+        // lc_api.initWXShare(this.currentUser);
     }
     /**
      * 属性改变的时候触发

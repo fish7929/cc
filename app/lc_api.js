@@ -643,7 +643,7 @@ lc_api.initWXShare = function (user) {
               console.log('onMenuShareAppMessage失败')
             }
           });
-        }, function (error) { console.log(err) });
+        });
       wx.error(function (error) {
         // alert(obj.data.signature + "wx error:" + JSON.stringify(error));
         console.log(obj.data.signature + "wx error:" + JSON.stringify(error));
