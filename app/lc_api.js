@@ -591,11 +591,15 @@ lc_api.getIM = function (friends_uid, cb_ok, cb_err) {
 lc_api.initWXShare = function (user) {
   var _title = (user.user_nick || '') + '人称：' + (user.q0 || '')
     + '。我将用' + (user.q1 || '') + '的方式拯救世界。最后，我想说一句' + (user.q2 || '');
-  var link = 'http://www.6itec.com/share/#/home?user=' + user.objectId;
+  var link = 'http://www.6itec.com/share/home?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
+  var url = location.href;
+  if (location.hash.length) {
+      url = url.substr(0, url.indexOf(location.hash));
+  }
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
-    to_url: location.href
+    to_url: url
   }, function (objs) {
     var obj = JSON.parse(objs);
     try {

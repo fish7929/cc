@@ -7,7 +7,7 @@
     "rimraf": "rimraf",
     "clean:dist": "npm run rimraf -- ./dist",
     "build": "npm run clean:dist && webpack --progress --colors --env release --apiDomain formalDomain",
-    "start": "webpack-dev-server --hot --inline --progress --colors  --env develop --apiDomain devDomain --port 9090 ",
+    "start": "webpack-dev-server --hot --inline --progress --colors  --env develop --apiDomain devDomain --port 9090 --history-api-fallback",
     "test": "npm run clean:dist && webpack --progress --colors --env release --apiDomain devDomain"
   },
   "keywords": [

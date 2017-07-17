@@ -16,7 +16,7 @@
             if (code) {  
                 lc_api.login(code, userId, function(status){
                     // if(status == 1){  //直接跳转到首页
-                    location.href = userId ? 'http://www.6itec.com/share/#/home?user=' + userId + '&isLogin=ok&rd=' + Date.now() : 'http://www.6itec.com/share/#/home?isLogin=ok&rd=' + Date.now();
+                    location.href = userId ? 'http://www.6itec.com/share/home?user=' + userId + '&isLogin=ok&rd=' + Date.now() : 'http://www.6itec.com/share/home?isLogin=ok&rd=' + Date.now();
                     // }else if(status == 2){   //跳转到聊天页面
                     //     location.href = 'http://www.6itec.com/share/#/chatHistory';
                     // }

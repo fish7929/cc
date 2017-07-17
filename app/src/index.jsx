@@ -12,7 +12,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';  //hashHistory  browserHistory
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import * as reducers from './reducers';
@@ -35,7 +35,7 @@ injectTapEventPlugin();
 //通过正式和测试服来屏蔽测试console.log
 // if(process.env.DOMAIN_PATH == 'formalDomain') console.log = function(){};
 //以下创建store 和初始化路由
-const routingMiddleware = routerMiddleware(hashHistory);
+const routingMiddleware = routerMiddleware(browserHistory); //hashHistory  browserHistory
 const middleware = applyMiddleware(routingMiddleware, thunk);
 const reducer = combineReducers({
     ...reducers,
@@ -43,7 +43,7 @@ const reducer = combineReducers({
 });
 const enhancer = compose(middleware);
 let store = createStore(reducer, enhancer);
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);  //hashHistory  browserHistory
 navigate.install(history);
 //在所有状态之前请求数据.,把用户信息存储起来
 let _url = location.href;
