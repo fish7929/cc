@@ -594,8 +594,13 @@ lc_api.initWXShare = function (user) {
   var link = 'http://www.6itec.com/share/#/home?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
+  Base.setTitle(_title);
+  var url = location.href;
+  if (location.hash.length) {
+      url = url.substr(0, url.indexOf(location.hash));
+  }
   $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
-    to_url: location.href
+    to_url: url
   }, function (objs) {
     var obj = JSON.parse(objs);
     try {
