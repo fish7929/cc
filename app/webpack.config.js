@@ -121,7 +121,7 @@ var dev = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new OpenBrowserPlugin({ url: 'http://localhost:' + port + '/#/home' })
+        new OpenBrowserPlugin({ url: 'http://localhost:' + port + '/test' })
     ],
     devServer: {
         historyApiFallback: true

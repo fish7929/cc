@@ -49,8 +49,8 @@ const Routers = React.createClass({
         return (
             <Router history={this.props.history}>
                 <Route path={RoutPath.ROUTER_ROOT} component={App} >
-                     {/* <IndexRoute getComponent={Home} />  */}
-                    <Route path={RoutPath.ROUTER_HOME} getComponent={Home} />
+                    <IndexRoute getComponent={Home} />  
+                    {/* <Route path={RoutPath.ROUTER_HOME} getComponent={Home} /> */}
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
                     <Route path={RoutPath.ROUTER_CHAT_VIEW + "/:fid"} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_BIG_SCREEN} getComponent={BigScreen} />

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>英雄执照</title>
-    <script src="./av-min.js?td88"></script>
-    <script src="./lc_api.js?td88"></script>
+    <script src="http://www.6itec.com/test/av-min.js?td889879"></script>
+    <script src="http://www.6itec.com/test/lc_api.js?td889879"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
     <script> 
@@ -16,7 +16,7 @@
             if (code) {  
                 lc_api.login(code, userId, function(status){
                     // if(status == 1){  //直接跳转到首页
-                    location.href = userId ? 'http://www.6itec.com/test/home?user=' + userId + '&isLogin=ok&rd=' + Date.now() : 'http://www.6itec.com/test/home?isLogin=ok&rd=' + Date.now();
+                    location.href = userId ? 'http://www.6itec.com/test/?user=' + userId + '&isLogin=ok&rd=' + Date.now() : 'http://www.6itec.com/test/?isLogin=ok&rd=' + Date.now();
                     // }else if(status == 2){   //跳转到聊天页面
                     //     location.href = 'http://www.6itec.com/share/#/chatHistory';
                     // }
