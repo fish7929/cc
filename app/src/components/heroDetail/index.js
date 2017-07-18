@@ -49,7 +49,7 @@ class HeroDetail extends React.Component {
             <div className="hero-detail">
                 <img src={image} className='hero-detail-img-data' />
                 <div className='hero-qrcode hero-qrcode-img'>
-                    <QRcode text={'http://www.6itec.com/share/home?user=' + id} width={180} height={180} qrid={this.props.qrid} />
+                    <QRcode text={'http://www.6itec.com/test/home?user=' + id} width={180} height={180} qrid={this.props.qrid} />
                 </div>
             </div>
         )
@@ -74,7 +74,7 @@ class HeroDetail extends React.Component {
                     </div>
                     {top ? <div className={"hero-top hero-prize-top" + top}></div> : null}
                     <div className='hero-qrcode'>
-                        <QRcode text={'http://www.6itec.com/share/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                        <QRcode text={'http://www.6itec.com/test/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                     </div>
                     <span className='hero-qrcode-hint'>扫描图片识别二维码</span>
                 </div>
@@ -136,7 +136,7 @@ class HeroDetail extends React.Component {
                         </div>
                         <div className='top1-hero-qrcode'>
                             <div className='hero1-qrcode'>
-                                <QRcode text={'http://www.6itec.com/share/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
+                                <QRcode text={'http://www.6itec.com/test/home?user=' + id} width={_width} height={_width} qrid={this.props.qrid} />
                             </div>
                             <span className='hero1-qrcode-hint'>扫描图片识别二维码</span>
                         </div>
