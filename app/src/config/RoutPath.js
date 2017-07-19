@@ -7,14 +7,15 @@
 
 'use strict';
 //根路由
-const ROOT_ROUTER = "";
+const ROOT_ROUTER = "/test";
+// const ROOT_PRE = '/test';
 const RoutPath = {
     //home api 
-    ROUTER_ROOT: ROOT_ROUTER + '/',
-    ROUTER_HOME: ROOT_ROUTER + '/home',
+    ROUTER_ROOT: ROOT_ROUTER,
+    // ROUTER_HOME: ROOT_ROUTER + ROOT_PRE + '/home',
     ROUTER_CHAT_HISTORY: ROOT_ROUTER + '/chatHistory',
     ROUTER_BIG_SCREEN: ROOT_ROUTER + '/bigScreen',
-    ROUTER_CHAT_VIEW: ROOT_ROUTER + '/chat',
+    ROUTER_CHAT_VIEW: ROOT_ROUTER +  '/chat',
     ROUTER_COMMON: ROOT_ROUTER + '*'
 };
 

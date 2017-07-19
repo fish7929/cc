@@ -16,11 +16,11 @@ var WebpackMd5Hash = require('webpack-md5-hash');
 
 var env = 'development';
 var port = '8080';  //默认端口号
-if(argv.env === 'develop'){
-	env = 'development';
+if (argv.env === 'develop') {
+    env = 'development';
     port = argv.port;
-}else if(argv.env === 'release'){
-	env = 'production';
+} else if (argv.env === 'release') {
+    env = 'production';
 }
 
 // 开发环境
@@ -54,11 +54,15 @@ var common = {
     },
     output: {
         path: path.join(__dirname, './dist'),    //编译完的项目增加到该目录下
-        filename: isProd() ? './js/[name].[chunkhash:8].js?rd='+urlArgs : './js/[name].js',
-        chunkFilename: isProd() ? './js/[name].chunk.[chunkhash:8].js?rd='+urlArgs  : './js/[name].chunk.js',
-        publicPath: isProd() ? '' : '/dist/'
+        filename: isProd() ? 'js/[name].[chunkhash:8].js?rd=' + urlArgs : './js/[name].js',
+        chunkFilename: isProd() ? 'js/[name].chunk.[chunkhash:8].js?rd=' + urlArgs : './js/[name].chunk.js',
+        publicPath: isProd() ? 'http://www.6itec.com/test/' : '/dist/'
     },
     resolve: {
+        alias: {
+            UIComponents: path.join(__dirname, "src/components"),
+            Views: path.join(__dirname, "src/views")
+        },
         modulesDirectories: ['node_modules', 'src'],
         extensions: ['', '.js', '.json', '.jsx', '.css', '.scss']
     },
@@ -81,15 +85,15 @@ var common = {
     },
     plugins: [
         new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify(env),//production development
-                'DOMAIN_PATH' : JSON.stringify(''+argv.apiDomain)
-			},
-            
-		}),
+            'process.env': {
+                'NODE_ENV': JSON.stringify(env),//production development
+                'DOMAIN_PATH': JSON.stringify('' + argv.apiDomain)
+            },
+
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: isProd() ? './js/vendor.[chunkhash:8].js?rd='+urlArgs  : './js/vendor.js'
+            filename: isProd() ? 'js/vendor.[chunkhash:8].js?rd=' + urlArgs : './js/vendor.js'
         }),
         new webpack.NoErrorsPlugin()
     ]
@@ -106,18 +110,18 @@ var dev = {
     module: {
         loaders: [
             {
-                test  : /\.css$/,
+                test: /\.css$/,
                 loader: 'style-loader!css-loader'
             },
             {
-                test  : /\.scss$/,
+                test: /\.scss$/,
                 loader: 'style-loader!css-loader!sass-loader'
             }
         ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new OpenBrowserPlugin({ url: 'http://localhost:'+port+'/#/home'})
+        new OpenBrowserPlugin({ url: 'http://localhost:' + port + '/test' })
     ],
     devServer: {
         historyApiFallback: true
@@ -129,11 +133,11 @@ var release = {
     module: {
         loaders: [
             {
-                test  : /\.css$/, //导出CSS
+                test: /\.css$/, //导出CSS
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
             },
             {
-                test  : /\.scss$/, //导出scss
+                test: /\.scss$/, //导出scss
                 loader: ExtractTextPlugin.extract('style-loader', 'css!sass', '')
             }
         ],
@@ -141,7 +145,7 @@ var release = {
     plugins: [
         new WebpackMd5Hash(),
         // new ExtractTextPlugin( "./css/style.css?rel="+urlArgs ),     //导出CSS
-        new ExtractTextPlugin("./css/[name].[chunkhash:8].css?rd="+urlArgs ),     //导出CSS
+        new ExtractTextPlugin("css/[name].[chunkhash:8].css?rd=" + urlArgs),     //导出CSS
         new webpack.optimize.UglifyJsPlugin({       //做JS压缩
             minimize: true,
             output: {
@@ -151,11 +155,11 @@ var release = {
                 warnings: false
             }
         }),
-        new CopyWebpackPlugin( [
-            {from: './av-min.js', to: './av-min.js'},
-            {from: './lc_api.js', to: './lc_api.js'},
-            {from: './web.html', to: './web.html'}
-            ]),     //npm run test 的时候拷贝 test测试数据
+        new CopyWebpackPlugin([
+            { from: './av-min.js', to: './av-min.js' },
+            { from: './lc_api.js', to: './lc_api.js' },
+            { from: './web.html', to: './web.html' }
+        ]),     //npm run test 的时候拷贝 test测试数据
         new HtmlWebpackPlugin({
             template: './template.html',    //由于不能删掉，对多余的加载JS文件，只能另外再添加一个template.html
             filename: 'index.html',
@@ -163,17 +167,17 @@ var release = {
                 removeComments: true,
                 collapseWhitespace: false
             },
-            hash:true,
-            cache:false
+            hash: true,
+            cache: false
         })
     ]
 };
 
-if(argv.apiDomain + '' == 'devDomain'){
+if (argv.apiDomain + '' == 'devDomain') {
     release.plugins.push(
-        new CopyWebpackPlugin( [{ 
-            from: './mock', to: './mock' 
-        },{from: './debug.js', to: './debug.js'}])     //npm run test 的时候拷贝 test测试数据
+        new CopyWebpackPlugin([{
+            from: './mock', to: './mock'
+        }, { from: './debug.js', to: './debug.js' }])     //npm run test 的时候拷贝 test测试数据
     );
 }
 

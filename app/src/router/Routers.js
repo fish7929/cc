@@ -9,7 +9,7 @@
 import React from 'react'
 import { Router, Route, IndexRoute } from 'react-router';
 // require submodule
-import App from '../views/App';
+import App from 'Views/App';
 
 
 /*****
@@ -19,28 +19,28 @@ let Home = (location, cb) => {
     //开始加载
     // AppModal.loading();
     require.ensure([], require => {
-        cb(null, require('../views/home').default);
+        cb(null, require('Views/home/index').default);
     }, 'home');
 };
 let ChatHistory = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../views/chatHistory').default);
+        cb(null, require('Views/chatHistory/index').default);
     }, 'chatHistory');
 }
 
 let ChatView = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../views/chat').default);
+        cb(null, require('Views/chat/index').default);
     }, 'chatView');
 }
 let BigScreen = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../views/bigScreen').default);
+        cb(null, require('Views/bigScreen/index').default);
     }, 'bigScreen');
 };
 let NotFoundPage = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../views/404').default);
+        cb(null, require('Views/404').default);
     }, 'notFound');
 };
 
@@ -49,8 +49,8 @@ const Routers = React.createClass({
         return (
             <Router history={this.props.history}>
                 <Route path={RoutPath.ROUTER_ROOT} component={App} >
-                     {/* <IndexRoute getComponent={Home} />  */}
-                    <Route path={RoutPath.ROUTER_HOME} getComponent={Home} />
+                    <IndexRoute getComponent={Home} />  
+                    {/* <Route path={RoutPath.ROUTER_HOME} getComponent={Home} /> */}
                     <Route path={RoutPath.ROUTER_CHAT_HISTORY} getComponent={ChatHistory} />
                     <Route path={RoutPath.ROUTER_CHAT_VIEW + "/:fid"} getComponent={ChatView} />
                     <Route path={RoutPath.ROUTER_BIG_SCREEN} getComponent={BigScreen} />
