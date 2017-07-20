@@ -86,8 +86,8 @@ class ChatHistory extends React.Component {
         this.onLoadData(0)
         this.props.getFriendTotal({user_id: AV.User.current().id})
         //初始化分享
-        let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
-        lc_api.initWXShare(currentUser);
+        // let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+        // lc_api.initWXShare(currentUser);
     }
     /**
      * 属性改变的时候触发

@@ -594,8 +594,9 @@ lc_api.initWXShare = function (user) {
   var link = 'http://www.6itec.com/test/?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
-  var url = 'http://www.6itec.com/test/';
-  url = encodeURIComponent(url);
+  // var url = location.href.split('#')[0];
+  var url = 'http://www.6itec.com';
+  // url = encodeURIComponent(url);
   // if (location.hash.length) {
   //     url = url.substr(0, url.indexOf(location.hash));
   // }
@@ -605,7 +606,7 @@ lc_api.initWXShare = function (user) {
     var obj = JSON.parse(objs);
     try {
       wx.config({
-        debug: false,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: true,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: obj.data.appid,
         timestamp: obj.data.timestamp,
         nonceStr: obj.data.noncestr,
@@ -643,7 +644,7 @@ lc_api.initWXShare = function (user) {
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
               console.log("node api朋友分享成功");
-              alert("node api朋友分享成功");
+              // alert("node api朋友分享成功");
             },
             cancel: function () {
               console.log('onMenuShareAppMessage失败')
