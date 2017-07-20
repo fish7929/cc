@@ -594,8 +594,8 @@ lc_api.initWXShare = function (user) {
   var link = 'http://www.6itec.com/share/#/home?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
-  Base.setTitle(_title);
-  var url = location.href;
+  // Base.setTitle(_title);
+  var url = location.href.split('#')[0];
   if (location.hash.length) {
       url = url.substr(0, url.indexOf(location.hash));
   }

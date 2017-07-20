@@ -10,17 +10,17 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
     window.onload = function () {
-        
+        wxShare();
     }
     //使用nodejs接口分享
         function wxShare() {
             //alert(encodeURIComponent(location.href.split('#')[0]));
-            alert(location.href)
+            // alert(location.href)
            $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
             to_url: location.href
         }, function (objs) {
             obj =JSON.parse(objs);
-                    debugger;
+                    // debugger;
                     document.getElementById("info").innerHTML = JSON.stringify(obj.data);
                     try{
                         wx.config({
@@ -36,7 +36,7 @@
                             wx.onMenuShareTimeline({
                                 title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
                                 link: location.href, // 分享链接
-                                imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
+                                imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
                                 success: function () {
                                     alert("node api朋友圈分享成功");
                                 },
@@ -50,7 +50,7 @@
                                 title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
                                 desc: "sdfdsf撒旦法第三方的", // 分享描述
                                 link: location.href, // 分享链接
-                                imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
+                                imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
                                 type: 'link', // 分享类型,music、video或link，不填默认为link
                                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                                 success: function () {

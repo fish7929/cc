@@ -24,23 +24,23 @@ import "./index.scss";
 class ChatView extends React.Component {
     constructor(props, context) {
         super(props, context)
-        
+
         this.state = {
             msg: ""
         }
     }
 
     render() {
-        let {msg} = this.state
+        let { msg } = this.state
         let { messageList } = this.props
         return (
             <Page id='chat-view'>
                 <div className="chat-view-list" ref="chatList">
-                     { messageList.map((message, index) => <ChatItem key={index} data={message} />) } 
+                    {messageList.map((message, index) => <ChatItem key={index} data={message} />)}
                 </div>
                 <div className="input-div">
-                    <input type="text" placeholder="请输入聊天内容" value={msg} onChange={(e)=>this.onInputChange(e.target.value, "msg")} />
-                    <button onClick={()=>this.sendMsg()}>发送</button>
+                    <input type="text" placeholder="请输入聊天内容" value={msg} onChange={(e) => this.onInputChange(e.target.value, "msg")} />
+                    <button onClick={() => this.sendMsg()}>发送</button>
                 </div>
             </Page>
         );
@@ -61,7 +61,7 @@ class ChatView extends React.Component {
         Base.setTitle(title);
         this.sendCount = 0
         let fid = this.props.params.fid
-        if(!fid) return
+        if (!fid) return
         lc_api.getIM(fid, data => {
             this.friend = data.guest, this.user = Base.getCurrentUser()
             let messages = data.im.get("msg").map(obj => ({
@@ -82,32 +82,34 @@ class ChatView extends React.Component {
         //     })
         //     this.chatRoom.connect()
         // })
-        
+
         //初始化分享
-        let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
-        lc_api.initWXShare(currentUser);
+        if (Base.isWeiXinPlatform()) {
+            let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+            lc_api.initWXShare(currentUser);
+        }
     }
 
-    onInputChange(value, type){
+    onInputChange(value, type) {
         let state = {}
         state[type] = value
         this.setState(state)
     }
 
-    showMsg(messages){
+    showMsg(messages) {
         this.props.appendMessage(messages)
     }
 
-    sendMsg(){
+    sendMsg() {
         let fid = this.props.params.fid
-        if(!fid) return
-        lc_api.saveIM(fid, this.state.msg, data=>{
+        if (!fid) return
+        lc_api.saveIM(fid, this.state.msg, data => {
             let messages = data.get("msg").map(obj => ({
                 ...obj,
                 user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
             }))
             this.showMsg(messages)
-            this.setState({msg: ""})
+            this.setState({ msg: "" })
         })
         // let user = AV.User.current()
         // let param = {
@@ -122,14 +124,14 @@ class ChatView extends React.Component {
         // }, message=>message && AppModal.toast(message))
     }
 
-    showAlertGZH(user_id){
+    showAlertGZH(user_id) {
         this.sendCount++
-        if(this.sendCount % 6 === 0){
-            lc_api.getUserById(user_id, function(data){
+        if (this.sendCount % 6 === 0) {
+            lc_api.getUserById(user_id, function (data) {
                 let isAttend = data.get("isAttend") || 0
-                if(isAttend == 0){
-                    AppModal.confirm("为了更好的体验活动流程请您关注我们的微信公众号，关注完微信公众号您可任意畅聊", "关注微信公众号", ()=>{
-                        lc_api.updateUserInfo({user_id: user_id, column_name: "isAttend", column_val:1})
+                if (isAttend == 0) {
+                    AppModal.confirm("为了更好的体验活动流程请您关注我们的微信公众号，关注完微信公众号您可任意畅聊", "关注微信公众号", () => {
+                        lc_api.updateUserInfo({ user_id: user_id, column_name: "isAttend", column_val: 1 })
                         location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3NDcwNjgzMg==&scene=123#wechat_redirect"
                     })
                 }
@@ -137,7 +139,7 @@ class ChatView extends React.Component {
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.refs.chatList.scrollTop = this.refs.chatList.scrollHeight
     }
     /**

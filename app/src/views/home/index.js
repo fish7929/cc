@@ -141,7 +141,11 @@ class Home extends React.Component {
             }
         }
         //初始化分享
-        lc_api.initWXShare(this.currentUser);
+        if(Base.isWeiXinPlatform()){
+            setTimeout(() => {
+                lc_api.initWXShare(this.currentUser);
+            }, 3000);
+        }
     }
     componentDidUpdate() {
         //初始化分享
@@ -152,6 +156,7 @@ class Home extends React.Component {
      * @param {object} nextProps props
      */
     componentWillReceiveProps(nextProps) {
+        console.log(753);
     }
     /**
      * 获取网络初始化数据，
