@@ -141,11 +141,11 @@ class Home extends React.Component {
             }
         }
         //初始化分享
-        setTimeout(() => {
-            if (Base.isWeiXinPlatform()) {
-                lc_api.initWXShare(this.currentUser);
-            }
-        }, 1000);
+        // setTimeout(() => {
+        //     if (Base.isWeiXinPlatform()) {
+        //         lc_api.initWXShare(this.currentUser);
+        //     }
+        // }, 1000);
     }
     componentDidUpdate() {
         //初始化分享
