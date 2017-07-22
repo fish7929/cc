@@ -11,8 +11,6 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { hashHistory } from 'react-router'
-
 //require submodule
 import Page from '../../components/page';
 import ChatHistoryItem from '../../components/chatHistoryItem'
@@ -44,7 +42,7 @@ class ChatHistory extends React.Component {
     getComponent(){
         let { list } = this.props, component = ""
         if(list.length > 0){
-            component = list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>hashHistory.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)
+            component = list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>navigate.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)
         }else{
             component = <div className="no-friends">暂时没有人私信你哦<br />快炫耀一下让朋友们都看到吧</div>
         }
@@ -86,8 +84,10 @@ class ChatHistory extends React.Component {
         this.onLoadData(0)
         this.props.getFriendTotal({user_id: AV.User.current().id})
         //初始化分享
-        // let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
-        // lc_api.initWXShare(currentUser);
+        if (Base.isWeiXinPlatform()) {
+            let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+            lc_api.initWXShare(currentUser);
+        }
     }
     /**
      * 属性改变的时候触发
