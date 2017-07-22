@@ -43,8 +43,9 @@ class ChatHistory extends React.Component {
 
     getComponent(){
         let { list } = this.props, component = ""
+        console.log(list)
         if(list.length > 0){
-            component = list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>hashHistory.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)
+            component = list.map((obj, key) => <ChatHistoryItem key={key} data={obj} onClick={()=>navigate.push(RoutPath.ROUTER_CHAT_VIEW + "/" + obj.get("friend").id)} />)
         }else{
             component = <div className="no-friends">暂时没有人私信你哦<br />快炫耀一下让朋友们都看到吧</div>
         }

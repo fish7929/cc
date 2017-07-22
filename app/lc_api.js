@@ -533,6 +533,7 @@ lc_api.saveIM = function (friends_uid, msg, cb_ok, cb_err) {
         results.set("msg", [current_msg]);
       }
       results.save().then(function (data) {
+        lc_api.updateFriendLastMsg(friends_uid, AV.User.current().id, msg, function(){}, function(){})
         cb_ok(data);
       }, function (error) {
         cb_err(error);
