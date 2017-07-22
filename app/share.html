@@ -15,16 +15,16 @@
     //使用nodejs接口分享
         function wxShare() {
             //alert(encodeURIComponent(location.href.split('#')[0]));
-            alert(location.href)
+            // alert(location.href)
            $.post("http://www.agoodme.com/api/index.php?act=get_weixin_signature", {
             to_url: location.href
         }, function (objs) {
             obj =JSON.parse(objs);
-                    debugger;
+                    // debugger;
                     document.getElementById("info").innerHTML = JSON.stringify(obj.data);
                     try{
                         wx.config({
-                            debug: false,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            debug: true,//开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                             appId: obj.data.appid,
                             timestamp: obj.data.timestamp,
                             nonceStr: obj.data.noncestr,
@@ -35,13 +35,13 @@
                             //朋友圈
                             wx.onMenuShareTimeline({
                                 title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
-                                link: location.href, // 分享链接
+                                link: 'http://www.6itec.com/share/#/home', // 分享链接
                                 imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
                                 success: function () {
-                                    alert("node api朋友圈分享成功");
+                                    // alert("node api朋友圈分享成功");
                                 },
                                 cancel: function () {
-                                    alert('onMenuShareTimeline失败')
+                                    // alert('onMenuShareTimeline失败')
                                 }
                             });
 
@@ -49,23 +49,23 @@
                             wx.onMenuShareAppMessage({
                                 title: "那年|时光遗忘了，文字却清晰地复刻着", // 分享标题
                                 desc: "sdfdsf撒旦法第三方的", // 分享描述
-                                link: location.href, // 分享链接
+                                link: 'http://www.6itec.com/share/#/home', // 分享链接
                                 imgUrl: 'http://ac-hf3jpeco.clouddn.com/e2869a7aed928362f262.jpg?imageView/2/w/300/h/300/q/100/format/png', // 分享图标
                                 type: 'link', // 分享类型,music、video或link，不填默认为link
                                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                                 success: function () {
-                                    alert("node api朋友分享成功");
+                                    // alert("node api朋友分享成功");
                                 },
                                 cancel: function () {
-                                    alert('onMenuShareAppMessage失败')
+                                    // alert('onMenuShareAppMessage失败')
                                 }
                             });
                         });
                         wx.error(function (error) {
-                            alert(obj.data.signature + "wx error:" + JSON.stringify(error));
+                            // alert(obj.data.signature + "wx error:" + JSON.stringify(error));
                         });
                     } catch (e) {
-                        alert(e.message);
+                        // alert(e.message);
                     }
          });
         }

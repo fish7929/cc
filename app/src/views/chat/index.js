@@ -84,8 +84,10 @@ class ChatView extends React.Component {
         // })
         
         //初始化分享
-        let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
-        lc_api.initWXShare(currentUser);
+        if (Base.isWeiXinPlatform()) {
+            let currentUser = Base.getLocalStorageObject('CURRENT_USER');  //获取当前用户
+            lc_api.initWXShare(currentUser);
+        }
     }
 
     onInputChange(value, type){

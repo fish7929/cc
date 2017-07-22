@@ -595,8 +595,9 @@ lc_api.initWXShare = function (user) {
   var link = 'http://www.6itec.com/test/?user=' + user.objectId;
   // if(id) link =  'http://www.6itec.com/share/#/?user='+id;
   // AV.Cloud.run('wxShare', { url: location.href }).then(function (obj) {
-  var url = 'http://www.6itec.com/test/';
-  url = encodeURIComponent(url);
+  var url = location.href.split('#')[0];
+  // var url = 'http://www.6itec.com';
+  // url = encodeURIComponent(url);
   // if (location.hash.length) {
   //     url = url.substr(0, url.indexOf(location.hash));
   // }
@@ -624,10 +625,10 @@ lc_api.initWXShare = function (user) {
           wx.onMenuShareTimeline({
             title: _title, // 分享标题
             link: link, // 分享链接
-            imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
+            imgUrl: 'http://www.6itec.com/test/share-logo.png', // 分享图标
             success: function () {
               console.log("node api朋友圈分享成功");
-              alert("node api朋友圈分享成功");
+              // alert("node api朋友圈分享成功");
             },
             cancel: function () {
               console.log('onMenuShareTimeline失败')
@@ -639,12 +640,12 @@ lc_api.initWXShare = function (user) {
             title: _title, // 分享标题
             desc: "快来生成属于你的英雄执照吧", // 分享描述
             link: link, // 分享链接
-            imgUrl: 'http://www.6itec.com/share/share-logo.png', // 分享图标
+            imgUrl: 'http://www.6itec.com/test/share-logo.png', // 分享图标
             type: 'link', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
               console.log("node api朋友分享成功");
-              alert("node api朋友分享成功");
+              // alert("node api朋友分享成功");
             },
             cancel: function () {
               console.log('onMenuShareAppMessage失败')

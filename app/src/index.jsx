@@ -71,6 +71,11 @@ if (_url.indexOf('bigScreen') > -1) {
                         <Routers history={history}></Routers>
                     </div>
                 </Provider>, document.getElementById("app"));
+                // setTimeout(() => {
+                    if(Base.isWeiXinPlatform()){
+                        lc_api.initWXShare(Base.getLocalStorageObject('CURRENT_USER'));
+                    }
+                // }, 2000);
             } else {  //用户给删除了
                 AppModal.toast('没有用户信息,重新登录获取');
                 AV.User.logOut();

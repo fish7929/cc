@@ -158,7 +158,10 @@ var release = {
         new CopyWebpackPlugin([
             { from: './av-min.js', to: './av-min.js' },
             { from: './lc_api.js', to: './lc_api.js' },
-            { from: './web.html', to: './web.html' }
+            { from: './web.html', to: './web.html' },
+            { from: './1.mp3', to: './1.mp3' },
+            { from: './share-logo.png', to: './share-logo.png' },
+            { from: './share300.jpg', to: './share300.jpg' }
         ]),     //npm run test 的时候拷贝 test测试数据
         new HtmlWebpackPlugin({
             template: './template.html',    //由于不能删掉，对多余的加载JS文件，只能另外再添加一个template.html
