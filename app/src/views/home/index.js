@@ -134,8 +134,15 @@ class Home extends React.Component {
         if (this.state.current === 6) {
             let otherId = Base.getParameter('user');
             if (otherId) {
-                navigate.push(RoutPath.ROUTER_CHAT_VIEW + '/' + otherId);
-                return;
+                lc_api.addFriends(otherId, (res) => {
+                    console.log(res);
+                    navigate.push(RoutPath.ROUTER_CHAT_VIEW + '/' + otherId);
+                    return;
+                }, (err) => {
+                    console.log(err);
+                    AppModal.toast('添加好友失败');
+                    return;
+                });
             } else {
                 this.setState({ current: 0 });
             }
