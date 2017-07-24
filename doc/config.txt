@@ -120,7 +120,7 @@ var Q2=[
 
 //Ä£ÄâµÇÂ½
 
-AV.User.logIn("oRQb20824DTgrc2OHT9UxB92ywgM", '6fda947a37f30dd0').then(function (user) {
+AV.User.logIn("oRQb209DSVuOZt0eaiBLfKGbfvWk", '6fda947a37f30dd0').then(function (user) {
           console.log(user);
         }, function (error) {
            console.log(error);

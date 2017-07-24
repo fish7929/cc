@@ -61,17 +61,16 @@ class ChatView extends React.Component {
         Base.setTitle(title);
         this.sendCount = 0
         let fid = this.props.params.fid
-        if(!fid) return
-        lc_api.getIM(fid, data => {
-            this.friend = data.guest, this.user = Base.getCurrentUser()
-            let messages = data.im.get("msg").map(obj => ({
-                ...obj,
-                user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
-            }))
-            this.showMsg(messages)
-        }, err => {
-            console.log(err)
+        if(!fid) return;
+        if(this.timer) clearInterval(this.timer);
+        lc_api.getUserById(fid, data=>{
+            this.friend = data;
+            this.getIm(fid)
         })
+        this.timer = setInterval(()=>{
+            this.getIm(fid)
+        }, 20000)
+        
         // lc_api.getSingleConversation(fid, (data)=>{
         //     let roomId = data ? data.id : "11111111";
         //     this.chatRoom = new ChatRoom({
@@ -90,6 +89,19 @@ class ChatView extends React.Component {
         }
     }
 
+    getIm(fid){
+        lc_api.getIM(fid, data => {
+            this.user = Base.getCurrentUser()
+            let messages = data.get("msg").map(obj => ({
+                ...obj,
+                user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
+            }))
+            this.showMsg(messages)
+        }, err => {
+            console.log(err)
+        })
+    }
+
     onInputChange(value, type){
         let state = {}
         state[type] = value
@@ -104,12 +116,14 @@ class ChatView extends React.Component {
         let fid = this.props.params.fid
         if(!fid) return
         lc_api.saveIM(fid, this.state.msg, data=>{
+            console.log("saveIM ok", data)
             let messages = data.get("msg").map(obj => ({
                 ...obj,
                 user_pic: obj.user_id == this.user.id ? this.user.get("user_pic") : this.friend.get("user_pic")
             }))
             this.showMsg(messages)
             this.setState({msg: ""})
+            this.showAlertGZH(this.user.id)
         })
         // let user = AV.User.current()
         // let param = {
