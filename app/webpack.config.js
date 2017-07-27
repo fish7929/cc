@@ -166,6 +166,8 @@ var release = {
         new HtmlWebpackPlugin({
             template: './template.html',    //由于不能删掉，对多余的加载JS文件，只能另外再添加一个template.html
             filename: 'index.html',
+            av: 'http://www.6itec.com/test/av-min.js?'+Date.now(),
+            lc: 'http://www.6itec.com/test/lc_api.js?'+Date.now(),
             minify: {
                 removeComments: true,
                 collapseWhitespace: false
