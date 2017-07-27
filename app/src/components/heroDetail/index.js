@@ -179,13 +179,15 @@ class HeroDetail extends React.Component {
                 q3: q3,
                 qrCode: canvas.toDataURL("image/png")
             }
-            Base.getPersonalCardImage(opt).then(data => {
-                if (this.isMount) {
-                    this.setState({
-                        image: data
-                    });
-                }
-            })
+            setTimeout(() => {
+                Base.getPersonalCardImage(opt).then(data => {
+                    if (this.isMount) {
+                        this.setState({
+                            image: data
+                        });
+                    }
+                })
+            }, 500);
         }
     }
     /**
